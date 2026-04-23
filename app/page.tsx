@@ -7,6 +7,7 @@ import { Hero } from "@/components/home/hero";
 import { MonitoringBridge } from "@/components/home/monitoring-bridge";
 import { ProductOverview } from "@/components/home/product-overview";
 import { RiskNotice } from "@/components/home/risk-notice";
+import { ScrollNarrative } from "@/components/home/scroll-narrative";
 import { StrategyStyle } from "@/components/home/strategy-style";
 import { WhyThisExists } from "@/components/home/why-this-exists";
 import { SiteHeader } from "@/components/site-header";
@@ -20,6 +21,7 @@ export default function HomePage() {
       <SiteHeader language={language} onLanguageChange={setLanguage} />
       <main className="site-shell">
         <Hero language={language} />
+        <ScrollNarrative language={language} />
         <div className="mx-auto max-w-7xl px-6 pb-20">
           <ProductOverview language={language} />
           <WhyThisExists language={language} />

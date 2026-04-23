@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #071019;
-  --panel: #0f1a26;
-  --panel-strong: #132131;
-  --panel-soft: rgba(255, 255, 255, 0.04);
-  --line: rgba(182, 203, 228, 0.16);
-  --line-strong: rgba(194, 214, 239, 0.24);
-  --text: #edf3fb;
-  --muted: #91a2b8;
-  --accent: #9cc1ff;
-  --accent-strong: #dce9ff;
+  --bg: #f5f7fb;
+  --panel: rgba(255, 255, 255, 0.88);
+  --panel-strong: #ffffff;
+  --panel-soft: rgba(255, 255, 255, 0.72);
+  --line: rgba(15, 23, 42, 0.08);
+  --line-strong: rgba(86, 128, 203, 0.28);
+  --text: #0f172a;
+  --muted: #5b6474;
+  --accent: #6a95e8;
+  --accent-strong: #315ec7;
   --success: #4ade80;
   --watch: #facc15;
   --alert: #fb7185;
@@ -30,8 +30,8 @@ html {
 body {
   margin: 0;
   background:
-    radial-gradient(circle at top, rgba(71, 132, 255, 0.14), transparent 32%),
-    linear-gradient(180deg, #071019 0%, #09121b 42%, #071019 100%);
+    radial-gradient(circle at top, rgba(106, 149, 232, 0.16), transparent 32%),
+    linear-gradient(180deg, #f8fbff 0%, #f5f7fb 38%, #f2f5fa 100%);
   color: var(--text);
   font-family: var(--font-sans), "PingFang SC", "Noto Sans SC", sans-serif;
   min-height: 100vh;
@@ -50,8 +50,8 @@ select {
 }
 
 ::selection {
-  background: rgba(156, 193, 255, 0.32);
-  color: white;
+  background: rgba(106, 149, 232, 0.22);
+  color: #08111f;
 }
 
 .font-display {
@@ -73,8 +73,8 @@ select {
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
   background-size: 80px 80px;
   mask-image: radial-gradient(circle at top, black 12%, transparent 72%);
   z-index: -1;
@@ -82,8 +82,9 @@ select {
 
 .dossier-panel {
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.025));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(248, 250, 253, 0.88));
   backdrop-filter: blur(18px);
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.06);
 }
 
 .dossier-label {
@@ -91,7 +92,7 @@ select {
   font-size: 0.72rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba(237, 243, 251, 0.58);
+  color: rgba(15, 23, 42, 0.46);
 }
 
 .dossier-rule {
@@ -106,7 +107,7 @@ select {
   top: 0.2rem;
   bottom: 0.2rem;
   width: 1px;
-  background: linear-gradient(180deg, rgba(156, 193, 255, 0.7), rgba(156, 193, 255, 0));
+  background: linear-gradient(180deg, rgba(106, 149, 232, 0.7), rgba(106, 149, 232, 0));
 }
 
 .status-dot {
@@ -119,4 +120,9 @@ select {
 
 .text-balance {
   text-wrap: balance;
+}
+
+.sticky-scene {
+  position: sticky;
+  top: 5.5rem;
 }

@@ -19,6 +19,7 @@ describe("home page", () => {
     expect(screen.getByText("Barbell Positioning")).toBeInTheDocument();
     expect(screen.getByText("Current Strategy Style")).toBeInTheDocument();
     expect(screen.getByText("Core Capabilities")).toBeInTheDocument();
+    expect(screen.getByText("风险不是结果，它先是结构。")).toBeInTheDocument();
     expect(screen.getByText("Monitoring Bridge")).toBeInTheDocument();
     expect(screen.getByText("Risk Notice")).toBeInTheDocument();
   });

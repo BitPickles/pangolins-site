@@ -14,13 +14,13 @@ export function SiteHeader({
   onLanguageChange
 }: SiteHeaderProps) {
   return (
-    <header className="sticky top-0 z-20 border-b border-white/8 bg-[#071019]/84 backdrop-blur">
+    <header className="sticky top-0 z-20 border-b border-[color:var(--line)] bg-[rgba(248,250,252,0.82)] backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <Link href="/" className="text-sm uppercase tracking-[0.32em] text-white/86">
+        <Link href="/" className="text-sm uppercase tracking-[0.32em] text-[#101828]">
           Pangolins
         </Link>
         <div className="flex items-center gap-5">
-          <nav className="hidden gap-4 text-sm text-white/70 md:flex">
+          <nav className="hidden gap-4 text-sm text-[#475467] md:flex">
             <Link href="/">{siteCopy.nav.home[language]}</Link>
             <Link href="/monitoring">{siteCopy.nav.monitoring[language]}</Link>
           </nav>

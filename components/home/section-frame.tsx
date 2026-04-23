@@ -36,15 +36,15 @@ export function SectionFrame({
       transition={{ duration: 0.45, ease: "easeOut" }}
     >
       <div className="space-y-3">
-        <p className="font-mono text-xs tracking-[0.28em] text-white/32">{index}</p>
+        <p className="font-mono text-xs tracking-[0.28em] text-[#99a3b3]">{index}</p>
         <p className="dossier-label">{label}</p>
       </div>
       <div className="space-y-6">
         <div className="space-y-3">
-          <h2 className="font-display text-3xl leading-tight text-balance text-white md:text-4xl">
+          <h2 className="font-display text-3xl leading-tight text-balance text-[#0f172a] md:text-4xl">
             {title[language]}
           </h2>
-          <p className="max-w-3xl text-sm uppercase tracking-[0.18em] text-white/45">
+          <p className="max-w-3xl text-sm uppercase tracking-[0.18em] text-[#94a0b2]">
             {title[supportLanguage]}
           </p>
         </div>

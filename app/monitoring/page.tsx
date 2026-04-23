@@ -11,40 +11,40 @@ export default async function MonitoringPage() {
   return (
     <main className="site-shell">
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-8 md:py-10">
-        <div className="flex items-center justify-between border-b border-white/8 pb-4 text-sm text-white/68">
-          <Link href="/" className="font-mono uppercase tracking-[0.28em] text-white/84">
+        <div className="flex items-center justify-between border-b border-[color:var(--line)] pb-4 text-sm text-[#647083]">
+          <Link href="/" className="font-mono uppercase tracking-[0.28em] text-[#0f172a]">
             Pangolins
           </Link>
           <div className="flex items-center gap-4">
             <Link href="/">首页</Link>
-            <Link href="/monitoring" className="text-white">
+            <Link href="/monitoring" className="text-[#0f172a]">
               监控与透明度
             </Link>
           </div>
         </div>
-      <section className="dossier-panel rounded-[2rem] border border-white/10 px-5 py-6 md:px-7">
+      <section className="dossier-panel rounded-[2rem] border border-[color:var(--line)] px-5 py-6 md:px-7">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl space-y-4">
             <p className="dossier-label">Monitoring / Transparency</p>
-            <h1 className="font-display text-balance text-4xl font-semibold tracking-[-0.04em] text-white md:text-5xl">
+            <h1 className="font-display text-balance text-4xl font-semibold tracking-[-0.04em] text-[#0f172a] md:text-5xl">
               实时监控与风险透明度
             </h1>
             <p className="text-sm text-[var(--accent-strong)]">Monitoring &amp; Transparency</p>
-            <p className="max-w-2xl text-sm leading-7 text-white/74">{snapshot.headline}</p>
+            <p className="max-w-2xl text-sm leading-7 text-[#5c6879]">{snapshot.headline}</p>
           </div>
           <div className="grid gap-2 text-sm text-[var(--muted)] md:text-right">
             <p>
-              <span className="text-white/52">Vault</span>{" "}
-              <span className="font-mono text-xs text-white/84">{snapshot.vault.address}</span>
+              <span className="text-slate-500">Vault</span>{" "}
+              <span className="font-mono text-xs text-[#0f172a]">{snapshot.vault.address}</span>
             </p>
             <p>
-              <span className="text-white/52">Chain</span> {snapshot.vault.chain}
+              <span className="text-slate-500">Chain</span> {snapshot.vault.chain}
             </p>
             <p>
-              <span className="text-white/52">Curator</span> {snapshot.vault.curator}
+              <span className="text-slate-500">Curator</span> {snapshot.vault.curator}
             </p>
             <p>
-              <span className="text-white/52">Feed</span> {snapshot.asOf}
+              <span className="text-slate-500">Feed</span> {snapshot.asOf}
             </p>
             <Link
               href={snapshot.vault.link}

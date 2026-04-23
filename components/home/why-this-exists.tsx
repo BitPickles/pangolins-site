@@ -18,9 +18,9 @@ export function WhyThisExists({ language }: WhyThisExistsProps) {
         {siteCopy.whyThisExists.points.map((point) => (
           <article
             key={point.en}
-            className="dossier-panel rounded-[1.5rem] p-6 text-base leading-7 text-white/68"
+            className="dossier-panel rounded-[1.5rem] p-6 text-base leading-7 text-[#556274]"
           >
-            <p className="font-mono text-xs tracking-[0.26em] text-white/36">
+            <p className="font-mono text-xs tracking-[0.26em] text-[#9ba6b6]">
               {String(siteCopy.whyThisExists.points.indexOf(point) + 1).padStart(2, "0")}
             </p>
             <p className="mt-4">{point[language]}</p>

@@ -19,14 +19,14 @@ export function MonitoringBridge({ language }: MonitoringBridgeProps) {
       language={language}
       title={siteCopy.monitoringBridge.title}
     >
-      <div className="flex flex-col gap-6 rounded-[1.75rem] border border-[color:var(--line)] bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(156,193,255,0.04))] p-6 md:flex-row md:items-end md:justify-between">
-        <p className="max-w-2xl text-lg leading-8 text-white/68">
+      <div className="flex flex-col gap-6 rounded-[1.75rem] border border-[color:var(--line)] bg-[linear-gradient(180deg,rgba(255,255,255,1),rgba(235,242,255,0.7))] p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] md:flex-row md:items-end md:justify-between">
+        <p className="max-w-2xl text-lg leading-8 text-[#566375]">
           {siteCopy.monitoringBridge.body[language]}
         </p>
         <div className="flex flex-col gap-3 sm:flex-row">
           <Link
             href="/monitoring"
-            className="inline-flex min-h-11 items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-white px-5 text-sm font-medium text-slate-950 transition hover:bg-[color:var(--accent-strong)]"
+            className="inline-flex min-h-11 items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-[#101828] px-5 text-sm font-medium text-white transition hover:bg-[#1f3258]"
           >
             {siteCopy.hero.primaryCta[language]}
           </Link>
@@ -34,7 +34,7 @@ export function MonitoringBridge({ language }: MonitoringBridgeProps) {
             href={morphoVaultUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/12 bg-white/4 px-5 text-sm text-white/84 transition hover:bg-white/8"
+            className="inline-flex min-h-11 items-center justify-center rounded-full border border-slate-900/10 bg-white/70 px-5 text-sm text-[#213147] transition hover:bg-[#eef3fb]"
           >
             {siteCopy.hero.secondaryCta[language]}
           </Link>

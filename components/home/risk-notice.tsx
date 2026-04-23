@@ -15,7 +15,7 @@ export function RiskNotice({ language }: RiskNoticeProps) {
       title={siteCopy.riskNotice.title}
     >
       <div className="rounded-[1.75rem] border border-[rgba(251,113,133,0.24)] bg-[rgba(251,113,133,0.05)] p-6">
-        <p className="max-w-3xl text-lg leading-8 text-white/72">
+        <p className="max-w-3xl text-lg leading-8 text-[#5b6575]">
           {siteCopy.riskNotice.body[language]}
         </p>
       </div>
