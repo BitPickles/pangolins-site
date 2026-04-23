@@ -4,9 +4,16 @@
   --bg: #071019;
   --panel: #0f1a26;
   --panel-strong: #132131;
+  --panel-soft: rgba(255, 255, 255, 0.04);
   --line: rgba(182, 203, 228, 0.16);
+  --line-strong: rgba(194, 214, 239, 0.24);
   --text: #edf3fb;
   --muted: #91a2b8;
+  --accent: #9cc1ff;
+  --accent-strong: #dce9ff;
+  --success: #4ade80;
+  --watch: #facc15;
+  --alert: #fb7185;
 }
 
 * {
@@ -23,10 +30,90 @@ body {
     radial-gradient(circle at top, rgba(71, 132, 255, 0.14), transparent 32%),
     linear-gradient(180deg, #071019 0%, #09121b 42%, #071019 100%);
   color: var(--text);
-  font-family: "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+  font-family: var(--font-sans), "PingFang SC", "Noto Sans SC", sans-serif;
+  min-height: 100vh;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(156, 193, 255, 0.32);
+  color: white;
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+.font-mono {
+  font-family: var(--font-mono), monospace;
+}
+
+.site-shell {
+  position: relative;
+  isolation: isolate;
+}
+
+.site-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(circle at top, black 12%, transparent 72%);
+  z-index: -1;
+}
+
+.dossier-panel {
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.025));
+  backdrop-filter: blur(18px);
+}
+
+.dossier-label {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(237, 243, 251, 0.58);
+}
+
+.dossier-rule {
+  position: relative;
+  padding-left: 1.25rem;
+}
+
+.dossier-rule::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.2rem;
+  bottom: 0.2rem;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(156, 193, 255, 0.7), rgba(156, 193, 255, 0));
+}
+
+.status-dot {
+  display: inline-block;
+  height: 0.55rem;
+  width: 0.55rem;
+  border-radius: 999px;
+  box-shadow: 0 0 18px currentColor;
+}
+
+.text-balance {
+  text-wrap: balance;
 }

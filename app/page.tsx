@@ -1,8 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { BarbellPositioning } from "@/components/home/barbell-positioning";
+import { CapabilityGrid } from "@/components/home/capability-grid";
+import { Hero } from "@/components/home/hero";
+import { MonitoringBridge } from "@/components/home/monitoring-bridge";
+import { ProductOverview } from "@/components/home/product-overview";
+import { RiskNotice } from "@/components/home/risk-notice";
+import { StrategyStyle } from "@/components/home/strategy-style";
+import { WhyThisExists } from "@/components/home/why-this-exists";
 import { SiteHeader } from "@/components/site-header";
-import { siteCopy, type SiteLanguage } from "@/lib/content/site-copy";
+import { type SiteLanguage } from "@/lib/content/site-copy";
 
 export default function HomePage() {
   const [language, setLanguage] = useState<SiteLanguage>("zh");
@@ -10,19 +18,17 @@ export default function HomePage() {
   return (
     <>
       <SiteHeader language={language} onLanguageChange={setLanguage} />
-      <main className="mx-auto flex min-h-[calc(100vh-73px)] max-w-7xl items-center px-6 py-20">
-        <section className="max-w-4xl space-y-6">
-          <p className="text-xs uppercase tracking-[0.3em] text-sky-100/54">
-            Morpho Curator / Conservative Risk
-          </p>
-          <h1 className="max-w-4xl text-5xl font-semibold tracking-[-0.05em] text-white md:text-7xl">
-            {siteCopy.hero.title.zh}
-          </h1>
-          <p className="text-lg text-sky-50/82">{siteCopy.hero.title.en}</p>
-          <p className="max-w-2xl text-base leading-8 text-white/62">
-            {siteCopy.hero.subtitle[language]}
-          </p>
-        </section>
+      <main className="site-shell">
+        <Hero language={language} />
+        <div className="mx-auto max-w-7xl px-6 pb-20">
+          <ProductOverview language={language} />
+          <WhyThisExists language={language} />
+          <BarbellPositioning language={language} />
+          <StrategyStyle language={language} />
+          <CapabilityGrid language={language} />
+          <MonitoringBridge language={language} />
+          <RiskNotice language={language} />
+        </div>
       </main>
     </>
   );
