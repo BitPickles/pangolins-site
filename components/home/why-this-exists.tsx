@@ -20,7 +20,10 @@ export function WhyThisExists({ language }: WhyThisExistsProps) {
             key={point.en}
             className="dossier-panel rounded-[1.5rem] p-6 text-base leading-7 text-white/68"
           >
-            {point[language]}
+            <p className="font-mono text-xs tracking-[0.26em] text-white/36">
+              {String(siteCopy.whyThisExists.points.indexOf(point) + 1).padStart(2, "0")}
+            </p>
+            <p className="mt-4">{point[language]}</p>
           </article>
         ))}
       </div>

@@ -42,7 +42,33 @@ export const siteCopy = {
     summary: {
       zh: "风险管理本身，就是产品。",
       en: "Risk management itself is the product."
-    }
+    },
+    metrics: [
+      {
+        label: "Posture",
+        value: { zh: "保守 / Conservative", en: "Conservative" },
+        note: {
+          zh: "把退出能力和可解释性放在名义收益之前。",
+          en: "Exit capacity and legibility rank ahead of nominal yield."
+        }
+      },
+      {
+        label: "Core Constraint",
+        value: { zh: "流动性优先", en: "Liquidity First" },
+        note: {
+          zh: "不为了数字更好看而牺牲资金回收路径。",
+          en: "We do not sacrifice recovery paths to improve headline numbers."
+        }
+      },
+      {
+        label: "Monitoring",
+        value: { zh: "持续在线", en: "Always On" },
+        note: {
+          zh: "监控的是风险如何变化，而不只是结果已经发生。",
+          en: "We track how risk can change, not only the result after it arrives."
+        }
+      }
+    ]
   },
   overview: {
     label: "Product Thesis",

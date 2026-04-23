@@ -48,6 +48,8 @@ describe("monitoring page", () => {
     expect(
       screen.getByRole("heading", { name: /技术能力不能消灭风险，只能更早识别风险/i })
     ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /recent events/i })).toBeInTheDocument();
+    expect(screen.getByText(/Mock feed heartbeat refreshed\./i)).toBeInTheDocument();
   });
 
   it("provides a stable mock monitoring snapshot shape for the page and APIs", async () => {

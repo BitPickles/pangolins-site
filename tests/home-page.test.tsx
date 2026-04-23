@@ -34,6 +34,7 @@ describe("home page", () => {
       "href",
       "https://app.morpho.org/base/vault/0x1401d1271C47648AC70cBcdfA3776D4A87CE006B/pangolins-usdc"
     );
+    expect(screen.getByText("Risk Brief")).toBeInTheDocument();
   });
 
   it("switches into English for the main content when requested", async () => {

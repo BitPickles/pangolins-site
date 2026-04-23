@@ -22,7 +22,8 @@ export function Hero({ language }: HeroProps) {
       <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(156,193,255,0.65),transparent)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(156,193,255,0.14),transparent_40%)]" />
       <div className="absolute right-0 top-16 h-56 w-56 rounded-full bg-[rgba(156,193,255,0.08)] blur-3xl" />
-      <div className="relative mx-auto grid max-w-7xl gap-10 px-6 py-18 md:grid-cols-[minmax(0,1fr)_300px] md:items-end md:py-24">
+      <div className="absolute left-[8%] top-24 h-72 w-72 rounded-full border border-white/6 opacity-40" />
+      <div className="relative mx-auto grid max-w-7xl gap-10 px-6 py-18 md:grid-cols-[minmax(0,1fr)_320px] md:items-end md:py-24">
         <motion.div
           className="space-y-8"
           initial={reduceMotion ? undefined : { opacity: 0, y: 24 }}
@@ -74,6 +75,24 @@ export function Hero({ language }: HeroProps) {
               </motion.span>
             ))}
           </div>
+
+          <div className="grid gap-3 border-t border-white/10 pt-6 md:grid-cols-3">
+            {siteCopy.hero.metrics.map((metric, index) => (
+              <motion.article
+                key={metric.label}
+                className="rounded-[1.4rem] border border-white/8 bg-white/[0.025] px-4 py-4"
+                initial={reduceMotion ? undefined : { opacity: 0, y: 12 }}
+                animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: reduceMotion ? 0 : 0.18 + index * 0.06 }}
+              >
+                <p className="dossier-label">{metric.label}</p>
+                <p className="mt-3 text-sm font-semibold uppercase tracking-[0.14em] text-white">
+                  {metric.value[language]}
+                </p>
+                <p className="mt-2 text-sm leading-6 text-white/52">{metric.note[language]}</p>
+              </motion.article>
+            ))}
+          </div>
         </motion.div>
 
         <motion.aside
@@ -90,6 +109,14 @@ export function Hero({ language }: HeroProps) {
               </p>
               <p className="text-sm leading-7 text-white/55">
                 {siteCopy.hero.summary[supportLanguage]}
+              </p>
+            </div>
+            <div className="rounded-[1.5rem] border border-white/8 bg-black/10 p-4">
+              <p className="dossier-label">Dossier Note</p>
+              <p className="mt-3 text-sm leading-7 text-white/62">
+                {language === "zh"
+                  ? "我们刻意不把首页做成收益面板。首页的任务是先解释产品边界，再引导你去看当前风险姿态。"
+                  : "The home page is intentionally not a yield dashboard. It defines the product boundary first, then leads into current risk posture."}
               </p>
             </div>
             <dl className="space-y-4 border-t border-white/10 pt-5 text-sm">

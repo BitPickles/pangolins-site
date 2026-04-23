@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getMonitoringSnapshot } from "@/lib/api/monitoring";
 import { MonitoringSections } from "@/components/monitoring/monitoring-sections";
+import { RecentEvents } from "@/components/monitoring/recent-events";
 import { MonitoringStatusCards } from "@/components/monitoring/monitoring-status-cards";
 import { MonitoringSummaryStrip } from "@/components/monitoring/monitoring-summary-strip";
 
@@ -60,6 +61,7 @@ export default async function MonitoringPage() {
       <MonitoringSummaryStrip items={snapshot.summary} />
       <MonitoringStatusCards cards={snapshot.statusCards} />
       <MonitoringSections sections={snapshot.sections} />
+      <RecentEvents events={snapshot.recentEvents} />
       </div>
     </main>
   );

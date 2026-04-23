@@ -7,14 +7,14 @@ type MonitoringSectionsProps = {
 export function MonitoringSections({ sections }: MonitoringSectionsProps) {
   return (
     <div className="grid gap-4">
-      {sections.map((section) => (
+      {sections.map((section, index) => (
         <section
           key={section.slug}
           className="dossier-panel rounded-3xl border border-white/10 px-5 py-5 md:px-6"
         >
           <div className="grid gap-5 lg:grid-cols-[minmax(0,220px)_1fr] lg:gap-8">
             <div>
-              <p className="dossier-label">Section</p>
+              <p className="dossier-label">Section {String(index + 1).padStart(2, "0")}</p>
               <h2 className="mt-3 text-2xl font-semibold text-white">{section.title}</h2>
             </div>
             <div className="space-y-4">
