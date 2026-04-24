@@ -4,7 +4,7 @@ type RecentEventsProps = {
 
 export function RecentEvents({ events }: RecentEventsProps) {
   return (
-    <section className="rounded-[1.75rem] border border-[color:var(--line)] bg-white/70 px-5 py-5 backdrop-blur-xl md:px-6">
+    <section className="launch-surface rounded-[2rem] p-5 md:p-6">
       <div className="grid gap-5 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-8">
         <div>
           <p className="font-mono text-[11px] uppercase text-[#7a8797]">Activity Log</p>

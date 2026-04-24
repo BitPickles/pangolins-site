@@ -7,6 +7,9 @@ describe("monitoring page", () => {
     const page = await MonitoringPage();
     render(page);
 
+    expect(screen.getByTestId("monitoring-shell")).toBeInTheDocument();
+    expect(screen.getByTestId("vault-identity-card")).toBeInTheDocument();
+    expect(screen.getByTestId("risk-path-grid")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /实时监控与风险透明度/i })).toBeInTheDocument();
     expect(
       screen.getByText(/0x1401d1271c47648ac70cbcdfa3776d4a87ce006b/i)

@@ -11,6 +11,11 @@
   --muted: #4b5563;
   --accent: #5d8ff5;
   --accent-strong: #3568d4;
+  --ink: #07111f;
+  --ink-soft: #526071;
+  --blue: #2f80ff;
+  --blue-soft: rgba(47, 128, 255, 0.12);
+  --launch-shadow: 0 26px 90px rgba(15, 23, 42, 0.065);
   --success: #4ade80;
   --watch: #facc15;
   --alert: #fb7185;
@@ -138,4 +143,77 @@ select {
   letter-spacing: 0;
   text-transform: uppercase;
   color: #8f99a8;
+}
+
+.launch-container {
+  width: min(100% - 2rem, 76rem);
+  margin-inline: auto;
+}
+
+.launch-surface {
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(246, 250, 255, 0.9));
+  box-shadow: var(--launch-shadow);
+  backdrop-filter: blur(24px);
+}
+
+.launch-button-dark {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #07111f;
+  padding-inline: 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 650;
+  color: white;
+  box-shadow: 0 16px 44px rgba(7, 17, 31, 0.16);
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.launch-button-dark:hover {
+  background: #162033;
+}
+
+.launch-button-light {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid #d9e1ec;
+  background: rgba(255, 255, 255, 0.78);
+  padding-inline: 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 650;
+  color: #0f172a;
+  backdrop-filter: blur(16px);
+  transition: border-color 180ms ease, background 180ms ease;
+}
+
+.launch-button-light:hover {
+  border-color: #b9c7dc;
+  background: white;
+}
+
+.launch-grid-bg {
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(circle at center, black, transparent 72%);
+}
+
+.signal-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(47, 128, 255, 0.86), transparent);
+}
+
+.launch-pill {
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 12px 34px rgba(15, 23, 42, 0.045);
+  backdrop-filter: blur(16px);
 }

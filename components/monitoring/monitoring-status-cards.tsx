@@ -5,9 +5,9 @@ type MonitoringStatusCardsProps = {
 };
 
 const toneClasses: Record<MonitoringStatusCard["tone"], string> = {
-  normal: "border-emerald-200 bg-emerald-50 text-emerald-700",
-  watch: "border-amber-200 bg-amber-50 text-amber-700",
-  alert: "border-rose-200 bg-rose-50 text-rose-700"
+  normal: "text-emerald-700",
+  watch: "text-amber-700",
+  alert: "text-rose-700"
 };
 
 const indicatorClasses: Record<MonitoringStatusCard["tone"], string> = {
@@ -18,22 +18,20 @@ const indicatorClasses: Record<MonitoringStatusCard["tone"], string> = {
 
 export function MonitoringStatusCards({ cards }: MonitoringStatusCardsProps) {
   return (
-    <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+    <section className="launch-surface grid gap-0 overflow-hidden rounded-[2rem] md:grid-cols-2 xl:grid-cols-4">
       {cards.map((card) => (
         <article
           key={card.title}
-          className="rounded-[1.5rem] border border-[color:var(--line)] bg-white/86 px-5 py-5 shadow-[0_18px_70px_rgba(15,23,42,0.04)] backdrop-blur-xl"
+          className="border-b border-[#e2e8f0] bg-white/54 px-5 py-5 last:border-b-0 md:border-r md:last:border-r-0 xl:border-b-0"
         >
           <div className="flex items-center justify-between gap-3">
             <p className="font-mono text-[11px] uppercase text-[#7a8797]">{card.title}</p>
-            <span
-              className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-1 font-mono text-[10px] uppercase ${toneClasses[card.tone]}`}
-            >
+            <span className={`inline-flex items-center gap-1.5 font-mono text-[10px] uppercase ${toneClasses[card.tone]}`}>
               <span className={`h-1.5 w-1.5 rounded-full ${indicatorClasses[card.tone]}`} aria-hidden="true" />
               {card.tone === "normal" ? "Nominal" : card.tone === "watch" ? "Watch" : "Elevated"}
             </span>
           </div>
-          <p className="mt-5 text-2xl font-semibold text-[#0f172a]">{card.value}</p>
+          <p className="mt-6 text-2xl font-semibold text-[#07111f]">{card.value}</p>
           <p className="mt-2 text-xs leading-5 text-[#647083]">{card.note}</p>
         </article>
       ))}

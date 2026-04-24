@@ -7,6 +7,9 @@ describe("home page", () => {
     render(<HomePage />);
 
     expect(screen.getByRole("heading", { name: "管理风险，而非资金" })).toBeInTheDocument();
+    expect(screen.getByTestId("launch-hero")).toBeInTheDocument();
+    expect(screen.getByTestId("hero-signal-panel")).toBeInTheDocument();
+    expect(screen.getByTestId("launch-metrics-strip")).toBeInTheDocument();
     expect(screen.getByText("为保守型链上资金构建的风险基础设施。")).toBeInTheDocument();
     expect(screen.getByText(/基于 Morpho 的链上风险管理层/i)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /中文/i })).toHaveAttribute("aria-pressed", "true");
@@ -15,11 +18,15 @@ describe("home page", () => {
     expect(
       screen.getByRole("heading", { name: "让 DeFi 的复杂性，停在系统里。" })
     ).toBeInTheDocument();
+    expect(screen.getByTestId("scene-visual-0")).toBeInTheDocument();
+    expect(screen.getByTestId("scene-visual-1")).toBeInTheDocument();
+    expect(screen.getByTestId("scene-visual-2")).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: "不是追逐更高收益，而是保留退出能力。" })
     ).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "安全不是一次性的审计。" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "非托管。透明。长期主义。" })).toBeInTheDocument();
+    expect(screen.getByTestId("principle-band")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "看见我们如何看风险。" })).toBeInTheDocument();
   });
 

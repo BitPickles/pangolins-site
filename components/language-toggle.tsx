@@ -9,7 +9,7 @@ type LanguageToggleProps = {
 
 export function LanguageToggle({ value, onChange }: LanguageToggleProps) {
   return (
-    <div className="inline-flex rounded-full bg-[#f5f6f8] p-1 text-sm text-[#6b7280]">
+    <div className="inline-flex rounded-full bg-[#f1f5f9] p-1 text-sm text-[#6b7280]">
       {(["zh", "en"] as const).map((language) => {
         const selected = value === language;
 
@@ -19,7 +19,7 @@ export function LanguageToggle({ value, onChange }: LanguageToggleProps) {
             type="button"
             onClick={() => onChange(language)}
             className={`rounded-full px-3.5 py-1.5 transition ${
-              selected ? "bg-white text-[#0b0f17] shadow-[0_1px_4px_rgba(15,23,42,0.08)]" : "hover:text-[#0b0f17]"
+              selected ? "bg-white text-[#07111f] shadow-[0_6px_18px_rgba(15,23,42,0.08)]" : "hover:text-[#07111f]"
             }`}
             aria-pressed={selected}
           >
