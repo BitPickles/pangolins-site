@@ -14,6 +14,10 @@ describe("monitoring page", () => {
       screen.getByText(/0x1401d1271c47648ac70cbcdfa3776d4a87ce006b/i)
     ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "首页" })).toHaveAttribute("href", "/");
+    expect(screen.getByRole("link", { name: "监控与透明度" })).toHaveAttribute(
+      "href",
+      "/monitoring"
+    );
 
     const vaultLink = screen.getByRole("link", { name: /morpho vault/i });
     expect(vaultLink).toHaveAttribute(
@@ -24,18 +28,16 @@ describe("monitoring page", () => {
     const summaryStrip = screen.getByRole("region", {
       name: /monitoring summary/i
     });
-    expect(within(summaryStrip).getByText(/coinbase \/ 托管路径/i)).toBeInTheDocument();
-    expect(within(summaryStrip).getByText(/cbbtc \/ 抵押路径/i)).toBeInTheDocument();
-    expect(within(summaryStrip).getByText(/response \/ 响应准备/i)).toBeInTheDocument();
+    expect(within(summaryStrip).getByText("Coinbase / 托管路径")).toBeInTheDocument();
+    expect(within(summaryStrip).getByText("cbBTC / 抵押路径")).toBeInTheDocument();
+    expect(within(summaryStrip).getByText("Response / 响应准备")).toBeInTheDocument();
 
     expect(
       screen.getByRole("heading", {
-        name: /为什么我们关注 coinbase \/ cbbtc \/ morpho 这条路径/i
+        name: /为什么我们关注 Coinbase \/ cbBTC \/ Morpho 这条路径/i
       })
     ).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { name: /我们在看什么/i })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /我们在看什么/i })).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: /principles & rules/i })
     ).toBeInTheDocument();

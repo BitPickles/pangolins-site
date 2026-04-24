@@ -5,9 +5,15 @@ type MonitoringStatusCardsProps = {
 };
 
 const toneClasses: Record<MonitoringStatusCard["tone"], string> = {
-  normal: "text-[var(--success)]",
-  watch: "text-[var(--watch)]",
-  alert: "text-[var(--alert)]"
+  normal: "border-emerald-200 bg-emerald-50 text-emerald-700",
+  watch: "border-amber-200 bg-amber-50 text-amber-700",
+  alert: "border-rose-200 bg-rose-50 text-rose-700"
+};
+
+const indicatorClasses: Record<MonitoringStatusCard["tone"], string> = {
+  normal: "bg-emerald-500",
+  watch: "bg-amber-500",
+  alert: "bg-rose-500"
 };
 
 export function MonitoringStatusCards({ cards }: MonitoringStatusCardsProps) {
@@ -16,21 +22,19 @@ export function MonitoringStatusCards({ cards }: MonitoringStatusCardsProps) {
       {cards.map((card) => (
         <article
           key={card.title}
-          className="dossier-panel relative overflow-hidden rounded-3xl border border-white/10 px-5 py-5"
+          className="rounded-[1.5rem] border border-[color:var(--line)] bg-white/68 px-5 py-5 backdrop-blur-xl"
         >
-          <div
-            className={`absolute inset-x-0 top-0 h-px bg-current opacity-70 ${toneClasses[card.tone]}`}
-            aria-hidden="true"
-          />
           <div className="flex items-center justify-between gap-3">
-            <p className="dossier-label">{card.title}</p>
-            <span className={`status-dot ${toneClasses[card.tone]}`} aria-hidden="true" />
+            <p className="font-mono text-[11px] uppercase text-[#7a8797]">{card.title}</p>
+            <span
+              className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-1 font-mono text-[10px] uppercase ${toneClasses[card.tone]}`}
+            >
+              <span className={`h-1.5 w-1.5 rounded-full ${indicatorClasses[card.tone]}`} aria-hidden="true" />
+              {card.tone === "normal" ? "Nominal" : card.tone === "watch" ? "Watch" : "Elevated"}
+            </span>
           </div>
-          <p className="mt-4 text-xl font-semibold text-white">{card.value}</p>
-          <p className="mt-3 text-sm leading-6 text-[var(--muted)]">{card.note}</p>
-          <p className={`mt-6 font-mono text-[11px] uppercase tracking-[0.24em] ${toneClasses[card.tone]}`}>
-            {card.tone === "normal" ? "Nominal" : card.tone === "watch" ? "Watch" : "Elevated"}
-          </p>
+          <p className="mt-4 text-xl font-semibold text-[#0f172a]">{card.value}</p>
+          <p className="mt-3 text-sm leading-6 text-[#647083]">{card.note}</p>
         </article>
       ))}
     </section>

@@ -1,7 +1,7 @@
 export const siteTheme = {
   colors: {
-    bg: "#071019",
-    panel: "#0f1a26"
+    bg: "#ffffff",
+    panel: "#fafbfd"
   }
 } as const;
 

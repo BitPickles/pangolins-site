@@ -2,12 +2,6 @@ export type SiteLanguage = "zh" | "en";
 
 type LocalizedText = Record<SiteLanguage, string>;
 
-type Capability = {
-  kicker: string;
-  title: LocalizedText;
-  body: LocalizedText;
-};
-
 export const morphoVaultUrl =
   "https://app.morpho.org/base/vault/0x1401d1271C47648AC70cBcdfA3776D4A87CE006B/pangolins-usdc";
 
@@ -16,200 +10,179 @@ export const siteCopy = {
     home: { zh: "首页", en: "Home" },
     monitoring: { zh: "监控与透明度", en: "Monitoring" }
   },
-  hero: {
-    eyebrow: "Morpho Curator / Conservative Risk",
-    tags: ["Built on Morpho", "Conservative Risk", "High Liquidity", "Monitoring First"],
-    title: {
-      zh: "我们管理的不是资金，而是风险",
-      en: "We manage risk before capital."
-    },
-    support: {
-      zh: "We manage risk before capital.",
-      en: "Conservative risk management for the defensive end of onchain capital."
-    },
-    body: {
-      zh: "一个基于 Morpho 的 Curator 风险管理产品，服务于链上杠铃策略中最保守的一端。我们通过克制的市场选择、严格的流动性约束与持续监控，为资产提供一个更低风险、更高流动性的停泊位。",
-      en: "A Morpho curator product focused on the defensive end of onchain capital allocation."
-    },
-    primaryCta: {
-      zh: "查看监控与透明度",
-      en: "View Monitoring"
-    },
-    secondaryCta: {
-      zh: "在 Morpho 查看 Vault",
-      en: "Morpho Vault"
-    },
-    summary: {
-      zh: "风险管理本身，就是产品。",
-      en: "Risk management itself is the product."
-    },
-    metrics: [
-      {
-        label: "Posture",
-        value: { zh: "保守 / Conservative", en: "Conservative" },
-        note: {
-          zh: "把退出能力和可解释性放在名义收益之前。",
-          en: "Exit capacity and legibility rank ahead of nominal yield."
-        }
-      },
-      {
-        label: "Core Constraint",
-        value: { zh: "流动性优先", en: "Liquidity First" },
-        note: {
-          zh: "不为了数字更好看而牺牲资金回收路径。",
-          en: "We do not sacrifice recovery paths to improve headline numbers."
-        }
-      },
-      {
-        label: "Monitoring",
-        value: { zh: "持续在线", en: "Always On" },
-        note: {
-          zh: "监控的是风险如何变化，而不只是结果已经发生。",
-          en: "We track how risk can change, not only the result after it arrives."
-        }
-      }
-    ]
-  },
-  overview: {
-    label: "Product Thesis",
-    title: {
-      zh: "它不是收益故事，而是资产停泊位。",
-      en: "This is not a yield story. It is a defensive berth for capital."
-    },
-    body: {
-      zh: "当市场进入不确定区间，真正稀缺的不是更高收益，而是可解释、可退出、可监控的风险敞口。",
-      en: "When markets turn uncertain, the scarce asset is not more yield. It is exposure that remains legible, liquid, and monitorable."
-    }
-  },
-  whyThisExists: {
-    label: "Why This Exists",
-    title: {
-      zh: "我们想解决的，是链上保守层的缺口。",
-      en: "Pangolins exists to fill the conservative gap onchain."
-    },
-    points: [
-      {
-        zh: "多数产品争夺更高 APY，很少有人把退出能力当作第一约束。",
-        en: "Most products compete for higher APY. Few make exit capacity the first constraint."
-      },
-      {
-        zh: "风险并不会因为链上透明而消失，它只会在市场结构里重新排列。",
-        en: "Transparency does not remove risk. It only changes where risk accumulates."
-      },
-      {
-        zh: "Pangolins 提供的是一个更克制的配置位置，而不是更激进的收益承诺。",
-        en: "Pangolins offers a restrained allocation slot, not a more aggressive yield promise."
-      }
-    ]
-  },
-  barbellPositioning: {
-    label: "Barbell Positioning",
-    title: {
-      zh: "在杠铃策略里，我们站在最保守的一端。",
-      en: "Within a barbell strategy, Pangolins sits at the defensive edge."
-    },
-    left: {
+  home: {
+    hero: {
+      eyebrow: "Morpho Curator / Defensive End",
       title: {
-        zh: "进攻端",
-        en: "Offensive edge"
+        zh: "我们管理的不是资金，而是风险",
+        en: "We manage risk before capital."
+      },
+      support: {
+        zh: "We manage risk before capital.",
+        en: "A conservative curator layer for the defensive end of onchain capital."
       },
       body: {
-        zh: "更高波动、更高假设、更高容错成本。",
-        en: "Higher volatility, broader assumptions, and less forgiveness."
-      }
+        zh: "Pangolins 是一个基于 Morpho 的 curator 产品，服务于链上资产配置中最保守的一端。",
+        en: "Pangolins is a Morpho curator product designed for the most defensive sleeve of onchain capital allocation."
+      },
+      primaryCta: {
+        zh: "查看监控与透明度",
+        en: "View Monitoring"
+      },
+      secondaryCta: {
+        zh: "在 Morpho 查看 Vault",
+        en: "Morpho Vault"
+      },
+      chips: ["Built on Morpho", "High Liquidity", "Conservative Risk", "Monitoring First"],
+      metrics: [
+        {
+          label: "Primary Asset",
+          value: { zh: "USDC", en: "USDC" }
+        },
+        {
+          label: "Risk Mode",
+          value: { zh: "保守", en: "Conservative" }
+        },
+        {
+          label: "Focus",
+          value: { zh: "cbBTC 相关市场", en: "cbBTC-backed markets" }
+        }
+      ]
     },
-    right: {
+    scenes: [
+      {
+        kicker: "01 / Structure",
+        title: {
+          zh: "风险不是结果，它先是结构",
+          en: "Risk is not only an outcome. It is a structure first."
+        },
+        body: {
+          zh: "真正重要的，不只是收益曲线，而是你暴露在什么样的市场结构里。",
+          en: "What matters is not only the yield curve, but the structure your capital is exposed to."
+        },
+        panelTitle: {
+          zh: "Readable market structure",
+          en: "Readable market structure"
+        },
+        panelBody: {
+          zh: "优先选择边界清晰、信用锚更强、响应路径更可解释的底层市场。",
+          en: "Favor markets whose boundaries, credit anchors, and response paths remain more legible."
+        }
+      },
+      {
+        kicker: "02 / Liquidity",
+        title: {
+          zh: "高流动性，不该以高风险为代价",
+          en: "High liquidity should not require high risk."
+        },
+        body: {
+          zh: "当资金处在保守层，退出能力比表面 APY 更重要。",
+          en: "When capital sits in the defensive sleeve, exit capacity matters more than headline APY."
+        },
+        panelTitle: {
+          zh: "Liquidity first",
+          en: "Liquidity first"
+        },
+        panelBody: {
+          zh: "我们优先保留流动性回收路径，而不是用复杂风险换一个更好看的数字。",
+          en: "We preserve liquidity recovery paths before reaching for prettier numbers."
+        }
+      },
+      {
+        kicker: "03 / Discipline",
+        title: {
+          zh: "先保留退出能力，再谈收益增强",
+          en: "Preserve exit capacity before yield enhancement."
+        },
+        body: {
+          zh: "监控、约束与纪律先于收益包装。",
+          en: "Monitoring, constraints, and discipline come before yield packaging."
+        },
+        panelTitle: {
+          zh: "Monitoring before marketing",
+          en: "Monitoring before marketing"
+        },
+        panelBody: {
+          zh: "我们更愿意公开原则、监控维度和响应框架，而不是用故事包装高收益。",
+          en: "We would rather publish principles, monitoring dimensions, and response frameworks than package yield with a story."
+        }
+      }
+    ],
+    manifesto: {
       title: {
-        zh: "保守端",
-        en: "Defensive edge"
+        zh: "不是卖高收益，而是管理风险结构",
+        en: "Not selling high yield, but managing risk structure."
       },
       body: {
-        zh: "更高流动性、更窄风险边界、更清晰的监控对象。",
-        en: "Higher liquidity, narrower risk bounds, and clearer monitoring targets."
-      }
-    }
-  },
-  strategyStyle: {
-    label: "Current Strategy Style",
-    title: {
-      zh: "当前风格：偏向结构清晰、响应路径可预期的市场。",
-      en: "Current posture: favoring markets with cleaner structure and clearer response paths."
-    },
-    body: {
-      zh: "我们优先偏好具有更清晰托管、抵押与流动性特征的市场环境。技术能力提升的是反应速度，不是市场在压力下天然拥有的流动性。",
-      en: "We currently prefer markets with clearer custody, collateral, and liquidity characteristics. Better operations improve reaction speed, not the physical liquidity available under stress."
-    },
-    notes: [
-      "Coinbase-linked custody preference",
-      "cbBTC-oriented collateral clarity",
-      "Monitoring before expansion"
-    ]
-  },
-  capabilities: {
-    label: "Core Capabilities",
-    title: {
-      zh: "能力边界很清楚，也必须很克制。",
-      en: "The capability set is intentionally narrow and disciplined."
-    },
-    items: [
-      {
-        kicker: "01",
-        title: {
-          zh: "市场选择",
-          en: "Market selection"
-        },
-        body: {
-          zh: "只进入风险结构更容易被解释和被追踪的市场。",
-          en: "We only enter markets whose risk structure is easier to interpret and track."
-        }
+        zh: "Pangolins 的价值，不在于把 APY 讲得更动听，而在于把风险边界讲得更清楚。",
+        en: "Pangolins creates value by making risk boundaries clearer, not by making APY sound more exciting."
       },
-      {
-        kicker: "02",
-        title: {
-          zh: "流动性约束",
-          en: "Liquidity discipline"
+      pillars: [
+        {
+          title: { zh: "流动性第一", en: "Liquidity First" },
+          body: {
+            zh: "优先保留可退出性。",
+            en: "Exit capacity comes first."
+          }
         },
-        body: {
-          zh: "退出能力优先于名义收益，流动性不是事后补救项。",
-          en: "Exit capacity ranks above nominal yield. Liquidity is not a post-hoc fix."
+        {
+          title: { zh: "监控优先", en: "Monitoring First" },
+          body: {
+            zh: "持续观察链上变化与市场压力。",
+            en: "Continuously watch onchain change and market stress."
+          }
+        },
+        {
+          title: { zh: "纪律执行", en: "Execution Discipline" },
+          body: {
+            zh: "不为更高数字牺牲原则。",
+            en: "Do not trade principles for prettier numbers."
+          }
         }
+      ]
+    },
+    cta: {
+      title: {
+        zh: "细节不必全部公开，原则必须足够清楚",
+        en: "Details need not be fully public, but principles must be clear."
       },
-      {
-        kicker: "03",
-        title: {
-          zh: "持续监控",
-          en: "Continuous monitoring"
-        },
-        body: {
-          zh: "监控覆盖市场状态、基础设施、执行条件与异常响应准备。",
-          en: "Monitoring covers market state, infrastructure health, execution conditions, and response readiness."
-        }
+      body: {
+        zh: "进入 Monitoring，查看这个 vault 当前的状态、监控维度与风险边界。",
+        en: "Go to Monitoring for the vault's current posture, monitoring dimensions, and public risk boundary."
       }
-    ] satisfies Capability[]
-  },
-  monitoringBridge: {
-    label: "Monitoring Bridge",
-    title: {
-      zh: "主页讲清方法，监控页展示当下姿态。",
-      en: "The home page explains the method. Monitoring shows the current posture."
-    },
-    body: {
-      zh: "如果你想知道 Pangolins 现在如何看待风险、看什么、公开到什么边界，请进入监控与透明度页面。",
-      en: "If you want the current vault posture, monitoring dimensions, and public transparency boundaries, go to Monitoring."
-    }
-  },
-  riskNotice: {
-    label: "Risk Notice",
-    title: {
-      zh: "低风险不等于无风险。",
-      en: "Lower risk does not mean no risk."
-    },
-    body: {
-      zh: "Morpho、市场流动性、预言机、托管路径与执行环境都可能在异常条件下承压。Pangolins 能做的是更早识别、更快响应，而不是承诺风险消失。",
-      en: "Morpho, market liquidity, oracle behavior, custody paths, and execution conditions can all degrade under stress. Pangolins aims to identify problems earlier and respond faster, not to promise risk elimination."
     }
   }
-} as const;
+} as const satisfies {
+  nav: Record<string, LocalizedText>;
+  home: {
+    hero: {
+      eyebrow: string;
+      title: LocalizedText;
+      support: LocalizedText;
+      body: LocalizedText;
+      primaryCta: LocalizedText;
+      secondaryCta: LocalizedText;
+      chips: string[];
+      metrics: Array<{ label: string; value: LocalizedText }>;
+    };
+    scenes: Array<{
+      kicker: string;
+      title: LocalizedText;
+      body: LocalizedText;
+      panelTitle: LocalizedText;
+      panelBody: LocalizedText;
+    }>;
+    manifesto: {
+      title: LocalizedText;
+      body: LocalizedText;
+      pillars: Array<{ title: LocalizedText; body: LocalizedText }>;
+    };
+    cta: {
+      title: LocalizedText;
+      body: LocalizedText;
+    };
+  };
+};
 
 export function getSupportLanguage(language: SiteLanguage): SiteLanguage {
   return language === "zh" ? "en" : "zh";

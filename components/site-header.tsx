@@ -1,31 +1,25 @@
 "use client";
 
 import Link from "next/link";
-import { siteCopy, type SiteLanguage } from "@/lib/content/site-copy";
+import { BrandMark } from "@/components/brand-mark";
 import { LanguageToggle } from "@/components/language-toggle";
+import { type SiteLanguage } from "@/lib/content/site-copy";
 
 type SiteHeaderProps = {
   language: SiteLanguage;
   onLanguageChange: (language: SiteLanguage) => void;
 };
 
-export function SiteHeader({
-  language,
-  onLanguageChange
-}: SiteHeaderProps) {
+export function SiteHeader({ language, onLanguageChange }: SiteHeaderProps) {
   return (
-    <header className="sticky top-0 z-20 border-b border-[color:var(--line)] bg-[rgba(248,250,252,0.82)] backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <Link href="/" className="text-sm uppercase tracking-[0.32em] text-[#101828]">
-          Pangolins
+    <header className="sticky top-0 z-30 bg-[rgba(255,255,255,0.72)] backdrop-blur-2xl">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
+        <Link href="/" className="flex items-center gap-2.5 text-sm font-medium text-[#0b0f17]">
+          <BrandMark className="w-7" />
+          <span className="sr-only">Pangolins</span>
+          <span aria-hidden="true">Pangolins</span>
         </Link>
-        <div className="flex items-center gap-5">
-          <nav className="hidden gap-4 text-sm text-[#475467] md:flex">
-            <Link href="/">{siteCopy.nav.home[language]}</Link>
-            <Link href="/monitoring">{siteCopy.nav.monitoring[language]}</Link>
-          </nav>
-          <LanguageToggle value={language} onChange={onLanguageChange} />
-        </div>
+        <LanguageToggle value={language} onChange={onLanguageChange} />
       </div>
     </header>
   );
