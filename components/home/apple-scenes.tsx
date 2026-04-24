@@ -10,16 +10,16 @@ type AppleScenesProps = {
 
 const visualLabels: Array<Record<SiteLanguage, readonly string[]>> = [
   {
-    zh: ["协议", "流动性", "执行"],
-    en: ["Protocol", "Liquidity", "Execution"]
+    zh: ["原则", "路径", "执行"],
+    en: ["Principle", "Path", "Execution"]
   },
   {
-    zh: ["收益", "退出", "纪律"],
-    en: ["Yield", "Exit", "Discipline"]
+    zh: ["边界", "退出", "纪律"],
+    en: ["Boundary", "Exit", "Discipline"]
   },
   {
-    zh: ["链上", "内存池", "告警"],
-    en: ["Onchain", "Mempool", "Alerts"]
+    zh: ["Coinbase", "cbBTC", "Morpho"],
+    en: ["Coinbase", "cbBTC", "Morpho"]
   }
 ];
 

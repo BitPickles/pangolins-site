@@ -10,24 +10,24 @@ describe("home page", () => {
     expect(screen.getByTestId("launch-hero")).toBeInTheDocument();
     expect(screen.getByTestId("hero-signal-panel")).toBeInTheDocument();
     expect(screen.getByTestId("launch-metrics-strip")).toBeInTheDocument();
-    expect(screen.getByText("为保守型链上资金构建的风险基础设施。")).toBeInTheDocument();
-    expect(screen.getByText(/基于 Morpho 的链上风险管理层/i)).toBeInTheDocument();
+    expect(screen.getByText("信任不是承诺，是可验证的行动。")).toBeInTheDocument();
+    expect(screen.getByText(/Morpho 上的 Curator 风险管理策略/i)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /中文/i })).toHaveAttribute("aria-pressed", "true");
-    expect(screen.getByText("协议")).toBeInTheDocument();
+    expect(screen.getByText("原则")).toBeInTheDocument();
     expect(screen.queryByText("APY")).not.toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: "让 DeFi 的复杂性，停在系统里。" })
+      screen.getByRole("heading", { name: "信任不是写出来的，是执行出来的。" })
     ).toBeInTheDocument();
     expect(screen.getByTestId("scene-visual-0")).toBeInTheDocument();
     expect(screen.getByTestId("scene-visual-1")).toBeInTheDocument();
     expect(screen.getByTestId("scene-visual-2")).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: "不是追逐更高收益，而是保留退出能力。" })
+      screen.getByRole("heading", { name: "Curator 不是收益包装者，而是安全边界的守门人。" })
     ).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "安全不是一次性的审计。" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "非托管。透明。长期主义。" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "安全不是一次审计，而是一套持续运行的纪律。" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "收益可以复制，信任必须积累。" })).toBeInTheDocument();
     expect(screen.getByTestId("principle-band")).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "看见我们如何看风险。" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "看见风险如何被拆开。" })).toBeInTheDocument();
   });
 
   it("exposes the required CTA destinations", () => {
@@ -52,13 +52,13 @@ describe("home page", () => {
     expect(screen.getByRole("heading", { name: "Manage risk, not funds." })).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        name: "Keep DeFi complexity inside the system."
+        name: "Trust is not claimed. It is executed."
       })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: "Not higher yield. Better exit discipline." })
+      screen.getByRole("heading", { name: "A Curator is not a yield wrapper. It is a boundary keeper." })
     ).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Security is not a one-time audit." })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Security is not a one-time audit. It is operating discipline." })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "EN" })).toHaveAttribute("aria-pressed", "true");
   });
 });

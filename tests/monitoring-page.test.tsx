@@ -34,20 +34,20 @@ describe("monitoring page", () => {
     expect(within(summaryStrip).getByText("Morpho Vault 状态")).toBeInTheDocument();
 
     expect(
-      screen.getByRole("heading", { name: /三条风险路径/i })
+      screen.getByRole("heading", { name: /Curator 的职责不是包装收益/i })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /我们的系统在看什么/i })
+      screen.getByRole("heading", { name: /三条安全路径/i })
     ).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /Principles & Rules/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /系统在看什么/i })
+    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /收益可以复制，信任必须积累/i })).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: /风险上升时如何响应/i })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /透明，不等于公开全部执行细节/i })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { name: /技术能力不能消灭风险/i })
+      screen.getByRole("heading", { name: /透明，不等于消灭风险/i })
     ).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /recent events/i })).toBeInTheDocument();
     expect(screen.getByText(/Mock feed heartbeat refreshed\./i)).toBeInTheDocument();
@@ -64,12 +64,12 @@ describe("monitoring page", () => {
     expect(snapshot.riskSignals).toHaveLength(2);
     expect(snapshot.recentEvents).toHaveLength(3);
     expect(snapshot.sections.map((section) => section.slug)).toEqual([
+      "curator-role",
       "safety-logic",
       "monitoring-dimensions",
       "principles",
       "abnormal-response-flow",
-      "transparency-boundaries",
-      "risk-statement"
+      "transparency-and-risk"
     ]);
   });
 });
