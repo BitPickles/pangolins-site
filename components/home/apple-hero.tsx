@@ -14,58 +14,76 @@ export function AppleHero({ language }: AppleHeroProps) {
   const hero = siteCopy.home.hero;
 
   return (
-    <section className="relative overflow-hidden bg-white">
-      <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_50%_0%,rgba(47,128,255,0.08),transparent_68%)]" />
-      <div className="relative mx-auto grid min-h-[92vh] max-w-7xl gap-12 px-6 pb-18 pt-14 md:grid-cols-[minmax(0,1.08fr)_minmax(320px,0.92fr)] md:items-center md:pb-24 md:pt-20">
-        <motion.div
-          className="space-y-9"
-          initial={reduceMotion ? undefined : { opacity: 0, y: 24 }}
-          animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <div className="space-y-6">
-            <p className="text-xs font-semibold uppercase text-[#6e7787]">{hero.eyebrow}</p>
-            <h1 className="max-w-5xl text-balance text-5xl font-semibold text-[#0b0f17] md:text-7xl lg:text-[5.8rem]">
-              {hero.title[language]}
-            </h1>
-            <p className="max-w-2xl text-xl font-medium leading-8 text-[#2d66d9] md:text-2xl">
-              {hero.support[language]}
-            </p>
-            <p className="max-w-[38rem] text-lg leading-8 text-[#5f6673] md:text-xl">
-              {hero.body[language]}
-            </p>
-          </div>
+    <section className="relative isolate overflow-hidden bg-white">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[34rem] bg-[radial-gradient(circle_at_50%_0%,rgba(47,128,255,0.14),transparent_66%)]" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-[linear-gradient(to_top,#f7faff,transparent)]" />
 
-          <div className="flex flex-col gap-3 sm:flex-row">
+      <div className="relative mx-auto flex min-h-[94vh] max-w-7xl flex-col items-center justify-center px-6 pb-20 pt-16 text-center md:pb-28 md:pt-20">
+        <motion.div
+          className="relative mb-10 flex h-48 w-48 items-center justify-center md:mb-14 md:h-64 md:w-64"
+          initial={reduceMotion ? undefined : { opacity: 0, scale: 0.86 }}
+          animate={reduceMotion ? undefined : { opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          aria-hidden="true"
+        >
+          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(47,128,255,0.18),transparent_68%)] blur-2xl" />
+          <div className="absolute inset-5 rounded-full border border-[#d7e6ff]" />
+          <div className="absolute inset-11 rounded-full border border-[#e8eef8]" />
+          <motion.div
+            className="absolute inset-0 rounded-full border border-[#2f80ff]/45"
+            animate={reduceMotion ? undefined : { rotate: 360 }}
+            transition={{ duration: 18, ease: "linear", repeat: Infinity }}
+          />
+          <div className="relative w-32 md:w-40">
+            <BrandMark />
+          </div>
+        </motion.div>
+
+        <motion.div
+          className="flex max-w-5xl flex-col items-center"
+          initial={reduceMotion ? undefined : { opacity: 0, y: 28 }}
+          animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
+        >
+          <p className="text-xs font-semibold uppercase text-[#687386]">{hero.eyebrow}</p>
+          <h1 className="mt-6 text-balance text-6xl font-semibold leading-[0.92] text-[#07111f] md:text-8xl lg:text-[7.4rem]">
+            {hero.title[language]}
+          </h1>
+          <p className="mt-6 max-w-3xl text-balance text-lg leading-8 text-[#526071] md:text-2xl md:leading-10">
+            {hero.body[language]}
+          </p>
+          <p className="mt-4 font-mono text-xs uppercase text-[#2f80ff] md:text-sm">
+            {hero.support[language]}
+          </p>
+
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/monitoring"
               aria-label="View Monitoring"
-              className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#111827] px-6 text-sm font-medium text-white transition hover:bg-[#1f2937]"
+              className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#2f80ff] px-6 text-sm font-semibold text-white shadow-[0_18px_48px_rgba(47,128,255,0.28)] transition hover:bg-[#1f6fee]"
             >
               {hero.primaryCta[language]}
             </Link>
             <Link
               href={morphoVaultUrl}
               aria-label="Morpho Vault"
-              className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#d9dce3] bg-white px-6 text-sm font-medium text-[#111827] transition hover:border-[#aab4c7] hover:bg-[#f7f8fa]"
+              className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#d9e1ec] bg-white px-6 text-sm font-semibold text-[#0f172a] transition hover:border-[#b9c7dc] hover:bg-[#f7faff]"
               target="_blank"
               rel="noreferrer"
             >
               {hero.secondaryCta[language]}
             </Link>
           </div>
-        </motion.div>
 
-        <motion.div
-          className="relative mx-auto flex w-full max-w-[34rem] items-center justify-center"
-          initial={reduceMotion ? undefined : { opacity: 0, scale: 0.94 }}
-          animate={reduceMotion ? undefined : { opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: reduceMotion ? 0 : 0.1 }}
-        >
-          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(83,142,255,0.2),transparent_62%)] blur-3xl" />
-          <div className="absolute bottom-6 h-10 w-[68%] rounded-full bg-[rgba(15,23,42,0.08)] blur-2xl" />
-          <div className="relative w-[18rem] md:w-[25rem] lg:w-[28rem]">
-            <BrandMark />
+          <div className="mt-10 flex flex-wrap justify-center gap-2">
+            {hero.chips.map((chip) => (
+              <span
+                key={chip}
+                className="rounded-full border border-[#e2e8f0] bg-white/70 px-3 py-1.5 font-mono text-[11px] uppercase text-[#6f7b8d] backdrop-blur"
+              >
+                {chip}
+              </span>
+            ))}
           </div>
         </motion.div>
       </div>

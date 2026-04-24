@@ -12,18 +12,18 @@ export const siteCopy = {
   },
   home: {
     hero: {
-      eyebrow: "Morpho Curator / Defensive End",
+      eyebrow: "Pangolins / Morpho Curator",
       title: {
-        zh: "我们管理的不是资金，而是风险",
-        en: "We manage risk before capital."
+        zh: "管理风险，而非资金",
+        en: "Manage risk, not funds."
       },
       support: {
-        zh: "We manage risk before capital.",
-        en: "A conservative curator layer for the defensive end of onchain capital."
+        zh: "为保守型链上资金构建的风险基础设施。",
+        en: "Risk infrastructure for conservative onchain capital."
       },
       body: {
-        zh: "Pangolins 是一个基于 Morpho 的 curator 产品，服务于链上资产配置中最保守的一端。",
-        en: "Pangolins is a Morpho curator product designed for the most defensive sleeve of onchain capital allocation."
+        zh: "Pangolins 是基于 Morpho 的链上风险管理层，当前聚焦 USDC / cbBTC 风格的保守型策略。",
+        en: "Pangolins is an onchain risk-management layer built on Morpho, currently focused on a conservative USDC / cbBTC strategy style."
       },
       primaryCta: {
         zh: "查看监控与透明度",
@@ -33,122 +33,122 @@ export const siteCopy = {
         zh: "在 Morpho 查看 Vault",
         en: "Morpho Vault"
       },
-      chips: ["Built on Morpho", "High Liquidity", "Conservative Risk", "Monitoring First"],
+      chips: ["Morpho Vault", "USDC", "cbBTC", "Risk-first"],
       metrics: [
         {
-          label: "Primary Asset",
-          value: { zh: "USDC", en: "USDC" }
-        },
-        {
-          label: "Risk Mode",
+          label: "Risk Layer",
           value: { zh: "保守", en: "Conservative" }
         },
         {
-          label: "Focus",
-          value: { zh: "cbBTC 相关市场", en: "cbBTC-backed markets" }
+          label: "Liquidity",
+          value: { zh: "优先", en: "Priority" }
+        },
+        {
+          label: "Custody",
+          value: { zh: "非托管", en: "Non-custodial" }
         }
       ]
     },
     scenes: [
       {
-        kicker: "01 / Structure",
+        kicker: "01 / Complexity Filter",
         title: {
-          zh: "风险不是结果，它先是结构",
-          en: "Risk is not only an outcome. It is a structure first."
+          zh: "让 DeFi 的复杂性，停在系统里。",
+          en: "Keep DeFi complexity inside the system."
         },
         body: {
-          zh: "真正重要的，不只是收益曲线，而是你暴露在什么样的市场结构里。",
-          en: "What matters is not only the yield curve, but the structure your capital is exposed to."
+          zh: "用户看到的是清晰策略；系统处理的是协议、流动性、抵押路径与执行风险。",
+          en: "Users see a clear strategy. The system handles protocol, liquidity, collateral, and execution risk."
         },
         panelTitle: {
-          zh: "Readable market structure",
-          en: "Readable market structure"
+          zh: "Filter before exposure",
+          en: "Filter before exposure"
         },
         panelBody: {
-          zh: "优先选择边界清晰、信用锚更强、响应路径更可解释的底层市场。",
-          en: "Favor markets whose boundaries, credit anchors, and response paths remain more legible."
+          zh: "先识别依赖，再决定是否进入市场。",
+          en: "Identify dependencies before entering the market."
         }
       },
       {
-        kicker: "02 / Liquidity",
+        kicker: "02 / Exit Discipline",
         title: {
-          zh: "高流动性，不该以高风险为代价",
-          en: "High liquidity should not require high risk."
+          zh: "不是追逐更高收益，而是保留退出能力。",
+          en: "Not higher yield. Better exit discipline."
         },
         body: {
-          zh: "当资金处在保守层，退出能力比表面 APY 更重要。",
-          en: "When capital sits in the defensive sleeve, exit capacity matters more than headline APY."
+          zh: "保守层的价值，不在于多几个点，而在于风险上升时仍有纪律和路径。",
+          en: "The defensive layer is not about a few extra points. It is about discipline and paths when risk rises."
         },
         panelTitle: {
-          zh: "Liquidity first",
-          en: "Liquidity first"
+          zh: "Liquidity is the constraint",
+          en: "Liquidity is the constraint"
         },
         panelBody: {
-          zh: "我们优先保留流动性回收路径，而不是用复杂风险换一个更好看的数字。",
-          en: "We preserve liquidity recovery paths before reaching for prettier numbers."
-        }
-      },
-      {
-        kicker: "03 / Discipline",
-        title: {
-          zh: "先保留退出能力，再谈收益增强",
+          zh: "先保留退出能力，再谈收益增强。",
           en: "Preserve exit capacity before yield enhancement."
+        }
+      },
+      {
+        kicker: "03 / Continuous Security",
+        title: {
+          zh: "安全不是一次性的审计。",
+          en: "Security is not a one-time audit."
         },
         body: {
-          zh: "监控、约束与纪律先于收益包装。",
-          en: "Monitoring, constraints, and discipline come before yield packaging."
+          zh: "它是贯穿策略生命周期的监控、预警、复核与响应。",
+          en: "It is monitoring, warning, review, and response across the full strategy lifecycle."
         },
         panelTitle: {
-          zh: "Monitoring before marketing",
-          en: "Monitoring before marketing"
+          zh: "Always watching the path",
+          en: "Always watching the path"
         },
         panelBody: {
-          zh: "我们更愿意公开原则、监控维度和响应框架，而不是用故事包装高收益。",
-          en: "We would rather publish principles, monitoring dimensions, and response frameworks than package yield with a story."
+          zh: "系统持续观察 Coinbase、cbBTC 与 Morpho vault 的关键依赖。",
+          en: "The system keeps watching Coinbase, cbBTC, and Morpho vault dependencies."
         }
       }
     ],
     manifesto: {
       title: {
-        zh: "不是卖高收益，而是管理风险结构",
-        en: "Not selling high yield, but managing risk structure."
+        zh: "非托管。透明。长期主义。",
+        en: "Non-custodial. Transparent. Long-term."
       },
       body: {
-        zh: "Pangolins 的价值，不在于把 APY 讲得更动听，而在于把风险边界讲得更清楚。",
-        en: "Pangolins creates value by making risk boundaries clearer, not by making APY sound more exciting."
+        zh: "资金不由 Pangolins 托管；风险必须被说明；策略不为短期热点改变边界。",
+        en: "Funds are not custodied by Pangolins. Risk must be explained. Strategy boundaries should not drift for short-term narratives."
       },
       pillars: [
         {
-          title: { zh: "流动性第一", en: "Liquidity First" },
+          title: { zh: "非托管", en: "Non-custodial" },
           body: {
-            zh: "优先保留可退出性。",
-            en: "Exit capacity comes first."
+            zh: "我们提供策略与风控，不接管用户资产。",
+            en: "We provide strategy and risk control, not custody."
           }
         },
         {
-          title: { zh: "监控优先", en: "Monitoring First" },
+          title: { zh: "透明", en: "Transparent" },
           body: {
-            zh: "持续观察链上变化与市场压力。",
-            en: "Continuously watch onchain change and market stress."
+            zh: "公开原则、风险路径与监控维度。",
+            en: "We publish principles, risk paths, and monitoring dimensions."
           }
         },
         {
-          title: { zh: "纪律执行", en: "Execution Discipline" },
+          title: { zh: "长期主义", en: "Long-term" },
           body: {
-            zh: "不为更高数字牺牲原则。",
-            en: "Do not trade principles for prettier numbers."
+            zh: "不为短期热点牺牲退出能力。",
+            en: "We do not trade exit capacity for short-term trends."
           }
         }
       ]
     },
     cta: {
       title: {
-        zh: "细节不必全部公开，原则必须足够清楚",
-        en: "Details need not be fully public, but principles must be clear."
+        zh: "看见我们如何看风险。",
+        en: "See how we watch risk."
       },
       body: {
-        zh: "进入 Monitoring，查看这个 vault 当前的状态、监控维度与风险边界。",
-        en: "Go to Monitoring for the vault's current posture, monitoring dimensions, and public risk boundary."
+        zh: "进入 Monitoring，查看 Coinbase / cbBTC / Morpho vault 的公开风险路径与当前状态。",
+        en: "Open Monitoring to view the public risk paths and current posture for Coinbase / cbBTC / Morpho vault dependencies."
       }
     }
   }

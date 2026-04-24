@@ -9,8 +9,8 @@ export default async function MonitoringPage() {
   const snapshot = await getMonitoringSnapshot();
 
   return (
-    <main className="site-shell">
-      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-8 md:py-10">
+    <main className="site-shell bg-[#f8fbff]">
+      <div className="mx-auto flex max-w-6xl flex-col gap-5 px-6 py-7 md:py-9">
         <div className="flex items-center justify-between border-b border-[color:var(--line)] pb-4 text-sm text-[#647083]">
           <Link href="/" className="font-mono uppercase text-[#0f172a]">
             Pangolins
@@ -23,35 +23,40 @@ export default async function MonitoringPage() {
           </div>
         </div>
 
-        <section className="dossier-panel rounded-[2rem] border border-[color:var(--line)] px-5 py-6 md:px-7">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-3xl space-y-4">
-              <p className="dossier-label">Monitoring / Transparency</p>
-              <h1 className="font-display text-balance text-4xl font-semibold text-[#0f172a] md:text-5xl">
+        <section className="rounded-[2rem] border border-[color:var(--line)] bg-white/82 px-5 py-6 shadow-[0_24px_90px_rgba(15,23,42,0.05)] backdrop-blur-xl md:px-7">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.42fr)] lg:items-end">
+            <div className="max-w-3xl">
+              <p className="font-mono text-[11px] uppercase text-[#2f80ff]">
+                Monitoring / Transparency
+              </p>
+              <h1 className="mt-4 text-balance text-4xl font-semibold leading-[1.02] text-[#0f172a] md:text-6xl">
                 实时监控与风险透明度
               </h1>
-              <p className="text-sm text-[var(--accent-strong)]">Monitoring &amp; Transparency</p>
-              <p className="max-w-2xl text-sm leading-7 text-[#5c6879]">{snapshot.headline}</p>
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-[#5c6879]">
+                {snapshot.headline}
+              </p>
             </div>
-            <div className="grid gap-2 text-sm text-[var(--muted)] md:text-right">
-              <p>
-                <span className="text-slate-500">Vault</span>{" "}
-                <span className="font-mono text-xs text-[#0f172a]">{snapshot.vault.address}</span>
+            <div className="rounded-[1.5rem] border border-[#e2e8f0] bg-[#f8fbff] p-4 text-sm text-[var(--muted)]">
+              <p className="font-mono text-[11px] uppercase text-[#7a8797]">Vault</p>
+              <p className="mt-2 break-all font-mono text-xs text-[#0f172a]">
+                {snapshot.vault.address}
               </p>
-              <p>
-                <span className="text-slate-500">Chain</span> {snapshot.vault.chain}
-              </p>
-              <p>
-                <span className="text-slate-500">Curator</span> {snapshot.vault.curator}
-              </p>
-              <p>
-                <span className="text-slate-500">Feed</span> {snapshot.asOf}
-              </p>
+              <div className="mt-4 grid grid-cols-2 gap-3">
+                <p>
+                  <span className="block text-xs text-slate-500">Chain</span>
+                  {snapshot.vault.chain}
+                </p>
+                <p>
+                  <span className="block text-xs text-slate-500">Curator</span>
+                  {snapshot.vault.curator}
+                </p>
+              </div>
+              <p className="mt-3 text-xs text-slate-500">Feed: {snapshot.asOf}</p>
               <Link
                 href={snapshot.vault.link}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-2 inline-flex items-center justify-start text-sm font-medium text-[var(--accent-strong)] md:justify-end"
+                className="mt-4 inline-flex items-center text-sm font-semibold text-[var(--accent-strong)]"
               >
                 Morpho Vault
               </Link>
@@ -59,8 +64,8 @@ export default async function MonitoringPage() {
           </div>
         </section>
 
-        <MonitoringSummaryStrip items={snapshot.summary} />
         <MonitoringStatusCards cards={snapshot.statusCards} />
+        <MonitoringSummaryStrip items={snapshot.summary} />
         <MonitoringSections sections={snapshot.sections} />
         <RecentEvents events={snapshot.recentEvents} />
       </div>

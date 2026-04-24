@@ -3,13 +3,11 @@ import MonitoringPage from "../app/monitoring/page";
 import { getMonitoringSnapshot } from "../lib/api/monitoring";
 
 describe("monitoring page", () => {
-  it("renders the Morpho vault summary, status cards, and transparency sections", async () => {
+  it("renders the Morpho vault safety board and compact risk-path language", async () => {
     const page = await MonitoringPage();
     render(page);
 
-    expect(
-      screen.getByRole("heading", { name: /实时监控与风险透明度/i })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /实时监控与风险透明度/i })).toBeInTheDocument();
     expect(
       screen.getByText(/0x1401d1271c47648ac70cbcdfa3776d4a87ce006b/i)
     ).toBeInTheDocument();
@@ -28,27 +26,25 @@ describe("monitoring page", () => {
     const summaryStrip = screen.getByRole("region", {
       name: /monitoring summary/i
     });
-    expect(within(summaryStrip).getByText("Coinbase / 托管路径")).toBeInTheDocument();
-    expect(within(summaryStrip).getByText("cbBTC / 抵押路径")).toBeInTheDocument();
-    expect(within(summaryStrip).getByText("Response / 响应准备")).toBeInTheDocument();
+    expect(within(summaryStrip).getByText("Coinbase 安全路径")).toBeInTheDocument();
+    expect(within(summaryStrip).getByText("cbBTC 链上路径")).toBeInTheDocument();
+    expect(within(summaryStrip).getByText("Morpho Vault 状态")).toBeInTheDocument();
 
     expect(
-      screen.getByRole("heading", {
-        name: /为什么我们关注 Coinbase \/ cbBTC \/ Morpho 这条路径/i
-      })
-    ).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /我们在看什么/i })).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { name: /principles & rules/i })
+      screen.getByRole("heading", { name: /三条风险路径/i })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /当风险上升时，我们如何响应/i })
+      screen.getByRole("heading", { name: /我们的系统在看什么/i })
+    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Principles & Rules/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /风险上升时如何响应/i })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /透明，不等于自废武功/i })
+      screen.getByRole("heading", { name: /透明，不等于公开全部执行细节/i })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /技术能力不能消灭风险，只能更早识别风险/i })
+      screen.getByRole("heading", { name: /技术能力不能消灭风险/i })
     ).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /recent events/i })).toBeInTheDocument();
     expect(screen.getByText(/Mock feed heartbeat refreshed\./i)).toBeInTheDocument();

@@ -12,50 +12,48 @@ export function AppleManifesto({ language }: AppleManifestoProps) {
   const manifesto = siteCopy.home.manifesto;
 
   return (
-    <section className="bg-white py-28 md:py-40">
+    <section className="relative overflow-hidden bg-white py-28 md:py-44">
+      <div className="pointer-events-none absolute inset-x-0 top-1/2 h-px bg-[#e2e8f0]" />
       <motion.div
-        className="mx-auto max-w-7xl px-6"
-        initial={reduceMotion ? undefined : { opacity: 0, y: 24 }}
+        className="relative mx-auto max-w-7xl px-6"
+        initial={reduceMotion ? undefined : { opacity: 0, y: 28 }}
         whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-15% 0px" }}
         transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="grid gap-16 lg:grid-cols-[minmax(0,1.12fr)_minmax(0,0.88fr)] lg:items-start">
-          <div className="space-y-7">
-            <p className="apple-eyebrow">Product Thesis</p>
-            <h2 className="max-w-4xl text-balance text-5xl font-semibold text-[#0b1220] md:text-7xl md:leading-[0.98]">
-              {manifesto.title[language]}
-            </h2>
-            <p className="max-w-2xl text-xl leading-9 text-[#4b5563] md:text-2xl md:leading-10">
-              {manifesto.body[language]}
-            </p>
-          </div>
-          <div className="border-t border-[#dfe4ec]">
-            {manifesto.pillars.map((pillar, index) => (
-              <motion.article
-                key={pillar.title.en}
-                className="grid gap-5 border-b border-[#dfe4ec] py-8 sm:grid-cols-[4rem_minmax(0,1fr)]"
-                initial={reduceMotion ? undefined : { opacity: 0, y: 20 }}
-                whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-15% 0px" }}
-                transition={{
-                  duration: 0.45,
-                  delay: reduceMotion ? 0 : index * 0.08,
-                  ease: [0.22, 1, 0.36, 1]
-                }}
-              >
-                <p className="font-mono text-sm uppercase text-[#9aa4b4]">
-                  0{index + 1}
-                </p>
-                <div>
-                  <h3 className="text-2xl font-semibold text-[#111827]">
-                    {pillar.title[language]}
-                  </h3>
-                  <p className="mt-3 text-lg leading-8 text-[#5b6472]">{pillar.body[language]}</p>
-                </div>
-              </motion.article>
-            ))}
-          </div>
+        <div className="mx-auto max-w-5xl text-center">
+          <p className="apple-eyebrow">Product Thesis</p>
+          <h2 className="mt-6 text-balance text-5xl font-semibold leading-[0.96] text-[#07111f] md:text-7xl lg:text-[5.8rem]">
+            {manifesto.title[language]}
+          </h2>
+          <p className="mx-auto mt-7 max-w-3xl text-balance text-xl leading-9 text-[#526071] md:text-2xl md:leading-10">
+            {manifesto.body[language]}
+          </p>
+        </div>
+
+        <div className="mt-16 grid gap-3 md:grid-cols-3">
+          {manifesto.pillars.map((pillar, index) => (
+            <motion.article
+              key={pillar.title.en}
+              className="rounded-[2rem] border border-[#e2e8f0] bg-white/78 px-6 py-6 text-center shadow-[0_24px_80px_rgba(15,23,42,0.04)] backdrop-blur"
+              initial={reduceMotion ? undefined : { opacity: 0, y: 18 }}
+              whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-15% 0px" }}
+              transition={{
+                duration: 0.45,
+                delay: reduceMotion ? 0 : index * 0.08,
+                ease: [0.22, 1, 0.36, 1]
+              }}
+            >
+              <p className="font-mono text-[11px] uppercase text-[#2f80ff]">
+                0{index + 1}
+              </p>
+              <h3 className="mt-4 text-2xl font-semibold text-[#07111f]">
+                {pillar.title[language]}
+              </h3>
+              <p className="mt-3 text-sm leading-6 text-[#647083]">{pillar.body[language]}</p>
+            </motion.article>
+          ))}
         </div>
       </motion.div>
     </section>

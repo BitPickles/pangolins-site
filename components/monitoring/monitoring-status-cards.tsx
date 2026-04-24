@@ -18,11 +18,11 @@ const indicatorClasses: Record<MonitoringStatusCard["tone"], string> = {
 
 export function MonitoringStatusCards({ cards }: MonitoringStatusCardsProps) {
   return (
-    <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+    <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
       {cards.map((card) => (
         <article
           key={card.title}
-          className="rounded-[1.5rem] border border-[color:var(--line)] bg-white/68 px-5 py-5 backdrop-blur-xl"
+          className="rounded-[1.5rem] border border-[color:var(--line)] bg-white/86 px-5 py-5 shadow-[0_18px_70px_rgba(15,23,42,0.04)] backdrop-blur-xl"
         >
           <div className="flex items-center justify-between gap-3">
             <p className="font-mono text-[11px] uppercase text-[#7a8797]">{card.title}</p>
@@ -33,8 +33,8 @@ export function MonitoringStatusCards({ cards }: MonitoringStatusCardsProps) {
               {card.tone === "normal" ? "Nominal" : card.tone === "watch" ? "Watch" : "Elevated"}
             </span>
           </div>
-          <p className="mt-4 text-xl font-semibold text-[#0f172a]">{card.value}</p>
-          <p className="mt-3 text-sm leading-6 text-[#647083]">{card.note}</p>
+          <p className="mt-5 text-2xl font-semibold text-[#0f172a]">{card.value}</p>
+          <p className="mt-2 text-xs leading-5 text-[#647083]">{card.note}</p>
         </article>
       ))}
     </section>
