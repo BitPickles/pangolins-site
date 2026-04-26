@@ -27,7 +27,16 @@ describe("home page", () => {
     expect(screen.getByRole("heading", { name: "安全不是一次审计，而是一套持续运行的纪律。" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "收益可以复制，信任必须积累。" })).toBeInTheDocument();
     expect(screen.getByTestId("principle-band")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "非托管" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "拒绝黑箱" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "主动筛选" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "过度抵押" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "透明披露" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "防御执行" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "看见风险如何被拆开。" })).toBeInTheDocument();
+    expect(screen.queryByText(/cbBTC/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Coinbase/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/USDC Vault/i)).not.toBeInTheDocument();
   });
 
   it("exposes the required CTA destinations", () => {
@@ -59,6 +68,9 @@ describe("home page", () => {
       screen.getByRole("heading", { name: "A Curator is not a yield wrapper. It is a boundary keeper." })
     ).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Security is not a one-time audit. It is operating discipline." })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Non-custodial" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "No black boxes" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Over-collateralized" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "EN" })).toHaveAttribute("aria-pressed", "true");
   });
 });

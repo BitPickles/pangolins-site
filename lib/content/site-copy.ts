@@ -22,8 +22,8 @@ export const siteCopy = {
         en: "Trust is not a promise. It is verifiable action."
       },
       body: {
-        zh: "Pangolins 是 Morpho 上的 Curator 风险管理策略。我们不包装收益，不托管资金，而是把市场选择、流动性约束与异常响应做成一套持续运行的纪律。",
-        en: "Pangolins is a Morpho Curator risk-management strategy. We do not package yield or custody funds; we turn market selection, liquidity constraints, and abnormal-response discipline into a continuous operating system."
+        zh: "Pangolins 是 Morpho 上的 Curator 风险管理策略。我们不包装收益，不托管资金，而是把市场选择、流动性约束、持续监控与防御性执行做成一套长期纪律。",
+        en: "Pangolins is a Morpho Curator risk-management strategy. We do not package yield or custody funds; we turn market selection, liquidity constraints, continuous monitoring, and defensive execution into long-term discipline."
       },
       primaryCta: {
         zh: "查看监控与透明度",
@@ -33,7 +33,7 @@ export const siteCopy = {
         zh: "在 Morpho 查看 Vault",
         en: "Morpho Vault"
       },
-      chips: ["Morpho Curator", "USDC Vault", "cbBTC Path", "Trust-first"],
+      chips: ["Morpho Curator", "Non-custodial", "Risk-first", "Trust-first"],
       metrics: [
         {
           label: "Trust",
@@ -95,8 +95,8 @@ export const siteCopy = {
           en: "Security is not a one-time audit. It is operating discipline."
         },
         body: {
-          zh: "Coinbase 的托管连续性、cbBTC 的链上流转、Morpho Vault 的可回收流动性，都会进入同一个观察框架。",
-          en: "Coinbase continuity, cbBTC onchain movement, and Morpho Vault recoverable liquidity are watched inside one operating frame."
+          zh: "市场、抵押品、流动性、预言机、执行环境与异常信号，都会进入同一个观察框架。",
+          en: "Markets, collateral, liquidity, oracles, execution conditions, and abnormal signals are watched inside one operating frame."
         },
         panelTitle: {
           zh: "Watch the path",
@@ -114,22 +114,43 @@ export const siteCopy = {
         en: "Yield can be copied. Trust has to compound."
       },
       body: {
-        zh: "旧文章里最重要的不是口号，而是边界：拒绝链下黑箱交易，主动筛选市场，只做过度抵押结构，持续监控并保留防御性响应。",
-        en: "The strongest idea from the original Pangolins thesis was not a slogan, but a boundary: no offchain black boxes, proactive market selection, over-collateralized structures, continuous monitoring, and defensive response."
+        zh: "Pangolins 的原则不是一组宣传语，而是一组边界：资金不被托管，收益来源要可解释，市场要被筛选，风险上升时先保护退出能力。",
+        en: "Pangolins principles are not slogans; they are boundaries: funds are not custodied, yield sources must be explainable, markets must be selected, and exit capacity comes first when risk rises."
       },
       pillars: [
         {
-          title: { zh: "链上可验证", en: "Verifiable" },
+          title: { zh: "非托管", en: "Non-custodial" },
           body: {
-            zh: "原则、vault 与关键依赖路径公开；行动以链上记录为准。",
-            en: "Principles, the vault, and key dependency paths are public; actions are grounded in onchain records."
+            zh: "Pangolins 提供策略与风控，不接管用户资产。",
+            en: "Pangolins provides strategy and risk control, not custody."
+          }
+        },
+        {
+          title: { zh: "拒绝黑箱", en: "No black boxes" },
+          body: {
+            zh: "不依赖不可验证的链下交易、私下承诺或模糊收益来源。",
+            en: "No unverifiable offchain deals, private promises, or opaque yield sources."
           }
         },
         {
           title: { zh: "主动筛选", en: "Proactive" },
           body: {
-            zh: "优秀市场不靠游说进入；我们先看抵押品、流动性和依赖关系。",
-            en: "Markets do not enter through lobbying; collateral, liquidity, and dependencies are evaluated first."
+            zh: "先看协议、抵押品、流动性和依赖关系，再决定是否进入市场。",
+            en: "Protocols, collateral, liquidity, and dependencies are evaluated before entering a market."
+          }
+        },
+        {
+          title: { zh: "过度抵押", en: "Over-collateralized" },
+          body: {
+            zh: "偏好风险结构清晰、抵押充分、退出路径可解释的借贷市场。",
+            en: "Preference goes to lending markets with clear structure, sufficient collateral, and explainable exits."
+          }
+        },
+        {
+          title: { zh: "透明披露", en: "Transparent" },
+          body: {
+            zh: "公开原则、收益来源、风险路径和方法论，不公开会削弱执行质量的触发器。",
+            en: "Principles, yield sources, risk paths, and methodology are public; execution-sensitive triggers are not."
           }
         },
         {
@@ -147,8 +168,8 @@ export const siteCopy = {
         en: "See risk broken into paths."
       },
       body: {
-        zh: "监控页不暴露完整策略触发器；它公开 Coinbase、cbBTC 与 Morpho Vault 的风险路径、状态和响应边界。",
-        en: "The monitoring page does not expose full strategy triggers; it publishes the Coinbase, cbBTC, and Morpho Vault risk paths, status, and response boundaries."
+        zh: "进入 Monitoring，查看当前策略的公开风险路径、状态和响应边界。首页讲长期方法论，监控页展示当前执行环境。",
+        en: "Open Monitoring to view the current strategy's public risk paths, status, and response boundaries. The homepage explains the long-term method; Monitoring shows the current execution environment."
       }
     }
   }

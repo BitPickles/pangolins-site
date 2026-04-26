@@ -74,7 +74,7 @@ export function AppleHero({ language }: AppleHeroProps) {
           <div className="relative flex items-center justify-between">
             <div>
               <p className="font-mono text-[11px] uppercase text-[#7a8797]">Risk Engine</p>
-              <p className="mt-1 text-sm font-semibold text-[#07111f]">Pangolins USDC Vault</p>
+              <p className="mt-1 text-sm font-semibold text-[#07111f]">Pangolins Curator Framework</p>
             </div>
             <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 font-mono text-[10px] uppercase text-emerald-700">
               Normal
@@ -98,7 +98,7 @@ export function AppleHero({ language }: AppleHeroProps) {
             <div className="relative flex h-32 w-32 items-center justify-center rounded-full bg-white shadow-[0_28px_80px_rgba(47,128,255,0.18)]">
               <BrandMark className="w-20" />
             </div>
-            {["Coinbase", "cbBTC", "Morpho"].map((label, index) => (
+            {["Market", "Collateral", "Liquidity"].map((label, index) => (
               <span
                 key={label}
                 className={[

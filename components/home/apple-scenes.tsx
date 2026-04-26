@@ -18,8 +18,8 @@ const visualLabels: Array<Record<SiteLanguage, readonly string[]>> = [
     en: ["Boundary", "Exit", "Discipline"]
   },
   {
-    zh: ["Coinbase", "cbBTC", "Morpho"],
-    en: ["Coinbase", "cbBTC", "Morpho"]
+    zh: ["监控", "预警", "响应"],
+    en: ["Monitor", "Alert", "Respond"]
   }
 ];
 
