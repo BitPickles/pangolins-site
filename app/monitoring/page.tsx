@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandMark, BrandWordmark } from "@/components/brand-mark";
 import { MonitoringSections } from "@/components/monitoring/monitoring-sections";
 import { RecentEvents } from "@/components/monitoring/recent-events";
 import { MonitoringStatusCards } from "@/components/monitoring/monitoring-status-cards";
@@ -12,8 +13,10 @@ export default async function MonitoringPage() {
     <main data-testid="monitoring-shell" className="site-shell bg-[#f7faff]">
       <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-6 md:py-8">
         <div className="flex items-center justify-between rounded-full border border-[#e2e8f0] bg-white/78 px-4 py-2.5 text-sm text-[#647083] shadow-[0_14px_50px_rgba(15,23,42,0.05)] backdrop-blur-2xl">
-          <Link href="/" className="font-mono uppercase text-[#0f172a]">
-            Pangolins
+          <Link href="/" className="flex items-center gap-2.5">
+            <BrandMark className="w-8" />
+            <span className="sr-only">Pangolins</span>
+            <BrandWordmark />
           </Link>
           <div className="flex items-center gap-4">
             <Link href="/">首页</Link>
