@@ -1,7 +1,9 @@
 import type { MonitoringStatusCard } from "@/lib/content/monitoring-data";
+import type { SiteLanguage } from "@/lib/content/site-copy";
 
 type MonitoringStatusCardsProps = {
   cards: MonitoringStatusCard[];
+  language: SiteLanguage;
 };
 
 const toneClasses: Record<MonitoringStatusCard["tone"], string> = {
@@ -16,7 +18,20 @@ const indicatorClasses: Record<MonitoringStatusCard["tone"], string> = {
   alert: "bg-rose-500"
 };
 
-export function MonitoringStatusCards({ cards }: MonitoringStatusCardsProps) {
+const toneLabels: Record<SiteLanguage, Record<MonitoringStatusCard["tone"], string>> = {
+  zh: {
+    normal: "正常",
+    watch: "观察",
+    alert: "升高"
+  },
+  en: {
+    normal: "Nominal",
+    watch: "Watch",
+    alert: "Elevated"
+  }
+};
+
+export function MonitoringStatusCards({ cards, language }: MonitoringStatusCardsProps) {
   return (
     <section className="launch-surface grid gap-0 overflow-hidden rounded-[2rem] md:grid-cols-2 xl:grid-cols-4">
       {cards.map((card) => (
@@ -28,7 +43,7 @@ export function MonitoringStatusCards({ cards }: MonitoringStatusCardsProps) {
             <p className="font-mono text-[11px] uppercase text-[#7a8797]">{card.title}</p>
             <span className={`inline-flex items-center gap-1.5 font-mono text-[10px] uppercase ${toneClasses[card.tone]}`}>
               <span className={`h-1.5 w-1.5 rounded-full ${indicatorClasses[card.tone]}`} aria-hidden="true" />
-              {card.tone === "normal" ? "Nominal" : card.tone === "watch" ? "Watch" : "Elevated"}
+              {toneLabels[language][card.tone]}
             </span>
           </div>
           <p className="mt-6 text-2xl font-semibold text-[#07111f]">{card.value}</p>
