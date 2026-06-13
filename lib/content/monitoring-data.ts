@@ -1,3 +1,5 @@
+import liveData from "./monitoring-live.json";
+
 export type MonitoringTone = "normal" | "watch" | "alert";
 
 export type MonitoringSummaryItem = {
@@ -108,7 +110,7 @@ export type MonitoringSnapshot = {
   recentEvents: string[];
 };
 
-export const monitoringSnapshot: MonitoringSnapshot = {
+const staticSnapshot: MonitoringSnapshot = {
   asOf: "Public preview · not live",
   vault: {
     name: "Pangolins USDC Vault",
@@ -707,3 +709,170 @@ export const monitoringSnapshot: MonitoringSnapshot = {
     "VAULT · cbBTC, Morpho and Base modules active."
   ]
 };
+
+// ---------------------------------------------------------------------------
+// Live data overlay
+//
+// Real values are injected at build time from `monitoring-live.json`, refreshed
+// every 6h by .github/workflows/refresh-monitoring.yml. Any field a source
+// failed to provide stays at the static fallback above, so the build never
+// breaks and the UI never renders an empty value.
+// ---------------------------------------------------------------------------
+
+type LiveMonitoringData = {
+  generatedAt?: string;
+  sources?: Record<string, string>;
+  current?: Record<string, number | undefined>;
+  series?: Record<string, number[] | undefined>;
+};
+
+function fmtUsd(n?: number): string | undefined {
+  if (n == null || !Number.isFinite(n)) return undefined;
+  const abs = Math.abs(n);
+  if (abs >= 1e9) return `$${(n / 1e9).toFixed(2)}B`;
+  if (abs >= 1e6) return `$${(n / 1e6).toFixed(2)}M`;
+  if (abs >= 1e3) return `$${(n / 1e3).toFixed(1)}K`;
+  return `$${n.toFixed(0)}`;
+}
+
+function fmtUnitsK(n?: number): string | undefined {
+  if (n == null || !Number.isFinite(n)) return undefined;
+  return Math.abs(n) >= 1e3 ? `${(n / 1e3).toFixed(2)}K` : n.toFixed(2);
+}
+
+function fmtPct(n?: number, signed = false): string | undefined {
+  if (n == null || !Number.isFinite(n)) return undefined;
+  const body = `${n.toFixed(n != null && Math.abs(n) < 1 ? 3 : 1)}%`;
+  return signed && n >= 0 ? `+${body}` : body;
+}
+
+function toPoints(values?: number[]): MonitoringSeriesPoint[] | undefined {
+  if (!values || values.length === 0) return undefined;
+  const last = values.length - 1;
+  return values.map((value, i) => ({ label: i === last ? "Now" : `T-${last - i}`, value }));
+}
+
+function toneForBasis(pct?: number): MonitoringTone | undefined {
+  if (pct == null) return undefined;
+  const a = Math.abs(pct);
+  return a > 1 ? "alert" : a > 0.3 ? "watch" : "normal";
+}
+
+function toneForGas(gwei?: number): MonitoringTone | undefined {
+  if (gwei == null) return undefined;
+  return gwei > 2 ? "alert" : gwei > 0.5 ? "watch" : "normal";
+}
+
+function applyLiveData(base: MonitoringSnapshot, live: LiveMonitoringData): MonitoringSnapshot {
+  const snap = structuredClone(base);
+  const cur = live.current ?? {};
+  const series = live.series ?? {};
+
+  if (live.generatedAt) {
+    snap.asOf = live.generatedAt;
+    for (const mod of snap.monitoringModules) {
+      mod.updatedAt = live.generatedAt;
+    }
+  }
+
+  const findChart = (moduleId: MonitoringModuleId, chartId: string) =>
+    snap.monitoringModules.find((m) => m.id === moduleId)?.charts.find((c) => c.id === chartId);
+
+  // One row per chart. `seriesValues` is aligned to the chart's existing series
+  // order; `replaceSeries` rebuilds the series list (used to drop stale lines).
+  const updates: Array<{
+    moduleId: MonitoringModuleId;
+    chartId: string;
+    value?: string;
+    tone?: MonitoringTone;
+    seriesValues?: Array<number[] | undefined>;
+    replaceSeries?: Array<number[] | undefined>;
+  }> = [
+    {
+      moduleId: "cbbtc",
+      chartId: "cbbtc-onchain-supply",
+      value: fmtUnitsK(cur.cbbtcSupply),
+      seriesValues: [series.cbbtcSupply]
+    },
+    {
+      moduleId: "cbbtc",
+      chartId: "cbbtc-base-liquidity",
+      value: fmtUsd(cur.cbbtcBaseNotional),
+      seriesValues: [series.cbbtcBaseNotional]
+    },
+    {
+      moduleId: "cbbtc",
+      chartId: "cbbtc-btc-price-basis",
+      value: fmtPct(cur.basisPct, true),
+      tone: toneForBasis(cur.basisPct),
+      seriesValues: [series.cbbtcBasis]
+    },
+    {
+      moduleId: "morpho",
+      chartId: "morpho-multichain-tvl",
+      value: fmtUsd(cur.multichainTotal),
+      replaceSeries: [series.multichainEth, series.multichainBase]
+    },
+    {
+      moduleId: "morpho",
+      chartId: "morpho-market-utilization",
+      value: fmtPct(cur.utilization != null ? cur.utilization * 100 : undefined),
+      seriesValues: [series.utilization]
+    },
+    {
+      moduleId: "morpho",
+      chartId: "morpho-vault-tvl",
+      value: fmtUsd(cur.vaultTvlUsd),
+      seriesValues: [series.vaultTvl]
+    },
+    {
+      moduleId: "base",
+      chartId: "base-usdc-supply",
+      value: fmtUsd(cur.usdcSupply),
+      seriesValues: [series.usdcSupply]
+    },
+    {
+      moduleId: "base",
+      chartId: "base-block-production",
+      value: cur.blockTime != null ? `${cur.blockTime.toFixed(1)}s` : undefined,
+      seriesValues: [series.blockTime]
+    },
+    {
+      moduleId: "base",
+      chartId: "base-gas-pressure",
+      value: cur.gasGwei != null ? `${cur.gasGwei.toFixed(3)} gwei` : undefined,
+      tone: toneForGas(cur.gasGwei),
+      seriesValues: [series.gas]
+    }
+  ];
+
+  for (const u of updates) {
+    const chart = findChart(u.moduleId, u.chartId);
+    if (!chart) continue;
+    if (u.value) chart.value = u.value;
+    if (u.tone) chart.tone = u.tone;
+    if (u.replaceSeries) {
+      const rebuilt = u.replaceSeries
+        .map((values, i) => {
+          const pts = toPoints(values);
+          if (!pts) return null;
+          const name = chart.series[i]?.name ?? `series-${i}`;
+          return { name, points: pts };
+        })
+        .filter((s): s is MonitoringChartSeries => s !== null);
+      if (rebuilt.length > 0) chart.series = rebuilt;
+    } else if (u.seriesValues) {
+      chart.series = chart.series.map((s, i) => {
+        const pts = toPoints(u.seriesValues?.[i]);
+        return pts ? { ...s, points: pts } : s;
+      });
+    }
+  }
+
+  return snap;
+}
+
+export const monitoringSnapshot: MonitoringSnapshot = applyLiveData(
+  staticSnapshot,
+  liveData as LiveMonitoringData
+);

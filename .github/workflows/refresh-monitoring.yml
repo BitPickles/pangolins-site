@@ -1,0 +1,44 @@
+name: Refresh monitoring data
+
+# Pulls live data for the Pangolins vault every 6 hours and commits the refreshed
+# snapshot to main. The commit triggers the existing "Deploy static site" workflow,
+# which rebuilds and redeploys the page with the new numbers baked in.
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-monitoring
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Fetch live monitoring data
+        run: npm run fetch:monitoring
+
+      - name: Commit refreshed snapshot
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- lib/content/monitoring-live.json; then
+            echo "No data change; nothing to commit."
+            exit 0
+          fi
+          git add lib/content/monitoring-live.json
+          git commit -m "chore: refresh monitoring data [skip ci]"
+          git push

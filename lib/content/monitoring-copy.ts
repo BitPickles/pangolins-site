@@ -63,8 +63,8 @@ export const monitoringCopy = {
       en: "This page summarizes the public monitors supporting the current vault: collateral, Morpho runtime, and Base chain conditions."
     },
     dataNotice: {
-      zh: "公开预览，非实时数据源。",
-      en: "Public preview, not a live feed."
+      zh: "链上公开数据，每 6 小时刷新。",
+      en: "Public onchain data, refreshed every 6h."
     },
     monitorTree: { zh: "监控结构", en: "Monitor Tree" },
     monitorTreeBody: {
@@ -95,8 +95,8 @@ export const monitoringCopy = {
     publicModule: { zh: "公开模块", en: "Public module" },
     scope: { zh: "范围", en: "Scope" },
     scopeBody: {
-      zh: "公开快照。接入实时数据后，模块结构保持不变。",
-      en: "Public preview. The module structure remains stable when live sources are connected."
+      zh: "实时数据每 6 小时刷新；模块结构保持稳定。",
+      en: "Live data is refreshed every 6h; the module structure stays stable."
     },
     checks: { zh: "检查项", en: "Checks" },
     timeSeries: { zh: "时间序列", en: "Time Series" },
@@ -118,9 +118,9 @@ export const monitoringCopy = {
     },
     {
       title: { zh: "数据模式", en: "Feed Mode" },
-      value: { zh: "公开预览", en: "Public preview" },
-      note: { zh: "当前为演示数据层，不代表实时监控结果。", en: "Current data is a preview layer, not a live monitor output." },
-      tone: "watch"
+      value: { zh: "实时 · 6h", en: "Live · 6h" },
+      note: { zh: "每 6 小时从链上与协议公开源刷新。", en: "Refreshed every 6h from public onchain and protocol sources." },
+      tone: "normal"
     },
     {
       title: { zh: "活跃模块", en: "Active Modules" },
@@ -137,8 +137,8 @@ export const monitoringCopy = {
   ] satisfies LocalizedStatusCard[],
   recentEvents: [
     {
-      zh: "Vault 公开预览已生成。",
-      en: "Vault public preview rendered."
+      zh: "Vault 实时监控已接入。",
+      en: "Vault live monitoring connected."
     },
     {
       zh: "当前未观察到需要升级披露的公开事件。",
@@ -174,9 +174,12 @@ export const monitoringCopy = {
         },
         "cbbtc-base-liquidity": {
           title: { zh: "Base 流动性", en: "Base Liquidity" },
-          unit: { zh: "美元深度", en: "USD depth" },
-          detail: { zh: "Base 上 cbBTC 相关流动性的公开深度。", en: "Public liquidity depth for cbBTC routes on Base." },
-          seriesNames: [{ zh: "可观察流动性", en: "Tracked liquidity" }]
+          unit: { zh: "名义价值（近似）", en: "notional (proxy)" },
+          detail: {
+            zh: "以 Base 上 cbBTC 名义价值（发行量 × 价格）作为流动性近似；真实 DEX 深度为二期接入。",
+            en: "On-Base cbBTC notional (supply × price) as a liquidity proxy; true DEX depth lands in phase 2."
+          },
+          seriesNames: [{ zh: "cbBTC 名义价值", en: "cbBTC notional" }]
         },
         "cbbtc-btc-price-basis": {
           title: { zh: "BTC 价格偏离", en: "BTC Price Basis" },
@@ -192,9 +195,9 @@ export const monitoringCopy = {
         { label: { zh: "发行方依赖", en: "Issuer dependency" }, value: { zh: "单独标记", en: "Explicit" }, source: { zh: "发行方依赖清单", en: "Issuer dependency register" } }
       ],
       events: [
-        { zh: "cbBTC 发行量曲线已纳入公开预览。", en: "cbBTC supply series is included in the public preview." },
+        { zh: "cbBTC 发行量与价格偏离已接入实时监控。", en: "cbBTC supply and price basis are connected to live monitoring." },
         { zh: "当前未观察到需要升级披露的公开事件。", en: "No public event currently requires escalation." },
-        { zh: "流动性与价格偏离模块已预留实时接入。", en: "Liquidity and basis modules are prepared for live source integration." }
+        { zh: "Base 流动性当前以名义价值近似，真实 DEX 深度为二期。", en: "Base liquidity is a notional proxy for now; true DEX depth is phase 2." }
       ]
     },
     morpho: {
@@ -216,12 +219,10 @@ export const monitoringCopy = {
         "morpho-multichain-tvl": {
           title: { zh: "多链 TVL", en: "Multi-chain TVL" },
           unit: { zh: "追踪 TVL", en: "tracked TVL" },
-          detail: { zh: "Morpho 在主要链上的 TVL 变化。", en: "Morpho TVL changes across major chains." },
+          detail: { zh: "Morpho 在 Ethereum 与 Base 上的 TVL（来自 DeFiLlama）。", en: "Morpho TVL on Ethereum and Base (via DeFiLlama)." },
           seriesNames: [
             { zh: "Ethereum", en: "Ethereum" },
-            { zh: "Base", en: "Base" },
-            { zh: "Arbitrum", en: "Arbitrum" },
-            { zh: "Optimism", en: "Optimism" }
+            { zh: "Base", en: "Base" }
           ]
         },
         "morpho-market-utilization": {
@@ -244,9 +245,9 @@ export const monitoringCopy = {
         { label: { zh: "执行窗口", en: "Execution window" }, value: { zh: "内部保护", en: "Protected" }, source: { zh: "内部响应层", en: "Internal response layer" } }
       ],
       events: [
-        { zh: "Morpho TVL 与利用率曲线已纳入公开预览。", en: "Morpho TVL and utilization are included in the public preview." },
+        { zh: "Morpho 多链 TVL、利用率与 Vault TVL 已接入实时监控。", en: "Morpho multi-chain TVL, utilization, and vault TVL are connected to live monitoring." },
         { zh: "当前未观察到需要升级披露的公开事件。", en: "No public event currently requires escalation." },
-        { zh: "Vault 持仓与预言机模块已预留实时接入。", en: "Vault position and oracle modules are prepared for live source integration." }
+        { zh: "预言机状态模块已预留实时接入。", en: "The oracle sanity module is prepared for live source integration." }
       ]
     },
     base: {
@@ -291,9 +292,9 @@ export const monitoringCopy = {
         { label: { zh: "RPC 延迟", en: "RPC latency" }, value: { zh: "未见异常", en: "Nominal" }, source: { zh: "基础设施可用性观察", en: "Provider telemetry monitor" } }
       ],
       events: [
-        { zh: "Base USDC、出块与 Gas 指标已纳入公开预览。", en: "Base USDC, block, and gas metrics are included in the public preview." },
+        { zh: "Base USDC、出块与 Gas 指标已接入实时监控。", en: "Base USDC, block cadence, and gas metrics are connected to live monitoring." },
         { zh: "当前未观察到需要升级披露的公开事件。", en: "No public event currently requires escalation." },
-        { zh: "Sequencer 与 RPC 模块已预留实时接入。", en: "Sequencer and RPC modules are prepared for live source integration." }
+        { zh: "Sequencer 健康遥测模块已预留实时接入。", en: "The sequencer health telemetry module is prepared for live source integration." }
       ]
     }
   } satisfies Record<MonitoringModuleId, LocalizedModuleCopy>

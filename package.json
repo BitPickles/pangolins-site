@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "vitest run"
+    "test": "vitest run",
+    "fetch:monitoring": "node scripts/fetch-monitoring.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.10.5",

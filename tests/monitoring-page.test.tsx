@@ -84,7 +84,7 @@ describe("monitoring page", () => {
     expect(screen.queryByRole("heading", { name: /收益可以复制，信任必须积累/i })).not.toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: /透明，不等于消灭风险/i })).not.toBeInTheDocument();
     expect(screen.queryByText(/旧文章/i)).not.toBeInTheDocument();
-    expect(screen.getByText(/Base USDC、出块与 Gas 指标已纳入公开预览/i)).toBeInTheDocument();
+    expect(screen.getByText(/Base USDC、出块与 Gas 指标已接入实时监控/i)).toBeInTheDocument();
     expect(screen.queryByText(/围绕 Base 作为执行环境建立独立面板/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/adapter pending|placeholder/i)).not.toBeInTheDocument();
 
@@ -99,14 +99,14 @@ describe("monitoring page", () => {
 
     expect(screen.getByRole("button", { name: /中文/i })).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByRole("link", { name: "首页" })).toHaveAttribute("href", "/");
-    expect(screen.getByText("公开预览，非实时数据源。")).toBeInTheDocument();
+    expect(screen.getByText("链上公开数据，每 6 小时刷新。")).toBeInTheDocument();
     expect(screen.getAllByText("一个 Vault，总览在上，子监控在下。").length).toBeGreaterThanOrEqual(1);
 
     await user.click(screen.getByRole("button", { name: "EN" }));
 
     expect(screen.getByRole("button", { name: "EN" })).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByRole("link", { name: "Home" })).toHaveAttribute("href", "/");
-    expect(screen.getByText("Public preview, not a live feed.")).toBeInTheDocument();
+    expect(screen.getByText("Public onchain data, refreshed every 6h.")).toBeInTheDocument();
     expect(screen.getAllByText("One vault overview with dedicated child monitors.").length).toBeGreaterThanOrEqual(1);
     expect(screen.getByRole("button", { name: "Collapse sidebar" })).toBeInTheDocument();
   });
