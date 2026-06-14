@@ -676,7 +676,10 @@ export function MonitoringDashboard({ vaults }: MonitoringDashboardProps) {
                     {localize(layoutCopy.dataCenterTitle, language)}
                   </h1>
                   <p className="mt-7 max-w-4xl text-sm leading-7 text-[#5c6879] md:text-base">
-                    {localize(layoutCopy.headline, language)}
+                    {layoutCopy.headline.zh}
+                  </p>
+                  <p className="mt-3 max-w-4xl text-sm leading-6 text-[#9aa6b6]">
+                    {layoutCopy.headline.en}
                   </p>
                 </article>
 
