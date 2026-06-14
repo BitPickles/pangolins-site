@@ -59,8 +59,8 @@ export const monitoringCopy = {
     dataCenter: { zh: "数据中心", en: "Data Center" },
     dataCenterTitle: { zh: "Pangolins 数据中心", en: "Pangolins Data Center" },
     headline: {
-      zh: "这是 Pangolins 监控能力的公开展示。抵押资产、协议运行与链环境，只是我们持续跟踪的众多维度中的一部分——真实运营监控远比这里呈现的更深、更全。",
-      en: "A public showcase of Pangolins monitoring. Collateral, protocol runtime, and chain conditions are only part of what we continuously track — our real operational monitoring runs far deeper and broader than what is shown here."
+      zh: "这里是 Pangolins 监控体系的公开一隅。抵押资产、协议运行与链环境之下，是一套更深、更广的持续监控。",
+      en: "A public glimpse into the Pangolins monitoring system. Beneath collateral, protocol, and chain runs a deeper, broader layer of continuous monitoring."
     },
     dataNotice: {
       zh: "公开展示视图，仅为完整监控的一部分。",
