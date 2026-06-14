@@ -1,4 +1,4 @@
-import type { MonitoringModuleId, MonitoringTone } from "@/lib/content/monitoring-data";
+import type { MonitoringModuleId, MonitoringTone, MonitoringVaultId } from "@/lib/content/monitoring-data";
 import type { SiteLanguage } from "@/lib/content/site-copy";
 
 type LocalizedText = Record<SiteLanguage, string>;
@@ -59,17 +59,17 @@ export const monitoringCopy = {
     dataCenter: { zh: "数据中心", en: "Data Center" },
     dataCenterTitle: { zh: "Pangolins 数据中心", en: "Pangolins Data Center" },
     headline: {
-      zh: "当前页面汇总这个 Vault 相关的公开监控：抵押资产、Morpho 协议运行与 Base 链环境。",
-      en: "This page summarizes the public monitors supporting the current vault: collateral, Morpho runtime, and Base chain conditions."
+      zh: "这是 Pangolins 监控能力的公开展示。抵押资产、协议运行与链环境，只是我们持续跟踪的众多维度中的一部分——真实运营监控远比这里呈现的更深、更全。",
+      en: "A public showcase of Pangolins monitoring. Collateral, protocol runtime, and chain conditions are only part of what we continuously track — our real operational monitoring runs far deeper and broader than what is shown here."
     },
     dataNotice: {
-      zh: "链上公开数据，每 6 小时刷新。",
-      en: "Public onchain data, refreshed every 6h."
+      zh: "公开展示视图，仅为完整监控的一部分。",
+      en: "Public showcase — a subset of our full monitoring."
     },
     monitorTree: { zh: "监控结构", en: "Monitor Tree" },
     monitorTreeBody: {
-      zh: "一个 Vault，总览在上，子监控在下。",
-      en: "One vault overview with dedicated child monitors."
+      zh: "点开金库即可展开它的子监控。",
+      en: "Select a vault to expand its child monitors."
     },
     nextModules: { zh: "可扩展模块", en: "Expansion slots" },
     futureModules: {
@@ -79,8 +79,8 @@ export const monitoringCopy = {
     vaultOverview: { zh: "金库总览", en: "Vault overview" },
     vaultOverviewTitle: { zh: "Pangolins USDC Vault 总览", en: "Pangolins USDC Vault Overview" },
     vaultOverviewBody: {
-      zh: "总览只呈现当前 Vault 的公开状态和监控路径。更细的执行阈值与时序不会作为公开信号暴露。",
-      en: "The overview presents public status and monitor paths for the current vault. Execution thresholds and timing are not exposed as public signals."
+      zh: "这是面向公众的展示视图，呈现当前 Vault 的公开状态与部分监控路径；实际运营监控覆盖的维度远多于此，更细的执行阈值与时序也不会作为公开信号暴露。",
+      en: "A public-facing showcase of the vault's status and selected monitor paths. Our operational monitoring covers far more, and finer execution thresholds and timing are never exposed as public signals."
     },
     vaultLabel: { zh: "金库", en: "Vault" },
     chainLabel: { zh: "链", en: "Chain" },
@@ -95,8 +95,8 @@ export const monitoringCopy = {
     publicModule: { zh: "公开模块", en: "Public module" },
     scope: { zh: "范围", en: "Scope" },
     scopeBody: {
-      zh: "实时数据每 6 小时刷新；模块结构保持稳定。",
-      en: "Live data is refreshed every 6h; the module structure stays stable."
+      zh: "这是面向公众的展示视图；真实运营监控覆盖更多维度、更高频率。",
+      en: "A public-facing showcase; real operational monitoring covers more dimensions at higher frequency."
     },
     checks: { zh: "检查项", en: "Checks" },
     timeSeries: { zh: "时间序列", en: "Time Series" },
@@ -117,21 +117,9 @@ export const monitoringCopy = {
       tone: "normal"
     },
     {
-      title: { zh: "数据模式", en: "Feed Mode" },
-      value: { zh: "实时 · 6h", en: "Live · 6h" },
-      note: { zh: "每 6 小时从链上与协议公开源刷新。", en: "Refreshed every 6h from public onchain and protocol sources." },
-      tone: "normal"
-    },
-    {
-      title: { zh: "活跃模块", en: "Active Modules" },
-      value: { zh: "3 个", en: "3" },
-      note: { zh: "cbBTC、Morpho、Base 已独立拆分。", en: "cbBTC, Morpho, and Base are split into dedicated monitors." },
-      tone: "normal"
-    },
-    {
-      title: { zh: "扩展能力", en: "Expansion Slots" },
-      value: { zh: "开放", en: "Open" },
-      note: { zh: "未来新市场可以按模块接入。", en: "Future markets can be added as independent modules." },
+      title: { zh: "展示模式", en: "Display Mode" },
+      value: { zh: "公开展示", en: "Showcase" },
+      note: { zh: "对外展示样本；实际监控的维度与深度远不止于此。", en: "A public sample; our operational monitoring goes far deeper." },
       tone: "normal"
     }
   ] satisfies LocalizedStatusCard[],
@@ -149,6 +137,22 @@ export const monitoringCopy = {
       en: "cbBTC, Morpho, and Base child monitors are active."
     }
   ],
+  vaults: {
+    usdc: {
+      recentEvents: [
+        { zh: "Vault 实时监控已接入。", en: "Vault live monitoring connected." },
+        { zh: "当前未观察到需要升级披露的公开事件。", en: "No public event currently requires escalation." },
+        { zh: "cbBTC、Morpho、Base 子监控已启用。", en: "cbBTC, Morpho, and Base child monitors are active." }
+      ]
+    },
+    usdt: {
+      recentEvents: [
+        { zh: "Vault 实时监控已接入。", en: "Vault live monitoring connected." },
+        { zh: "当前未观察到需要升级披露的公开事件。", en: "No public event currently requires escalation." },
+        { zh: "USDT、Lista、BSC 子监控已启用。", en: "USDT, Lista, and BSC child monitors are active." }
+      ]
+    }
+  } satisfies Record<MonitoringVaultId, { recentEvents: LocalizedText[] }>,
   modules: {
     cbbtc: {
       navLabel: { zh: "cbBTC", en: "cbBTC" },
@@ -295,6 +299,150 @@ export const monitoringCopy = {
         { zh: "Base USDC、出块与 Gas 指标已接入实时监控。", en: "Base USDC, block cadence, and gas metrics are connected to live monitoring." },
         { zh: "当前未观察到需要升级披露的公开事件。", en: "No public event currently requires escalation." },
         { zh: "Sequencer 健康遥测模块已预留实时接入。", en: "The sequencer health telemetry module is prepared for live source integration." }
+      ]
+    },
+    usdt: {
+      navLabel: { zh: "USDT", en: "USDT" },
+      navSubLabel: { zh: "金库资产", en: "Vault asset" },
+      title: { zh: "USDT 资产监控", en: "USDT Asset Monitor" },
+      status: { zh: "正常", en: "Normal" },
+      description: {
+        zh: "跟踪 USDT 脱锚、BSC 链上发行量，以及金库份额净值增长。",
+        en: "Tracks USDT peg, BSC issuance, and vault share-price growth."
+      },
+      metrics: [
+        { label: { zh: "脱锚监控", en: "Peg Monitor" }, detail: { zh: "观察 USDT 与 $1 的公开价差。", en: "Observes public USDT versus $1 basis." } },
+        { label: { zh: "份额净值", en: "Share Price" }, detail: { zh: "金库份额净值的累积增长。", en: "Vault share-price accrual over time." } },
+        { label: { zh: "链上发行量", en: "Onchain Supply" }, detail: { zh: "记录 BSC 上 USDT 发行量。", en: "Tracks USDT supply on BSC." } },
+        { label: { zh: "异常流转", en: "Flow Anomaly" }, detail: { zh: "关注大额转移与集中度变化。", en: "Watches large transfers and concentration changes." } }
+      ],
+      charts: {
+        "usdt-peg": {
+          title: { zh: "USDT 脱锚", en: "USDT Peg" },
+          unit: { zh: "USDT vs $1", en: "USDT vs $1" },
+          detail: { zh: "USDT 公开价格与 $1 的偏离。", en: "USDT public price versus $1." },
+          seriesNames: [{ zh: "脱锚幅度", en: "Peg basis" }]
+        },
+        "usdt-share-price": {
+          title: { zh: "份额净值", en: "Share Price" },
+          unit: { zh: "份额净值", en: "share price" },
+          detail: { zh: "金库份额净值（totalAssets / totalSupply）。", en: "Vault share price (totalAssets / totalSupply)." },
+          seriesNames: [{ zh: "份额净值", en: "Share price" }]
+        },
+        "usdt-onchain-supply": {
+          title: { zh: "BSC USDT 发行量", en: "BSC USDT Supply" },
+          unit: { zh: "USDT 发行", en: "USDT issued" },
+          detail: { zh: "BSC 链 USDT 总发行量。", en: "Total USDT supply on BSC." },
+          seriesNames: [{ zh: "BSC USDT", en: "BSC USDT" }]
+        }
+      },
+      checks: [
+        { label: { zh: "脱锚幅度", en: "Peg deviation" }, value: { zh: "接近锚定", en: "Near parity" }, source: { zh: "USDT 公开价格 vs $1", en: "USDT public price vs $1" } },
+        { label: { zh: "份额净值", en: "Share price" }, value: { zh: "持续累积", en: "Accruing" }, source: { zh: "金库 totalAssets / totalSupply", en: "Vault totalAssets / totalSupply" } },
+        { label: { zh: "发行量变化", en: "Supply change" }, value: { zh: "未见突变", en: "No abrupt move" }, source: { zh: "BSC USDT 发行量序列", en: "BSC USDT supply series" } },
+        { label: { zh: "发行方依赖", en: "Issuer dependency" }, value: { zh: "单独标记", en: "Explicit" }, source: { zh: "发行方依赖清单", en: "Issuer dependency register" } }
+      ],
+      events: [
+        { zh: "USDT 脱锚与发行量已接入实时监控。", en: "USDT peg and supply are connected to live monitoring." },
+        { zh: "当前未观察到需要升级披露的公开事件。", en: "No public event currently requires escalation." },
+        { zh: "份额净值序列已接入实时监控。", en: "The share-price series is connected to live monitoring." }
+      ]
+    },
+    lista: {
+      navLabel: { zh: "Lista", en: "Lista" },
+      navSubLabel: { zh: "协议运行", en: "Protocol runtime" },
+      title: { zh: "Lista 借贷监控", en: "Lista Lending Monitor" },
+      status: { zh: "正常", en: "Normal" },
+      description: {
+        zh: "跟踪 Lista 多链 TVL、协议利用率，以及 Pangolins 金库 TVL。",
+        en: "Tracks Lista multi-chain TVL, protocol utilization, and the Pangolins vault TVL."
+      },
+      metrics: [
+        { label: { zh: "多链 TVL", en: "Multi-chain TVL" }, detail: { zh: "观察 Lista 在 BSC 与 Ethereum 的 TVL。", en: "Tracks Lista TVL on BSC and Ethereum." } },
+        { label: { zh: "协议利用率", en: "Utilization" }, detail: { zh: "借出 / 供给比例。", en: "Borrowed / supplied ratio." } },
+        { label: { zh: "金库 TVL", en: "Vault TVL" }, detail: { zh: "Pangolins USDT 金库规模。", en: "Pangolins USDT vault size." } },
+        { label: { zh: "执行准备", en: "Allocator Readiness" }, detail: { zh: "保留操作准备状态。", en: "Keeps the response layer ready." } }
+      ],
+      charts: {
+        "lista-multichain-tvl": {
+          title: { zh: "多链 TVL", en: "Multi-chain TVL" },
+          unit: { zh: "追踪 TVL", en: "tracked TVL" },
+          detail: { zh: "Lista Lending 在 BSC 与 Ethereum 上的 TVL（来自 DeFiLlama）。", en: "Lista Lending TVL on BSC and Ethereum (via DeFiLlama)." },
+          seriesNames: [
+            { zh: "BSC", en: "BSC" },
+            { zh: "Ethereum", en: "Ethereum" }
+          ]
+        },
+        "lista-utilization": {
+          title: { zh: "协议利用率", en: "Protocol Utilization" },
+          unit: { zh: "加权", en: "weighted" },
+          detail: { zh: "Lista 借出 / 供给比例。", en: "Lista borrowed / supplied." },
+          seriesNames: [{ zh: "利用率", en: "Utilization" }]
+        },
+        "lista-vault-tvl": {
+          title: { zh: "Pangolins 金库 TVL", en: "Pangolins Vault TVL" },
+          unit: { zh: "USDT", en: "USDT" },
+          detail: { zh: "Pangolins USDT 金库规模（来自 DeFiLlama yields）。", en: "Pangolins USDT vault size (via DeFiLlama yields)." },
+          seriesNames: [{ zh: "金库 TVL", en: "Vault TVL" }]
+        }
+      },
+      checks: [
+        { label: { zh: "跨链 TVL", en: "Cross-chain TVL" }, value: { zh: "未见异常外流", en: "No abrupt outflow" }, source: { zh: "Lista 多链 TVL 序列", en: "Lista multi-chain TVL series" } },
+        { label: { zh: "利用率", en: "Utilization" }, value: { zh: "处于可观察区间", en: "Contained" }, source: { zh: "协议借出 / 供给", en: "Protocol borrowed / supplied" } },
+        { label: { zh: "金库 TVL", en: "Vault TVL" }, value: { zh: "稳定", en: "Stable" }, source: { zh: "Pangolins 金库 TVL 序列", en: "Pangolins vault TVL series" } },
+        { label: { zh: "执行窗口", en: "Execution window" }, value: { zh: "内部保护", en: "Protected" }, source: { zh: "内部响应层", en: "Internal response layer" } }
+      ],
+      events: [
+        { zh: "Lista 多链 TVL 与利用率已接入实时监控。", en: "Lista multi-chain TVL and utilization are connected to live monitoring." },
+        { zh: "当前未观察到需要升级披露的公开事件。", en: "No public event currently requires escalation." },
+        { zh: "金库 TVL 与 APY 已接入实时监控。", en: "Vault TVL and APY are connected to live monitoring." }
+      ]
+    },
+    bsc: {
+      navLabel: { zh: "BSC", en: "BSC" },
+      navSubLabel: { zh: "链环境", en: "Chain environment" },
+      title: { zh: "BSC 链环境监控", en: "BSC Chain Monitor" },
+      status: { zh: "正常", en: "Normal" },
+      description: {
+        zh: "跟踪 BSC Gas 压力、出块连续性与 BNB 价格。",
+        en: "Tracks BSC gas pressure, block cadence, and BNB price."
+      },
+      metrics: [
+        { label: { zh: "Gas 压力", en: "Gas Pressure" }, detail: { zh: "关注链上费用是否异常升高。", en: "Watches for abnormal fee pressure." } },
+        { label: { zh: "出块连续性", en: "Block Cadence" }, detail: { zh: "观察出块是否稳定。", en: "Observes whether block production remains stable." } },
+        { label: { zh: "BNB 价格", en: "BNB Price" }, detail: { zh: "观察原生代币价格。", en: "Observes the native token price." } },
+        { label: { zh: "RPC / 验证人", en: "RPC / Validators" }, detail: { zh: "观察基础设施可用性。", en: "Observes infrastructure availability." } }
+      ],
+      charts: {
+        "bsc-gas-pressure": {
+          title: { zh: "Gas 压力", en: "Gas Pressure" },
+          unit: { zh: "费用压力", en: "fee pressure" },
+          detail: { zh: "BSC 费用压力指数。", en: "BSC fee pressure index." },
+          seriesNames: [{ zh: "BSC gas", en: "BSC gas" }]
+        },
+        "bsc-block-production": {
+          title: { zh: "出块连续性", en: "Block Production" },
+          unit: { zh: "平均出块时间", en: "avg block time" },
+          detail: { zh: "BSC 出块连续性。", en: "BSC block production cadence." },
+          seriesNames: [{ zh: "出块时间", en: "Block time" }]
+        },
+        "bsc-bnb-price": {
+          title: { zh: "BNB 价格", en: "BNB Price" },
+          unit: { zh: "BNB / USD", en: "BNB / USD" },
+          detail: { zh: "BNB 公开价格。", en: "BNB public price." },
+          seriesNames: [{ zh: "BNB 价格", en: "BNB price" }]
+        }
+      },
+      checks: [
+        { label: { zh: "Gas 压力", en: "Gas pressure" }, value: { zh: "较低", en: "Low" }, source: { zh: "BSC 链上费用观察", en: "BSC onchain fee monitor" } },
+        { label: { zh: "出块连续性", en: "Block continuity" }, value: { zh: "稳定", en: "Stable" }, source: { zh: "BSC 出块状态观察", en: "BSC block cadence monitor" } },
+        { label: { zh: "BNB 价格", en: "BNB price" }, value: { zh: "持续观察", en: "Tracked" }, source: { zh: "BNB 公开价格", en: "Public BNB price" } },
+        { label: { zh: "RPC 延迟", en: "RPC latency" }, value: { zh: "未见异常", en: "Nominal" }, source: { zh: "基础设施可用性观察", en: "Provider telemetry monitor" } }
+      ],
+      events: [
+        { zh: "BSC Gas、出块与 BNB 指标已接入实时监控。", en: "BSC gas, block cadence, and BNB metrics are connected to live monitoring." },
+        { zh: "当前未观察到需要升级披露的公开事件。", en: "No public event currently requires escalation." },
+        { zh: "验证人健康遥测模块已预留实时接入。", en: "The validator health telemetry module is prepared for live source integration." }
       ]
     }
   } satisfies Record<MonitoringModuleId, LocalizedModuleCopy>

@@ -1,12 +1,14 @@
 import {
   monitoringSnapshot,
+  monitoringVaults,
   type MonitoringDataPanel,
   type MonitoringModule,
   type MonitoringSection,
   type MonitoringSnapshot,
   type MonitoringDomain,
   type MonitoringStatusCard,
-  type MonitoringSummaryItem
+  type MonitoringSummaryItem,
+  type MonitoringVault
 } from "@/lib/content/monitoring-data";
 
 function cloneSnapshot(): MonitoringSnapshot {
@@ -15,6 +17,10 @@ function cloneSnapshot(): MonitoringSnapshot {
 
 export async function getMonitoringSnapshot(): Promise<MonitoringSnapshot> {
   return cloneSnapshot();
+}
+
+export async function getMonitoringVaults(): Promise<MonitoringVault[]> {
+  return structuredClone(monitoringVaults);
 }
 
 export async function getMonitoringSummary(): Promise<MonitoringSummaryItem[]> {

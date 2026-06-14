@@ -13,16 +13,19 @@ import type {
   MonitoringStatusCard,
   MonitoringSeriesPoint,
   MonitoringSnapshot,
-  MonitoringTone
+  MonitoringTone,
+  MonitoringVault,
+  MonitoringVaultId
 } from "@/lib/content/monitoring-data";
 import { localize, monitoringCopy } from "@/lib/content/monitoring-copy";
 import type { SiteLanguage } from "@/lib/content/site-copy";
 
 type MonitoringDashboardProps = {
-  snapshot: MonitoringSnapshot;
+  vaults: MonitoringVault[];
 };
 
 type ActiveMonitorId = "overview" | MonitoringModuleId;
+type ActiveSelection = { vaultId: MonitoringVaultId; view: ActiveMonitorId };
 type LocalizedChartCopy = {
   title: Record<SiteLanguage, string>;
   unit: Record<SiteLanguage, string>;
@@ -162,21 +165,20 @@ function MonitoringChartCard({
 }
 
 function ModuleNavigation({
-  snapshot,
-  modules,
-  activeId,
+  vaults,
+  active,
+  expandedVaultId,
   isCollapsed,
   language,
   onSelect
 }: {
-  snapshot: MonitoringSnapshot;
-  modules: MonitoringModule[];
-  activeId: ActiveMonitorId;
+  vaults: MonitoringVault[];
+  active: ActiveSelection;
+  expandedVaultId: MonitoringVaultId | null;
   isCollapsed: boolean;
   language: SiteLanguage;
-  onSelect: (moduleId: ActiveMonitorId) => void;
+  onSelect: (selection: ActiveSelection) => void;
 }) {
-  const isOverviewActive = activeId === "overview";
   const copy = monitoringCopy.layout;
 
   return (
@@ -195,129 +197,174 @@ function ModuleNavigation({
         ) : null}
       </div>
 
-      <div className="mt-3 grid gap-2">
-        <button
-          type="button"
-          aria-pressed={isOverviewActive}
-          onClick={() => onSelect("overview")}
-          className={[
-            "group rounded-[1.35rem] border p-4 text-left transition",
-            isCollapsed ? "px-2 py-3 text-center" : "",
-            isOverviewActive
-              ? "border-[#0b1d3d] bg-[#07111f] text-white shadow-[0_18px_45px_rgba(7,17,31,0.16)]"
-              : "border-[#d9e4f1] bg-[#f8fbff] text-[#07111f] hover:border-[#bcd5f5] hover:bg-white"
-          ].join(" ")}
-        >
-          <div className={["flex items-start justify-between gap-3", isCollapsed ? "justify-center" : ""].join(" ")}>
-            <div className="min-w-0">
-              <span className={["block text-base font-semibold", isCollapsed ? "sr-only" : ""].join(" ")}>
-                {snapshot.vault.name}
-              </span>
-              <span className={["mt-1 block text-xs", isOverviewActive ? "text-white/62" : "text-[#7a8797]", isCollapsed ? "sr-only" : ""].join(" ")}>
-                {localize(copy.vaultOverview, language)}
-              </span>
-              {isCollapsed ? (
-                <span aria-hidden="true" className="block text-sm font-semibold">
-                  V
-                </span>
-              ) : null}
-            </div>
-            <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-emerald-500" />
-          </div>
-          <div className={["mt-4 flex items-center justify-between gap-3 border-t pt-3", isOverviewActive ? "border-white/14" : "border-[#e2e8f0]", isCollapsed ? "sr-only" : ""].join(" ")}>
-            <span className={["font-mono text-[10px] uppercase", isOverviewActive ? "text-white/48" : "text-[#8b98aa]"].join(" ")}>
-              {localize(copy.vaultLabel, language)}
-            </span>
-            <span className={["font-mono text-[10px] uppercase", isOverviewActive ? "text-emerald-200" : "text-emerald-700"].join(" ")}>
-              {localize(copy.statusSummary, language)}
-            </span>
-          </div>
-        </button>
-      </div>
-
-      <div
-        data-testid="monitoring-child-modules"
-        className={[
-          "mt-3 grid gap-2",
-          isCollapsed ? "" : "border-l border-[#dbe5f3] pl-3"
-        ].join(" ")}
-      >
-        {modules.map((module) => {
-          const isActive = module.id === activeId;
-          const moduleCopy = monitoringCopy.modules[module.id];
+      <div className="mt-3 grid gap-3">
+        {vaults.map((vault) => {
+          const vsnap = vault.snapshot;
+          const isExpanded = expandedVaultId === vault.id;
+          const isVaultOverviewActive = active.vaultId === vault.id && active.view === "overview";
+          const emblem = vault.id.slice(-1).toUpperCase();
+          const isMorpho = vsnap.vault.link.includes("morpho");
+          const venueTag = `${isMorpho ? "Morpho" : "Lista"} · ${vsnap.vault.chain}`;
+          const venueClass = isVaultOverviewActive
+            ? isMorpho
+              ? "border-[#2f80ff]/40 bg-[#2f80ff]/15 text-[#9cc2ff]"
+              : "border-[#15b8a6]/40 bg-[#15b8a6]/20 text-[#7fe6d8]"
+            : isMorpho
+              ? "border-[#bcd5f5] bg-[#eef6ff] text-[#2f80ff]"
+              : "border-[#9fe3da] bg-[#e6fbf7] text-[#0a9c8e]";
 
           return (
-            <button
-              key={module.id}
-              type="button"
-              aria-pressed={isActive}
-              onClick={() => onSelect(module.id)}
-              className={[
-                "group rounded-[1.35rem] border p-4 text-left transition",
-                isCollapsed ? "px-2 py-3 text-center" : "",
-                isActive
-                  ? "border-[#2f80ff] bg-[#eef6ff] shadow-[0_18px_45px_rgba(47,128,255,0.12)]"
-                  : "border-[#e2e8f0] bg-white/58 hover:border-[#bcd5f5] hover:bg-white"
-              ].join(" ")}
-            >
-              <div className={["flex items-start justify-between gap-3", isCollapsed ? "justify-center" : ""].join(" ")}>
-                <div className="min-w-0">
-                  <span className={["block text-base font-semibold text-[#07111f]", isCollapsed ? "sr-only" : ""].join(" ")}>
-                    {localize(moduleCopy.navLabel, language)}
-                  </span>
-                  <span className={["mt-1 block text-xs text-[#7a8797]", isCollapsed ? "sr-only" : ""].join(" ")}>
-                    {localize(moduleCopy.navSubLabel, language)}
-                  </span>
-                  {isCollapsed ? (
-                    <span aria-hidden="true" className="block text-sm font-semibold text-[#07111f]">
-                      {localize(moduleCopy.navLabel, language).slice(0, 1)}
+            <div key={vault.id} data-testid="monitoring-vault-group" data-vault={vault.id} data-expanded={String(isExpanded)}>
+              <button
+                type="button"
+                aria-pressed={isVaultOverviewActive}
+                aria-expanded={isExpanded}
+                onClick={() => onSelect({ vaultId: vault.id, view: "overview" })}
+                className={[
+                  "group w-full rounded-[1.35rem] border p-4 text-left transition",
+                  isCollapsed ? "px-2 py-3 text-center" : "",
+                  isVaultOverviewActive
+                    ? "border-[#0b1d3d] bg-[#07111f] text-white shadow-[0_18px_45px_rgba(7,17,31,0.16)]"
+                    : "border-[#d9e4f1] bg-[#f8fbff] text-[#07111f] hover:border-[#bcd5f5] hover:bg-white"
+                ].join(" ")}
+              >
+                <div className={["flex items-start justify-between gap-3", isCollapsed ? "justify-center" : ""].join(" ")}>
+                  <div className="min-w-0">
+                    <span className={["block text-base font-semibold", isCollapsed ? "sr-only" : ""].join(" ")}>
+                      {vsnap.vault.name}
                     </span>
-                  ) : null}
+                    <span className={["mt-1 block text-xs", isVaultOverviewActive ? "text-white/62" : "text-[#7a8797]", isCollapsed ? "sr-only" : ""].join(" ")}>
+                      {localize(copy.vaultOverview, language)}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className={[
+                        "mt-2 inline-flex w-fit items-center rounded-full border px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.06em]",
+                        venueClass,
+                        isCollapsed ? "hidden" : ""
+                      ].join(" ")}
+                    >
+                      {venueTag}
+                    </span>
+                    {isCollapsed ? (
+                      <span aria-hidden="true" className="block text-sm font-semibold">
+                        {emblem}
+                      </span>
+                    ) : null}
+                  </div>
+                  <span className={["flex shrink-0 items-center gap-2", isCollapsed ? "sr-only" : ""].join(" ")}>
+                    <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                    <span
+                      aria-hidden="true"
+                      className={[
+                        "font-mono text-[11px] transition-transform",
+                        isExpanded ? "rotate-180" : "",
+                        isVaultOverviewActive ? "text-white/70" : "text-[#8b98aa]"
+                      ].join(" ")}
+                    >
+                      ⌄
+                    </span>
+                  </span>
                 </div>
-                <span className={`mt-1 h-2 w-2 shrink-0 rounded-full ${toneDotClassName[module.statusTone]}`} />
+                <div className={["mt-4 flex items-center justify-between gap-3 border-t pt-3", isVaultOverviewActive ? "border-white/14" : "border-[#e2e8f0]", isCollapsed ? "sr-only" : ""].join(" ")}>
+                  <span className={["font-mono text-[10px] uppercase", isVaultOverviewActive ? "text-white/48" : "text-[#8b98aa]"].join(" ")}>
+                    {localize(copy.vaultLabel, language)}
+                  </span>
+                  <span className={["font-mono text-[10px] uppercase", isVaultOverviewActive ? "text-emerald-200" : "text-emerald-700"].join(" ")}>
+                    {localize(copy.statusSummary, language)}
+                  </span>
+                </div>
+              </button>
+
+              {/* Accordion body: animates open/closed via grid-template-rows
+                  (0fr -> 1fr) so height eases without measuring content. The
+                  inner wrapper clips overflow during the transition. Children
+                  stay mounted; aria-hidden + inert keep them out of the a11y
+                  tree and untabbable while collapsed. */}
+              <div
+                data-testid="monitoring-child-modules"
+                data-vault={vault.id}
+                data-expanded={String(isExpanded)}
+                aria-hidden={!isExpanded}
+                inert={isExpanded ? undefined : true}
+                className={[
+                  "grid transition-all duration-300 ease-out motion-reduce:transition-none",
+                  isExpanded ? "mt-2 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                ].join(" ")}
+              >
+                <div className="overflow-hidden">
+                  <div className={["grid gap-2", isCollapsed ? "" : "border-l border-[#dbe5f3] pl-3"].join(" ")}>
+                    {vsnap.monitoringModules.map((module) => {
+                      const isActive = active.vaultId === vault.id && active.view === module.id;
+                      const moduleCopy = monitoringCopy.modules[module.id];
+
+                      return (
+                        <button
+                          key={module.id}
+                          type="button"
+                          aria-pressed={isActive}
+                          onClick={() => onSelect({ vaultId: vault.id, view: module.id })}
+                          className={[
+                            "group rounded-[1.35rem] border p-4 text-left transition",
+                            isCollapsed ? "px-2 py-3 text-center" : "",
+                            isActive
+                              ? "border-[#2f80ff] bg-[#eef6ff] shadow-[0_18px_45px_rgba(47,128,255,0.12)]"
+                              : "border-[#e2e8f0] bg-white/58 hover:border-[#bcd5f5] hover:bg-white"
+                          ].join(" ")}
+                        >
+                          <div className={["flex items-start justify-between gap-3", isCollapsed ? "justify-center" : ""].join(" ")}>
+                            <div className="min-w-0">
+                              <span className={["block text-base font-semibold text-[#07111f]", isCollapsed ? "sr-only" : ""].join(" ")}>
+                                {localize(moduleCopy.navLabel, language)}
+                              </span>
+                              <span className={["mt-1 block text-xs text-[#7a8797]", isCollapsed ? "sr-only" : ""].join(" ")}>
+                                {localize(moduleCopy.navSubLabel, language)}
+                              </span>
+                              {isCollapsed ? (
+                                <span aria-hidden="true" className="block text-sm font-semibold text-[#07111f]">
+                                  {localize(moduleCopy.navLabel, language).slice(0, 1)}
+                                </span>
+                              ) : null}
+                            </div>
+                            <span className={`mt-1 h-2 w-2 shrink-0 rounded-full ${toneDotClassName[module.statusTone]}`} />
+                          </div>
+                          <div className={["mt-4 flex items-center justify-between gap-3 border-t border-[#e2e8f0] pt-3", isCollapsed ? "sr-only" : ""].join(" ")}>
+                            <span className="font-mono text-[10px] uppercase text-[#8b98aa]">{localize(copy.vaultStatus, language)}</span>
+                            <span className={`font-mono text-[10px] uppercase ${toneTextClassName[module.statusTone]}`}>
+                              {localize(moduleCopy.status, language)}
+                            </span>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
-              <div className={["mt-4 flex items-center justify-between gap-3 border-t border-[#e2e8f0] pt-3", isCollapsed ? "sr-only" : ""].join(" ")}>
-                <span className="font-mono text-[10px] uppercase text-[#8b98aa]">{localize(copy.vaultStatus, language)}</span>
-                <span className={`font-mono text-[10px] uppercase ${toneTextClassName[module.statusTone]}`}>
-                  {localize(moduleCopy.status, language)}
-                </span>
-              </div>
-            </button>
+            </div>
           );
         })}
       </div>
 
-      <div className={["mt-3 rounded-[1.45rem] border border-dashed border-[#cbd9ea] bg-white/46 p-4", isCollapsed ? "hidden" : ""].join(" ")}>
-        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a8797]">
-          {localize(copy.nextModules, language)}
-        </p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {copy.futureModules[language].map((module) => (
-            <span
-              key={module}
-              className="rounded-full border border-[#e2e8f0] bg-white px-3 py-1.5 text-xs text-[#647083]"
-            >
-              {module}
-            </span>
-          ))}
-        </div>
-      </div>
     </>
   );
 }
 
 function VaultOverviewPanel({
+  vaultId,
   snapshot,
   modules,
   language,
   onSelect
 }: {
+  vaultId: MonitoringVaultId;
   snapshot: MonitoringSnapshot;
   modules: MonitoringModule[];
   language: SiteLanguage;
   onSelect: (moduleId: MonitoringModuleId) => void;
 }) {
   const copy = monitoringCopy.layout;
+  const overviewTitle = `${snapshot.vault.name}${language === "zh" ? " 总览" : " Overview"}`;
+  const recentEvents = monitoringCopy.vaults[vaultId].recentEvents;
 
   return (
     <div className="grid min-w-0 gap-5">
@@ -340,35 +387,17 @@ function VaultOverviewPanel({
           </div>
         </div>
 
-        <div className="grid gap-5 p-5 md:p-6 xl:grid-cols-[minmax(0,1fr)_20rem]">
+        <div className="p-5 md:p-6">
           <div className="min-w-0">
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#2f80ff]">
               {localize(copy.vaultOverview, language)}
             </p>
             <h2 className="mt-3 text-3xl font-semibold leading-tight tracking-[-0.04em] text-[#07111f] md:text-5xl">
-              {localize(copy.vaultOverviewTitle, language)}
+              {overviewTitle}
             </h2>
             <p className="mt-4 max-w-4xl text-sm leading-7 text-[#5c6879] md:text-base">
               {localize(copy.vaultOverviewBody, language)}
             </p>
-          </div>
-
-          <div className="rounded-[1.5rem] border border-[#e2e8f0] bg-[#f8fbff] p-4">
-            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a8797]">
-              {localize(copy.vaultLabel, language)}
-            </p>
-            <p className="mt-3 text-xl font-semibold text-[#07111f]">{snapshot.vault.name}</p>
-            <p className="mt-2 break-all font-mono text-[11px] leading-5 text-[#647083]">{snapshot.vault.address}</p>
-            <div className="mt-4 grid grid-cols-2 gap-2">
-              <div className="rounded-[1rem] bg-white px-3 py-3">
-                <p className="text-xs text-[#7a8797]">{localize(copy.chainLabel, language)}</p>
-                <p className="font-semibold text-[#07111f]">{snapshot.vault.chain}</p>
-              </div>
-              <div className="rounded-[1rem] bg-white px-3 py-3">
-                <p className="text-xs text-[#7a8797]">{localize(copy.curatorLabel, language)}</p>
-                <p className="font-semibold text-[#07111f]">{snapshot.vault.curator}</p>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -421,68 +450,55 @@ function VaultOverviewPanel({
         </div>
       </article>
 
-      <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_23rem]">
-        <article className="launch-surface rounded-[2rem] p-5 md:p-6">
-          <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#2f80ff]">
-            {localize(copy.vaultStatus, language)}
-          </p>
-          <h3 className="mt-2 text-2xl font-semibold text-[#07111f]">
-            {localize(copy.currentSnapshot, language)}
-          </h3>
-          <div className="mt-4 grid gap-2">
-            {getLocalizedStatusCards(language).map((card) => (
-              <div key={card.title} className="rounded-[1.2rem] border border-[#e8eef7] bg-white/72 px-4 py-3">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="font-mono text-[10px] uppercase text-[#7a8797]">{card.title}</p>
-                    <p className="mt-2 text-lg font-semibold text-[#07111f]">{card.value}</p>
-                    <p className="mt-1 text-xs leading-5 text-[#647083]">{card.note}</p>
-                  </div>
-                  <span className={`mt-1 h-2 w-2 shrink-0 rounded-full ${toneDotClassName[card.tone]}`} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </article>
-
-        <article data-testid="alert-feed" className="launch-surface rounded-[2rem] p-5 md:p-6">
-          <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#2f80ff]">
-            {localize(copy.eventLog, language)}
-          </p>
-          <h3 className="mt-2 text-2xl font-semibold text-[#07111f]">
-            {localize(copy.vaultLog, language)}
-          </h3>
-          <ol className="mt-4 divide-y divide-[#e2e8f0]">
-            {monitoringCopy.recentEvents.map((event, index) => (
-              <li key={event.en} className="flex gap-3 py-3 first:pt-0 last:pb-0">
-                <span className="font-mono text-xs text-[#9aa6b6]">{String(index + 1).padStart(2, "0")}</span>
-                <p className="text-sm leading-6 text-[#5c6879]">{localize(event, language)}</p>
-              </li>
-            ))}
-          </ol>
-        </article>
-      </div>
+      <article data-testid="alert-feed" className="launch-surface rounded-[2rem] p-5 md:p-6">
+        <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#2f80ff]">
+          {localize(copy.eventLog, language)}
+        </p>
+        <h3 className="mt-2 text-2xl font-semibold text-[#07111f]">
+          {localize(copy.vaultLog, language)}
+        </h3>
+        <ol className="mt-4 divide-y divide-[#e2e8f0]">
+          {recentEvents.map((event, index) => (
+            <li key={event.en} className="flex gap-3 py-3 first:pt-0 last:pb-0">
+              <span className="font-mono text-xs text-[#9aa6b6]">{String(index + 1).padStart(2, "0")}</span>
+              <p className="text-sm leading-6 text-[#5c6879]">{localize(event, language)}</p>
+            </li>
+          ))}
+        </ol>
+      </article>
     </div>
   );
 }
 
-export function MonitoringDashboard({ snapshot }: MonitoringDashboardProps) {
-  const modules = snapshot.monitoringModules;
-  const [activeId, setActiveId] = useState<ActiveMonitorId>("overview");
+export function MonitoringDashboard({ vaults }: MonitoringDashboardProps) {
+  const [active, setActive] = useState<ActiveSelection>({ vaultId: vaults[0].id, view: "overview" });
+  const [expandedVaultId, setExpandedVaultId] = useState<MonitoringVaultId | null>(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [language, setLanguage] = useState<SiteLanguage>("zh");
-  const activeModule = activeId === "overview" ? null : modules.find((module) => module.id === activeId) ?? modules[0];
+
+  const activeVault = vaults.find((vault) => vault.id === active.vaultId) ?? vaults[0];
+  const snapshot = activeVault.snapshot;
+  const modules = snapshot.monitoringModules;
+  const activeModule = active.view === "overview" ? null : modules.find((module) => module.id === active.view) ?? null;
   const activeModuleCopy = activeModule ? monitoringCopy.modules[activeModule.id] : null;
   const layoutCopy = monitoringCopy.layout;
+  const vaultLinkLabel = snapshot.vault.link.includes("morpho") ? "Morpho Vault" : "Lista Vault";
+
+  // Accordion: selecting a vault card toggles its children (single-expand);
+  // selecting a child always keeps its vault expanded.
+  const handleSelect = (selection: ActiveSelection) => {
+    setActive(selection);
+    if (selection.view === "overview") {
+      setExpandedVaultId((prev) => (prev === selection.vaultId ? null : selection.vaultId));
+    } else {
+      setExpandedVaultId(selection.vaultId);
+    }
+  };
 
   useEffect(() => {
     setLanguage(readStoredLanguage());
   }, []);
-
-  if (!activeModule && activeId !== "overview") {
-    return null;
-  }
 
   return (
     <section
@@ -546,12 +562,12 @@ export function MonitoringDashboard({ snapshot }: MonitoringDashboardProps) {
 
         <div data-testid="monitoring-rail" className="mt-4 min-h-0 flex-1 overflow-y-auto">
           <ModuleNavigation
-            snapshot={snapshot}
-            modules={modules}
-            activeId={activeId}
+            vaults={vaults}
+            active={active}
+            expandedVaultId={expandedVaultId}
             isCollapsed={isCollapsed}
             language={language}
-            onSelect={setActiveId}
+            onSelect={handleSelect}
           />
         </div>
       </aside>
@@ -595,14 +611,18 @@ export function MonitoringDashboard({ snapshot }: MonitoringDashboardProps) {
           </div>
           <div className="mt-4">
             <ModuleNavigation
-              snapshot={snapshot}
-              modules={modules}
-              activeId={activeId}
+              vaults={vaults}
+              active={active}
+              expandedVaultId={expandedVaultId}
               isCollapsed={false}
               language={language}
-              onSelect={(moduleId) => {
-                setActiveId(moduleId);
-                setIsMobileOpen(false);
+              onSelect={(selection) => {
+                handleSelect(selection);
+                // Tapping a vault expands its children in place; only close the
+                // drawer once an actual child monitor is chosen.
+                if (selection.view !== "overview") {
+                  setIsMobileOpen(false);
+                }
               }}
             />
           </div>
@@ -645,7 +665,7 @@ export function MonitoringDashboard({ snapshot }: MonitoringDashboardProps) {
         </header>
 
         <div className="mx-auto mt-4 grid max-w-[96rem] gap-4">
-          {activeId === "overview" ? (
+          {active.view === "overview" ? (
             <>
               <section className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_24rem]">
                 <article className="launch-surface rounded-[2rem] p-5 md:p-6">
@@ -673,6 +693,16 @@ export function MonitoringDashboard({ snapshot }: MonitoringDashboardProps) {
                     </span>
                   </div>
                   <p className="mt-3 text-xl font-semibold text-[#07111f]">{snapshot.vault.name}</p>
+                  <span
+                    className={[
+                      "mt-2 inline-flex w-fit items-center rounded-full border px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.06em]",
+                      snapshot.vault.link.includes("morpho")
+                        ? "border-[#bcd5f5] bg-[#eef6ff] text-[#2f80ff]"
+                        : "border-[#9fe3da] bg-[#e6fbf7] text-[#0a9c8e]"
+                    ].join(" ")}
+                  >
+                    {snapshot.vault.link.includes("morpho") ? "Morpho" : "Lista"} · {snapshot.vault.chain}
+                  </span>
                   <p className="mt-3 break-all font-mono text-xs leading-6 text-[#0f172a]">
                     {snapshot.vault.address}
                   </p>
@@ -695,7 +725,7 @@ export function MonitoringDashboard({ snapshot }: MonitoringDashboardProps) {
                     rel="noreferrer"
                     className="launch-button-dark mt-5 min-h-10 px-4"
                   >
-                    Morpho Vault
+                    {vaultLinkLabel}
                   </Link>
                 </aside>
               </section>
@@ -706,12 +736,13 @@ export function MonitoringDashboard({ snapshot }: MonitoringDashboardProps) {
 
           <section data-testid="monitoring-layout" className="grid min-w-0 gap-5">
             <div data-testid="monitoring-module-panel" className="grid min-w-0 gap-5">
-              {activeId === "overview" ? (
+              {active.view === "overview" ? (
                 <VaultOverviewPanel
+                  vaultId={active.vaultId}
                   snapshot={snapshot}
                   modules={modules}
                   language={language}
-                  onSelect={(moduleId) => setActiveId(moduleId)}
+                  onSelect={(moduleId) => handleSelect({ vaultId: active.vaultId, view: moduleId })}
                 />
               ) : activeModule && activeModuleCopy ? (
                 <>
@@ -757,12 +788,6 @@ export function MonitoringDashboard({ snapshot }: MonitoringDashboardProps) {
                     <p className="mt-2 text-xs leading-5 text-[#647083]">
                       {localize(layoutCopy.scopeBody, language)}
                     </p>
-                    <div className="mt-4 rounded-[1rem] bg-white px-3 py-3">
-                      <p className="font-mono text-[10px] uppercase text-[#8b98aa]">
-                        {localize(layoutCopy.checks, language)}
-                      </p>
-                      <p className="mt-1 text-xl font-semibold text-[#07111f]">{activeModule.checks.length}</p>
-                    </div>
                   </div>
                 </div>
 

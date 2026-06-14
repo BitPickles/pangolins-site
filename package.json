@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "test": "vitest run",
-    "fetch:monitoring": "node scripts/fetch-monitoring.mjs"
+    "fetch:monitoring": "node scripts/fetch-monitoring.mjs",
+    "fetch:monitoring:lista": "node scripts/fetch-monitoring-lista.mjs",
+    "fetch:monitoring:all": "node scripts/fetch-monitoring.mjs && node scripts/fetch-monitoring-lista.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.10.5",

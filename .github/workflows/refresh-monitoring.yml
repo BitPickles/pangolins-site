@@ -28,17 +28,17 @@ jobs:
         with:
           node-version: 22
 
-      - name: Fetch live monitoring data
-        run: npm run fetch:monitoring
+      - name: Fetch live monitoring data (both vaults)
+        run: npm run fetch:monitoring:all
 
       - name: Commit refreshed snapshot
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet -- lib/content/monitoring-live.json; then
+          if git diff --quiet -- lib/content/monitoring-live.json lib/content/monitoring-live-usdt.json; then
             echo "No data change; nothing to commit."
             exit 0
           fi
-          git add lib/content/monitoring-live.json
+          git add lib/content/monitoring-live.json lib/content/monitoring-live-usdt.json
           git commit -m "chore: refresh monitoring data [skip ci]"
           git push

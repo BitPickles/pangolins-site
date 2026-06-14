@@ -33,11 +33,11 @@ const toneLabels: Record<SiteLanguage, Record<MonitoringStatusCard["tone"], stri
 
 export function MonitoringStatusCards({ cards, language }: MonitoringStatusCardsProps) {
   return (
-    <section className="launch-surface grid gap-0 overflow-hidden rounded-[2rem] md:grid-cols-2 xl:grid-cols-4">
+    <section className="launch-surface grid gap-0 overflow-hidden rounded-[2rem] md:grid-cols-2">
       {cards.map((card) => (
         <article
           key={card.title}
-          className="border-b border-[#e2e8f0] bg-white/54 px-5 py-5 last:border-b-0 md:border-r md:last:border-r-0 xl:border-b-0"
+          className="border-b border-[#e2e8f0] bg-white/54 px-5 py-5 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0"
         >
           <div className="flex items-center justify-between gap-3">
             <p className="font-mono text-[11px] uppercase text-[#7a8797]">{card.title}</p>

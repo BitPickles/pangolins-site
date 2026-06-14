@@ -20,7 +20,7 @@ describe("monitoring page", () => {
     expect(screen.getByRole("button", { name: "折叠侧栏" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "打开监控模块" })).toHaveAttribute("aria-expanded", "false");
     expect(screen.getByRole("heading", { name: /Pangolins 数据中心/i })).toBeInTheDocument();
-    expect(screen.getAllByText(/一个 Vault，总览在上，子监控在下/i).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(/点开金库即可展开它的子监控/i).length).toBeGreaterThanOrEqual(1);
     expect(
       screen.getAllByText(/0x1401d1271c47648ac70cbcdfa3776d4a87ce006b/i).length
     ).toBeGreaterThanOrEqual(1);
@@ -37,28 +37,36 @@ describe("monitoring page", () => {
     );
 
     const rail = screen.getByTestId("monitoring-rail");
-    expect(within(rail).getByRole("button", { name: /Pangolins USDC Vault/i })).toHaveAttribute(
-      "aria-pressed",
-      "true"
-    );
-    expect(within(rail).getByTestId("monitoring-child-modules")).toBeInTheDocument();
-    expect(within(rail).getByRole("button", { name: /cbBTC/i })).toHaveAttribute("aria-pressed", "false");
-    expect(within(rail).getByRole("button", { name: /Morpho/i })).toBeInTheDocument();
-    expect(within(rail).getByRole("button", { name: /Base/i })).toBeInTheDocument();
+    const usdcCard = within(rail).getByRole("button", { name: /Pangolins USDC Vault/i });
+    const usdtCard = within(rail).getByRole("button", { name: /Pangolins USDT Vault/i });
+    // Both vaults appear; USDC is the active overview by default.
+    expect(usdcCard).toHaveAttribute("aria-pressed", "true");
+    expect(usdtCard).toHaveAttribute("aria-pressed", "false");
+    // Child monitors are folded into the vault card until it is opened: both
+    // accordion bodies are mounted (for the open/close animation) but collapsed
+    // and aria-hidden, so they are absent from the accessibility tree.
+    const childGroups = within(rail).getAllByTestId("monitoring-child-modules");
+    expect(childGroups).toHaveLength(2);
+    expect(childGroups[0]).toHaveAttribute("data-expanded", "false");
+    expect(within(rail).queryByRole("button", { name: /cbBTC/i })).not.toBeInTheDocument();
 
     const modulePanel = screen.getByTestId("monitoring-module-panel");
     expect(within(modulePanel).getByRole("heading", { name: /Pangolins USDC Vault 总览/i })).toBeInTheDocument();
-    expect(within(modulePanel).getByText(/总览只呈现当前 Vault 的公开状态和监控路径/i)).toBeInTheDocument();
-    expect(within(modulePanel).queryByText(/这个总览聚合当前 Vault 的抵押品/i)).not.toBeInTheDocument();
+    expect(within(modulePanel).getByText(/面向公众的展示视图.*实际运营监控覆盖的维度远多于此/i)).toBeInTheDocument();
     expect(within(modulePanel).getByText("cbBTC 监控")).toBeInTheDocument();
     expect(within(modulePanel).getByText("Morpho 监控")).toBeInTheDocument();
     expect(within(modulePanel).getByText("Base 监控")).toBeInTheDocument();
 
+    // Open the USDC vault to reveal its child monitors.
+    await user.click(usdcCard);
+    expect(usdcCard).toHaveAttribute("aria-expanded", "true");
+    expect(within(rail).getAllByTestId("monitoring-child-modules")[0]).toHaveAttribute("data-expanded", "true");
+    expect(within(rail).getByRole("button", { name: /cbBTC/i })).toHaveAttribute("aria-pressed", "false");
+    expect(within(rail).getByRole("button", { name: /Morpho/i })).toBeInTheDocument();
+    expect(within(rail).getByRole("button", { name: /Base/i })).toBeInTheDocument();
+
     await user.click(within(rail).getByRole("button", { name: /cbBTC/i }));
-    expect(within(rail).getByRole("button", { name: /Pangolins USDC Vault/i })).toHaveAttribute(
-      "aria-pressed",
-      "false"
-    );
+    expect(usdcCard).toHaveAttribute("aria-pressed", "false");
     expect(within(rail).getByRole("button", { name: /cbBTC/i })).toHaveAttribute("aria-pressed", "true");
     expect(within(modulePanel).getByRole("heading", { name: /cbBTC 资产监控/i })).toBeInTheDocument();
     expect(within(modulePanel).getByText("链上发行量")).toBeInTheDocument();
@@ -79,17 +87,33 @@ describe("monitoring page", () => {
     expect(within(modulePanel).getByText("Base USDC 发行量")).toBeInTheDocument();
     expect(within(modulePanel).getAllByText("出块连续性").length).toBeGreaterThanOrEqual(1);
     expect(within(modulePanel).getAllByText("Gas 压力").length).toBeGreaterThanOrEqual(1);
-
-    expect(screen.queryByRole("heading", { name: /Curator 的职责不是包装收益/i })).not.toBeInTheDocument();
-    expect(screen.queryByRole("heading", { name: /收益可以复制，信任必须积累/i })).not.toBeInTheDocument();
-    expect(screen.queryByRole("heading", { name: /透明，不等于消灭风险/i })).not.toBeInTheDocument();
-    expect(screen.queryByText(/旧文章/i)).not.toBeInTheDocument();
     expect(screen.getByText(/Base USDC、出块与 Gas 指标已接入实时监控/i)).toBeInTheDocument();
-    expect(screen.queryByText(/围绕 Base 作为执行环境建立独立面板/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/adapter pending|placeholder/i)).not.toBeInTheDocument();
 
-    await user.click(within(rail).getByRole("button", { name: /Pangolins USDC Vault/i }));
-    expect(within(modulePanel).getByRole("heading", { name: /Pangolins USDC Vault 总览/i })).toBeInTheDocument();
+    // Accordion: opening the USDT vault collapses the USDC children and shows USDT.
+    await user.click(usdtCard);
+    expect(within(rail).queryByRole("button", { name: /cbBTC/i })).not.toBeInTheDocument();
+    expect(usdtCard).toHaveAttribute("aria-expanded", "true");
+    expect(within(modulePanel).getByRole("heading", { name: /Pangolins USDT Vault 总览/i })).toBeInTheDocument();
+    expect(within(modulePanel).getByText("USDT 监控")).toBeInTheDocument();
+    expect(within(modulePanel).getByText("Lista 监控")).toBeInTheDocument();
+    expect(within(modulePanel).getByText("BSC 监控")).toBeInTheDocument();
+
+    const usdtLink = screen.getByRole("link", { name: /lista vault/i });
+    expect(usdtLink).toHaveAttribute(
+      "href",
+      "https://lista.org/lending/vault/bsc/0xeb4f6ffb1038e1cca701e7d53083b37ec5b6ba33?tab=vault"
+    );
+
+    await user.click(within(rail).getByRole("button", { name: /Lista/i }));
+    expect(within(modulePanel).getByRole("heading", { name: /Lista 借贷监控/i })).toBeInTheDocument();
+    expect(within(modulePanel).getAllByText("多链 TVL").length).toBeGreaterThanOrEqual(1);
+    expect(within(modulePanel).getAllByText("协议利用率").length).toBeGreaterThanOrEqual(1);
+
+    await user.click(within(rail).getByRole("button", { name: /BSC/i }));
+    expect(within(modulePanel).getByRole("heading", { name: /BSC 链环境监控/i })).toBeInTheDocument();
+    expect(within(modulePanel).getAllByText("Gas 压力").length).toBeGreaterThanOrEqual(1);
+    expect(within(modulePanel).getAllByText("BNB 价格").length).toBeGreaterThanOrEqual(1);
   });
 
   it("switches the monitoring dashboard between Chinese and English user copy", async () => {
@@ -99,15 +123,15 @@ describe("monitoring page", () => {
 
     expect(screen.getByRole("button", { name: /中文/i })).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByRole("link", { name: "首页" })).toHaveAttribute("href", "/");
-    expect(screen.getByText("链上公开数据，每 6 小时刷新。")).toBeInTheDocument();
-    expect(screen.getAllByText("一个 Vault，总览在上，子监控在下。").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText("公开展示视图，仅为完整监控的一部分。")).toBeInTheDocument();
+    expect(screen.getAllByText("点开金库即可展开它的子监控。").length).toBeGreaterThanOrEqual(1);
 
     await user.click(screen.getByRole("button", { name: "EN" }));
 
     expect(screen.getByRole("button", { name: "EN" })).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByRole("link", { name: "Home" })).toHaveAttribute("href", "/");
-    expect(screen.getByText("Public onchain data, refreshed every 6h.")).toBeInTheDocument();
-    expect(screen.getAllByText("One vault overview with dedicated child monitors.").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText("Public showcase — a subset of our full monitoring.")).toBeInTheDocument();
+    expect(screen.getAllByText("Select a vault to expand its child monitors.").length).toBeGreaterThanOrEqual(1);
     expect(screen.getByRole("button", { name: "Collapse sidebar" })).toBeInTheDocument();
   });
 
