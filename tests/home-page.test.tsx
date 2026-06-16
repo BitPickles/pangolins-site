@@ -37,7 +37,7 @@ describe("home page", () => {
     expect(screen.queryByText(/Mock/i)).not.toBeInTheDocument();
     expect(screen.queryByText("refreshed every 5 minutes")).not.toBeInTheDocument();
     expect(screen.getByTestId("launch-metrics-strip")).toBeInTheDocument();
-    expect(screen.getByText("承诺不够，行为必须可验证。")).toBeInTheDocument();
+    expect(screen.getByText("不追逐收益，只管理风险。")).toBeInTheDocument();
     expect(screen.queryByText(/Pangolins 是 Morpho Curator 风险管理策略/)).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: /中文/i })).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByText("原则")).toBeInTheDocument();

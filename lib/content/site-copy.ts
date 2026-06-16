@@ -25,8 +25,8 @@ export const siteCopy = {
         en: ["Manage risk,", "not funds."]
       },
       support: {
-        zh: "承诺不够，行为必须可验证。",
-        en: "Promises are not enough. Actions must be verifiable."
+        zh: "不追逐收益，只管理风险。",
+        en: "We don't chase yield — we manage risk."
       },
       body: {
         zh: "不托管资金，不包装收益。只筛选市场、约束流动性、执行风险边界。",
