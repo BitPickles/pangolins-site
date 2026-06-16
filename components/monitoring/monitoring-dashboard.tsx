@@ -475,7 +475,7 @@ export function MonitoringDashboard({ vaults }: MonitoringDashboardProps) {
   const [expandedVaultId, setExpandedVaultId] = useState<MonitoringVaultId | null>(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [language, setLanguage] = useState<SiteLanguage>("zh");
+  const [language, setLanguage] = useState<SiteLanguage>("en");
 
   const activeVault = vaults.find((vault) => vault.id === active.vaultId) ?? vaults[0];
   const snapshot = activeVault.snapshot;
@@ -676,10 +676,7 @@ export function MonitoringDashboard({ vaults }: MonitoringDashboardProps) {
                     {localize(layoutCopy.dataCenterTitle, language)}
                   </h1>
                   <p className="mt-7 max-w-4xl text-sm leading-7 text-[#5c6879] md:text-base">
-                    {layoutCopy.headline.zh}
-                  </p>
-                  <p className="mt-3 max-w-4xl text-sm leading-6 text-[#9aa6b6]">
-                    {layoutCopy.headline.en}
+                    {localize(layoutCopy.headline, language)}
                   </p>
                 </article>
 
@@ -731,6 +728,42 @@ export function MonitoringDashboard({ vaults }: MonitoringDashboardProps) {
                     {vaultLinkLabel}
                   </Link>
                 </aside>
+              </section>
+
+              <section
+                data-testid="vault-posture"
+                className="launch-surface grid gap-0 overflow-hidden rounded-[2rem] md:grid-cols-2"
+              >
+                <div className="border-b border-[#e2e8f0] px-5 py-5 md:border-b-0 md:border-r">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="font-mono text-[11px] uppercase text-[#7a8797]">
+                      {localize(layoutCopy.utilizationLabel, language)}
+                    </p>
+                    <span className={`inline-flex items-center gap-1.5 font-mono text-[10px] uppercase ${toneTextClassName[snapshot.posture.utilizationTone]}`}>
+                      <span className={`h-1.5 w-1.5 rounded-full ${toneDotClassName[snapshot.posture.utilizationTone]}`} aria-hidden="true" />
+                      {localize(monitoringCopy.tone[snapshot.posture.utilizationTone], language)}
+                    </span>
+                  </div>
+                  <p className="mt-6 text-3xl font-semibold text-[#07111f]">{snapshot.posture.utilization}</p>
+                  <p className="mt-2 text-xs leading-5 text-[#647083]">
+                    {localize(layoutCopy.utilizationHint, language)}
+                  </p>
+                </div>
+                <div className="px-5 py-5">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="font-mono text-[11px] uppercase text-[#7a8797]">
+                      {localize(layoutCopy.availableLiquidityLabel, language)}
+                    </p>
+                    <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase text-emerald-700">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+                      {localize(monitoringCopy.tone.normal, language)}
+                    </span>
+                  </div>
+                  <p className="mt-6 text-3xl font-semibold text-[#07111f]">{snapshot.posture.availableLiquidity}</p>
+                  <p className="mt-2 text-xs leading-5 text-[#647083]">
+                    {localize(layoutCopy.availableLiquidityHint, language)}
+                  </p>
+                </div>
               </section>
 
               <MonitoringStatusCards cards={getLocalizedStatusCards(language)} language={language} />

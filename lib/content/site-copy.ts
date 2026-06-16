@@ -5,6 +5,8 @@ type LocalizedLines = Record<SiteLanguage, readonly string[]>;
 
 export const morphoVaultUrl =
   "https://app.morpho.org/base/vault/0x1401d1271C47648AC70cBcdfA3776D4A87CE006B/pangolins-usdc";
+export const listaVaultUrl =
+  "https://lista.org/lending/vault/bsc/0xeb4f6ffb1038e1cca701e7d53083b37ec5b6ba33?tab=vault";
 
 export const siteCopy = {
   nav: {
@@ -13,7 +15,7 @@ export const siteCopy = {
   },
   home: {
     hero: {
-      eyebrow: "Pangolins / Morpho Curator",
+      eyebrow: "Pangolins / Onchain Curator",
       title: {
         zh: "管理风险，而非资金",
         en: "Manage risk, not funds."
@@ -35,10 +37,14 @@ export const siteCopy = {
         en: "View Monitoring"
       },
       secondaryCta: {
-        zh: "在 Morpho 查看 Vault",
+        zh: "Morpho 金库",
         en: "Morpho Vault"
       },
-      chips: ["Morpho Curator", "Non-custodial", "Risk-first", "Trust-first"],
+      listaCta: {
+        zh: "Lista 金库",
+        en: "Lista Vault"
+      },
+      chips: ["Onchain Curator", "Non-custodial", "Risk-first", "Trust-first"],
       metrics: [
         {
           label: { zh: "信任", en: "Trust" },
@@ -217,6 +223,7 @@ export const siteCopy = {
       body: LocalizedText;
       primaryCta: LocalizedText;
       secondaryCta: LocalizedText;
+      listaCta: LocalizedText;
       chips: string[];
       metrics: Array<{ label: LocalizedText; value: LocalizedText }>;
     };

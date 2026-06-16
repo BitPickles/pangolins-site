@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { BrandMark } from "@/components/brand-mark";
 import { TitleLines } from "@/components/title-lines";
-import { morphoVaultUrl, siteCopy, type SiteLanguage } from "@/lib/content/site-copy";
+import { listaVaultUrl, morphoVaultUrl, siteCopy, type SiteLanguage } from "@/lib/content/site-copy";
 
 type AppleHeroProps = {
   language: SiteLanguage;
@@ -100,6 +100,15 @@ export function AppleHero({ language }: AppleHeroProps) {
               rel="noreferrer"
             >
               {hero.secondaryCta[language]}
+            </Link>
+            <Link
+              href={listaVaultUrl}
+              aria-label={hero.listaCta[language]}
+              className="launch-button-light w-full max-w-full sm:w-auto"
+              target="_blank"
+              rel="noreferrer"
+            >
+              {hero.listaCta[language]}
             </Link>
           </div>
         </motion.div>

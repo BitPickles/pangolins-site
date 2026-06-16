@@ -10,7 +10,7 @@ import { SiteHeader } from "@/components/site-header";
 import { type SiteLanguage } from "@/lib/content/site-copy";
 
 export default function HomePage() {
-  const [language, setLanguage] = useState<SiteLanguage>("zh");
+  const [language, setLanguage] = useState<SiteLanguage>("en");
 
   useEffect(() => {
     setLanguage(readStoredLanguage());

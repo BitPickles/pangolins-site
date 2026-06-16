@@ -3,8 +3,15 @@ import userEvent from "@testing-library/user-event";
 import HomePage from "../app/page";
 
 describe("home page", () => {
-  it("renders an Apple-style launch homepage with sparse Pangolins copy", () => {
+  beforeEach(() => {
+    window.localStorage.clear();
+  });
+
+  it("renders an Apple-style launch homepage with sparse Pangolins copy", async () => {
+    const user = userEvent.setup();
     render(<HomePage />);
+    // Site defaults to English; switch to Chinese for the localized assertions below.
+    await user.click(screen.getByRole("button", { name: "中文" }));
 
     const heroHeading = screen.getByRole("heading", { name: "管理风险，而非资金" });
     expect(heroHeading).toBeInTheDocument();
@@ -79,11 +86,14 @@ describe("home page", () => {
     expect(screen.queryByText(/USDC Vault/i)).not.toBeInTheDocument();
   });
 
-  it("exposes the required CTA destinations", () => {
+  it("exposes the required CTA destinations", async () => {
+    const user = userEvent.setup();
     render(<HomePage />);
+    await user.click(screen.getByRole("button", { name: "中文" }));
 
     const monitoringLinks = screen.getAllByRole("link", { name: "查看监控与透明度" });
-    const vaultLinks = screen.getAllByRole("link", { name: "在 Morpho 查看 Vault" });
+    const vaultLinks = screen.getAllByRole("link", { name: "Morpho 金库" });
+    const listaVaultLinks = screen.getAllByRole("link", { name: "Lista 金库" });
 
     expect(monitoringLinks[0]).toHaveAttribute(
       "href",
@@ -92,6 +102,10 @@ describe("home page", () => {
     expect(vaultLinks[0]).toHaveAttribute(
       "href",
       "https://app.morpho.org/base/vault/0x1401d1271C47648AC70cBcdfA3776D4A87CE006B/pangolins-usdc"
+    );
+    expect(listaVaultLinks[0]).toHaveAttribute(
+      "href",
+      "https://lista.org/lending/vault/bsc/0xeb4f6ffb1038e1cca701e7d53083b37ec5b6ba33?tab=vault"
     );
     expect(monitoringLinks[0]).toHaveClass(
       "w-full",
@@ -103,6 +117,9 @@ describe("home page", () => {
   it("switches into English for the main content when requested", async () => {
     const user = userEvent.setup();
     render(<HomePage />);
+
+    // English is the default language.
+    expect(screen.getByRole("button", { name: "EN" })).toHaveAttribute("aria-pressed", "true");
 
     await user.click(screen.getByRole("button", { name: "EN" }));
 

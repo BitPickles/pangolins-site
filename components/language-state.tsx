@@ -39,8 +39,8 @@ export function LanguageState({ language }: LanguageStateProps) {
 
 export function readStoredLanguage(): SiteLanguage {
   if (typeof window === "undefined") {
-    return "zh";
+    return "en";
   }
 
-  return window.localStorage.getItem("pangolins-language") === "en" ? "en" : "zh";
+  return window.localStorage.getItem("pangolins-language") === "zh" ? "zh" : "en";
 }

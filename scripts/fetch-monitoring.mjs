@@ -112,6 +112,7 @@ async function main() {
             netApy
             allocation { market { collateralAsset { symbol } state { utilization } } supplyAssetsUsd }
           }
+          liquidity { usd }
           historicalState { totalAssetsUsd(options: { interval: DAY }) { x y } }
         }
       }`);
@@ -133,6 +134,7 @@ async function main() {
         tvlUsd: st.totalAssetsUsd,
         netApy: st.netApy,
         utilization,
+        availableLiquidityUsd: v.liquidity?.usd,
         tvlSeries
       };
     },
@@ -140,6 +142,7 @@ async function main() {
       tvlUsd: prevCurrent.vaultTvlUsd,
       netApy: prevCurrent.netApy,
       utilization: prevCurrent.utilization,
+      availableLiquidityUsd: prevCurrent.availableLiquidityUsd,
       tvlSeries: prevSeries.vaultTvl
     }
   );
@@ -255,6 +258,8 @@ async function main() {
       vaultTvlUsd: morpho.tvlUsd,
       netApy: morpho.netApy,
       utilization: morpho.utilization,
+      vaultUtilization: morpho.utilization,
+      availableLiquidityUsd: morpho.availableLiquidityUsd,
       multichainEth: multichain.eth,
       multichainBase: multichain.base,
       multichainOther: multichain.other,

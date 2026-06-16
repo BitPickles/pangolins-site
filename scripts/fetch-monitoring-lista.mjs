@@ -206,6 +206,29 @@ async function main() {
     }
   );
 
+  // --- Lista moolah API: this vault's own utilization + available liquidity ---
+  const moolah = await tryRun(
+    "listaApi",
+    async () => {
+      const d = await getJson(
+        "https://api.lista.org/api/moolah/vault/list?sort=depositsUsd&order=desc&keyword=&zone=0&chain=bsc,ethereum"
+      );
+      const list = d?.data?.list ?? d?.data ?? [];
+      const row = (Array.isArray(list) ? list : []).find(
+        (v) => (v.address || "").toLowerCase() === VAULT.toLowerCase()
+      );
+      if (!row) throw new Error("vault not found in moolah list");
+      const util = Number(row.utilization);
+      const depositsUsd = Number(row.depositsUsd);
+      // Single-curated lending pool: immediately withdrawable ≈ unborrowed deposits.
+      return { vaultUtilization: util, availableLiquidityUsd: depositsUsd * (1 - util) };
+    },
+    {
+      vaultUtilization: prevCurrent.vaultUtilization,
+      availableLiquidityUsd: prevCurrent.availableLiquidityUsd
+    }
+  );
+
   const series = {
     vaultTvl: yields.tvlSeries && yields.tvlSeries.length ? yields.tvlSeries : prevSeries.vaultTvl,
     listaBsc: lista.bscSeries && lista.bscSeries.length ? lista.bscSeries : prevSeries.listaBsc,
@@ -232,6 +255,8 @@ async function main() {
       listaTotalTvl: lista.total,
       listaBorrowed: lista.borrowed,
       listaUtilization: lista.utilization,
+      vaultUtilization: moolah.vaultUtilization,
+      availableLiquidityUsd: moolah.availableLiquidityUsd,
       usdtPrice: prices.usdtPrice,
       pegBasisPct: prices.pegBasisPct,
       bnbPrice: prices.bnbPrice,

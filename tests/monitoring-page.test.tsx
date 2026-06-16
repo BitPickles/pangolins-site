@@ -4,10 +4,17 @@ import MonitoringPage from "../app/monitoring/page";
 import { getMonitoringSnapshot } from "../lib/api/monitoring";
 
 describe("monitoring page", () => {
+  beforeEach(() => {
+    window.localStorage.clear();
+  });
+
   it("renders a data-center dashboard with left-side monitoring modules", async () => {
     const user = userEvent.setup();
     const page = await MonitoringPage();
     render(page);
+
+    // Site defaults to English; switch to Chinese for the localized assertions below.
+    await user.click(screen.getByRole("button", { name: "中文" }));
 
     expect(screen.getByTestId("monitoring-shell")).toBeInTheDocument();
     expect(screen.getByTestId("vault-identity-card")).toBeInTheDocument();
@@ -57,6 +64,10 @@ describe("monitoring page", () => {
     expect(within(modulePanel).getByText("Morpho 监控")).toBeInTheDocument();
     expect(within(modulePanel).getByText("Base 监控")).toBeInTheDocument();
 
+    const posture = screen.getByTestId("vault-posture");
+    expect(within(posture).getByText("使用率")).toBeInTheDocument();
+    expect(within(posture).getByText("可用流动性")).toBeInTheDocument();
+
     // Open the USDC vault to reveal its child monitors.
     await user.click(usdcCard);
     expect(usdcCard).toHaveAttribute("aria-expanded", "true");
@@ -70,7 +81,7 @@ describe("monitoring page", () => {
     expect(within(rail).getByRole("button", { name: /cbBTC/i })).toHaveAttribute("aria-pressed", "true");
     expect(within(modulePanel).getByRole("heading", { name: /cbBTC 资产监控/i })).toBeInTheDocument();
     expect(within(modulePanel).getByText("链上发行量")).toBeInTheDocument();
-    expect(within(modulePanel).getByText("Base 流动性")).toBeInTheDocument();
+    expect(within(modulePanel).getByText("Base 规模")).toBeInTheDocument();
     expect(within(modulePanel).getByText("BTC 价格偏离")).toBeInTheDocument();
     expect(within(modulePanel).getAllByTestId("module-chart")).toHaveLength(3);
     expect(screen.queryByRole("heading", { name: /Pangolins 数据中心/i })).not.toBeInTheDocument();
@@ -87,7 +98,7 @@ describe("monitoring page", () => {
     expect(within(modulePanel).getByText("Base USDC 发行量")).toBeInTheDocument();
     expect(within(modulePanel).getAllByText("出块连续性").length).toBeGreaterThanOrEqual(1);
     expect(within(modulePanel).getAllByText("Gas 压力").length).toBeGreaterThanOrEqual(1);
-    expect(screen.getByText(/Base USDC、出块与 Gas 指标已接入实时监控/i)).toBeInTheDocument();
+    expect(screen.getByText(/Base USDC、出块与 Gas 持续跟踪/i)).toBeInTheDocument();
     expect(screen.queryByText(/adapter pending|placeholder/i)).not.toBeInTheDocument();
 
     // Accordion: opening the USDT vault collapses the USDC children and shows USDT.
@@ -116,29 +127,33 @@ describe("monitoring page", () => {
     expect(within(modulePanel).getAllByText("BNB 价格").length).toBeGreaterThanOrEqual(1);
   });
 
-  it("switches the monitoring dashboard between Chinese and English user copy", async () => {
+  it("defaults to English and switches to Chinese on request", async () => {
     const user = userEvent.setup();
     const page = await MonitoringPage();
     render(page);
+
+    // English is the default language.
+    expect(screen.getByRole("button", { name: "EN" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByRole("link", { name: "Home" })).toHaveAttribute("href", "/");
+    expect(screen.getByText("Public showcase — a subset of our full monitoring.")).toBeInTheDocument();
+    expect(screen.getAllByText("Select a vault to expand its child monitors.").length).toBeGreaterThanOrEqual(1);
+
+    await user.click(screen.getByRole("button", { name: "中文" }));
 
     expect(screen.getByRole("button", { name: /中文/i })).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByRole("link", { name: "首页" })).toHaveAttribute("href", "/");
     expect(screen.getByText("公开展示视图，仅为完整监控的一部分。")).toBeInTheDocument();
     expect(screen.getAllByText("点开金库即可展开它的子监控。").length).toBeGreaterThanOrEqual(1);
-
-    await user.click(screen.getByRole("button", { name: "EN" }));
-
-    expect(screen.getByRole("button", { name: "EN" })).toHaveAttribute("aria-pressed", "true");
-    expect(screen.getByRole("link", { name: "Home" })).toHaveAttribute("href", "/");
-    expect(screen.getByText("Public showcase — a subset of our full monitoring.")).toBeInTheDocument();
-    expect(screen.getAllByText("Select a vault to expand its child monitors.").length).toBeGreaterThanOrEqual(1);
-    expect(screen.getByRole("button", { name: "Collapse sidebar" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "折叠侧栏" })).toBeInTheDocument();
   });
 
   it("keeps the monitoring navigation as a collapsible fixed app sidebar", async () => {
     const user = userEvent.setup();
     const page = await MonitoringPage();
     render(page);
+
+    // Site defaults to English; switch to Chinese for the localized control labels.
+    await user.click(screen.getByRole("button", { name: "中文" }));
 
     const shell = screen.getByTestId("monitoring-app-shell");
     const sidebar = screen.getByTestId("monitoring-sidebar");

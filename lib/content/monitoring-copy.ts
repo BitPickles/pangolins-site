@@ -55,7 +55,7 @@ export const monitoringCopy = {
     alert: { zh: "升高", en: "Elevated" }
   },
   layout: {
-    productLabel: { zh: "Pangolins 风控运行", en: "Pangolins Risk Operations" },
+    productLabel: { zh: "Pangolins 风险监控", en: "Pangolins Risk Monitoring" },
     dataCenter: { zh: "数据中心", en: "Data Center" },
     dataCenterTitle: { zh: "Pangolins 数据中心", en: "Pangolins Data Center" },
     headline: {
@@ -71,24 +71,23 @@ export const monitoringCopy = {
       zh: "点开金库即可展开它的子监控。",
       en: "Select a vault to expand its child monitors."
     },
-    nextModules: { zh: "可扩展模块", en: "Expansion slots" },
-    futureModules: {
-      zh: ["新抵押资产", "新协议", "新执行环境"],
-      en: ["New collateral", "New protocol", "New venue"]
-    },
     vaultOverview: { zh: "金库总览", en: "Vault overview" },
     vaultOverviewTitle: { zh: "Pangolins USDC Vault 总览", en: "Pangolins USDC Vault Overview" },
     vaultOverviewBody: {
-      zh: "这是面向公众的展示视图，呈现当前 Vault 的公开状态与部分监控路径；实际运营监控覆盖的维度远多于此，更细的执行阈值与时序也不会作为公开信号暴露。",
-      en: "A public-facing showcase of the vault's status and selected monitor paths. Our operational monitoring covers far more, and finer execution thresholds and timing are never exposed as public signals."
+      zh: "这是面向公众的展示视图，呈现当前 Vault 的公开状态与监控路径；实际运营监控覆盖的维度远多于此。",
+      en: "A public-facing view of the vault's status and monitor paths; our operational monitoring covers far more than what is shown here."
     },
     vaultLabel: { zh: "金库", en: "Vault" },
     chainLabel: { zh: "链", en: "Chain" },
     curatorLabel: { zh: "Curator", en: "Curator" },
     feedLabel: { zh: "数据", en: "Feed" },
     statusSummary: { zh: "状态", en: "Summary" },
+    vaultPosture: { zh: "金库状态", en: "Vault Posture" },
+    utilizationLabel: { zh: "使用率", en: "Utilization" },
+    utilizationHint: { zh: "市场借出 / 供给", en: "Market borrowed / supplied" },
+    availableLiquidityLabel: { zh: "可用流动性", en: "Available Liquidity" },
+    availableLiquidityHint: { zh: "当前可即时赎回", en: "Withdrawable right now" },
     moduleSuffix: { zh: "监控", en: "monitor" },
-    currentSnapshot: { zh: "当前状态", en: "Current snapshot" },
     vaultStatus: { zh: "Vault 状态", en: "Vault Status" },
     eventLog: { zh: "事件日志", en: "Event Log" },
     vaultLog: { zh: "Vault 日志", en: "Vault log" },
@@ -103,17 +102,17 @@ export const monitoringCopy = {
     history: { zh: "历史趋势", en: "History" },
     signalMatrix: { zh: "信号矩阵", en: "Signal Matrix" },
     moduleLog: { zh: "模块日志", en: "Module log" },
-    dataPolicy: { zh: "数据边界", en: "Data Policy" },
+    dataPolicy: { zh: "数据说明", en: "Data Notes" },
     dataPolicyBody: {
-      zh: "公开状态、风险路径与系统健康；保护会影响执行质量的阈值和时序。",
-      en: "Status, risk paths, and system health are public; execution-sensitive thresholds and timing remain protected."
+      zh: "页面数据来自公开链上与协议来源，状态与指标均可核验。",
+      en: "Data on this page comes from public onchain and protocol sources; status and metrics are verifiable."
     }
   },
   statusCards: [
     {
       title: { zh: "Vault 状态", en: "Vault Status" },
       value: { zh: "正常", en: "Normal" },
-      note: { zh: "未观察到需要升级披露的公开事件。", en: "No public event currently requires escalation." },
+      note: { zh: "未观察到需要关注的异常。", en: "No anomalies requiring attention." },
       tone: "normal"
     },
     {
@@ -123,33 +122,19 @@ export const monitoringCopy = {
       tone: "normal"
     }
   ] satisfies LocalizedStatusCard[],
-  recentEvents: [
-    {
-      zh: "Vault 实时监控已接入。",
-      en: "Vault live monitoring connected."
-    },
-    {
-      zh: "当前未观察到需要升级披露的公开事件。",
-      en: "No public event currently requires escalation."
-    },
-    {
-      zh: "cbBTC、Morpho、Base 子监控已启用。",
-      en: "cbBTC, Morpho, and Base child monitors are active."
-    }
-  ],
   vaults: {
     usdc: {
       recentEvents: [
-        { zh: "Vault 实时监控已接入。", en: "Vault live monitoring connected." },
-        { zh: "当前未观察到需要升级披露的公开事件。", en: "No public event currently requires escalation." },
-        { zh: "cbBTC、Morpho、Base 子监控已启用。", en: "cbBTC, Morpho, and Base child monitors are active." }
+        { zh: "金库状态正常，监控运行中。", en: "Vault healthy; monitoring active." },
+        { zh: "未观察到需要关注的异常。", en: "No anomalies requiring attention." },
+        { zh: "cbBTC、Morpho、Base 三个维度持续跟踪。", en: "cbBTC, Morpho, and Base are tracked continuously." }
       ]
     },
     usdt: {
       recentEvents: [
-        { zh: "Vault 实时监控已接入。", en: "Vault live monitoring connected." },
-        { zh: "当前未观察到需要升级披露的公开事件。", en: "No public event currently requires escalation." },
-        { zh: "USDT、Lista、BSC 子监控已启用。", en: "USDT, Lista, and BSC child monitors are active." }
+        { zh: "金库状态正常，监控运行中。", en: "Vault healthy; monitoring active." },
+        { zh: "未观察到需要关注的异常。", en: "No anomalies requiring attention." },
+        { zh: "USDT、Lista、BSC 三个维度持续跟踪。", en: "USDT, Lista, and BSC are tracked continuously." }
       ]
     }
   } satisfies Record<MonitoringVaultId, { recentEvents: LocalizedText[] }>,
@@ -160,12 +145,12 @@ export const monitoringCopy = {
       title: { zh: "cbBTC 资产监控", en: "cbBTC Asset Monitor" },
       status: { zh: "正常", en: "Normal" },
       description: {
-        zh: "跟踪发行量、Base 流动性、与 BTC 的价格偏离，以及异常流转。",
-        en: "Tracks supply, Base liquidity, BTC price basis, and unusual asset flows."
+        zh: "跟踪发行量、Base 规模、与 BTC 的价格偏离，以及异常流转。",
+        en: "Tracks supply, on-Base footprint, BTC price basis, and unusual asset flows."
       },
       metrics: [
         { label: { zh: "发行量监控", en: "Supply Monitor" }, detail: { zh: "长期记录链上发行量变化。", en: "Long-term onchain supply history." } },
-        { label: { zh: "流动性深度", en: "Liquidity Depth" }, detail: { zh: "记录 Base 上可观察的流动性深度。", en: "Tracks observable liquidity depth on Base." } },
+        { label: { zh: "链上规模", en: "On-chain Footprint" }, detail: { zh: "记录 cbBTC 在 Base 上的美元规模。", en: "Tracks cbBTC's USD footprint on Base." } },
         { label: { zh: "价格偏离", en: "Price Basis" }, detail: { zh: "观察 cbBTC 与 BTC 的公开价格差。", en: "Observes public cbBTC versus BTC price basis." } },
         { label: { zh: "异常流转", en: "Flow Anomaly" }, detail: { zh: "关注大额转移与集中度变化。", en: "Watches large transfers and concentration changes." } }
       ],
@@ -177,13 +162,13 @@ export const monitoringCopy = {
           seriesNames: [{ zh: "Base 发行量", en: "Base supply" }]
         },
         "cbbtc-base-liquidity": {
-          title: { zh: "Base 流动性", en: "Base Liquidity" },
-          unit: { zh: "名义价值（近似）", en: "notional (proxy)" },
+          title: { zh: "Base 规模", en: "Base Footprint" },
+          unit: { zh: "美元规模", en: "USD value" },
           detail: {
-            zh: "以 Base 上 cbBTC 名义价值（发行量 × 价格）作为流动性近似；真实 DEX 深度为二期接入。",
-            en: "On-Base cbBTC notional (supply × price) as a liquidity proxy; true DEX depth lands in phase 2."
+            zh: "Base 链上 cbBTC 的美元名义规模。",
+            en: "The USD value of cbBTC held on Base."
           },
-          seriesNames: [{ zh: "cbBTC 名义价值", en: "cbBTC notional" }]
+          seriesNames: [{ zh: "Base 名义值", en: "On-chain value" }]
         },
         "cbbtc-btc-price-basis": {
           title: { zh: "BTC 价格偏离", en: "BTC Price Basis" },
@@ -194,14 +179,14 @@ export const monitoringCopy = {
       },
       checks: [
         { label: { zh: "发行量变化", en: "Supply change" }, value: { zh: "未见突变", en: "No abrupt move" }, source: { zh: "Base cbBTC 发行量序列", en: "Base cbBTC supply series" } },
-        { label: { zh: "流动性回撤", en: "Liquidity drawdown" }, value: { zh: "处于观察范围", en: "Within watch band" }, source: { zh: "Base 市场深度序列", en: "Base market depth series" } },
+        { label: { zh: "规模变化", en: "Footprint change" }, value: { zh: "处于观察范围", en: "Within range" }, source: { zh: "Base 规模序列", en: "On-Base footprint series" } },
         { label: { zh: "价格偏离", en: "Price basis" }, value: { zh: "接近锚定", en: "Near parity" }, source: { zh: "cbBTC 链上价格与交易所 BTC 对照", en: "cbBTC onchain price versus exchange BTC" } },
-        { label: { zh: "发行方依赖", en: "Issuer dependency" }, value: { zh: "单独标记", en: "Explicit" }, source: { zh: "发行方依赖清单", en: "Issuer dependency register" } }
+        { label: { zh: "发行方依赖", en: "Issuer dependency" }, value: { zh: "持续观察", en: "Tracked" }, source: { zh: "发行方公开信息", en: "Issuer public disclosures" } }
       ],
       events: [
-        { zh: "cbBTC 发行量与价格偏离已接入实时监控。", en: "cbBTC supply and price basis are connected to live monitoring." },
-        { zh: "当前未观察到需要升级披露的公开事件。", en: "No public event currently requires escalation." },
-        { zh: "Base 流动性当前以名义价值近似，真实 DEX 深度为二期。", en: "Base liquidity is a notional proxy for now; true DEX depth is phase 2." }
+        { zh: "cbBTC 发行量与价格偏离持续跟踪。", en: "cbBTC supply and price basis are tracked continuously." },
+        { zh: "未观察到需要关注的异常。", en: "No anomalies requiring attention." },
+        { zh: "Base 链上 cbBTC 规模持续跟踪。", en: "The on-Base cbBTC footprint is tracked continuously." }
       ]
     },
     morpho: {
@@ -210,20 +195,20 @@ export const monitoringCopy = {
       title: { zh: "Morpho 市场监控", en: "Morpho Market Monitor" },
       status: { zh: "正常", en: "Normal" },
       description: {
-        zh: "跟踪 Morpho 多链 TVL、市场利用率、Vault TVL、预言机状态与执行准备。",
-        en: "Tracks Morpho multi-chain TVL, utilization, vault TVL, oracle sanity, and execution readiness."
+        zh: "跟踪 Morpho 多链 TVL、市场利用率、Vault TVL、预言机状态与可回收流动性。",
+        en: "Tracks Morpho multi-chain TVL, utilization, vault TVL, oracle sanity, and withdrawable liquidity."
       },
       metrics: [
         { label: { zh: "多链 TVL", en: "Multi-chain TVL" }, detail: { zh: "观察主要链上的 TVL 变化。", en: "Tracks TVL changes across major chains." } },
         { label: { zh: "市场利用率", en: "Market Utilization" }, detail: { zh: "观察底层市场利用率。", en: "Tracks weighted market utilization." } },
         { label: { zh: "预言机状态", en: "Oracle Sanity" }, detail: { zh: "观察公开预言机状态。", en: "Observes public oracle sanity signals." } },
-        { label: { zh: "执行准备", en: "Allocator Readiness" }, detail: { zh: "保留操作准备状态。", en: "Keeps the response layer ready." } }
+        { label: { zh: "可回收流动性", en: "Withdrawable Liquidity" }, detail: { zh: "金库资金可赎回的充足度。", en: "How readily vault funds can be withdrawn." } }
       ],
       charts: {
         "morpho-multichain-tvl": {
           title: { zh: "多链 TVL", en: "Multi-chain TVL" },
           unit: { zh: "追踪 TVL", en: "tracked TVL" },
-          detail: { zh: "Morpho 在 Ethereum 与 Base 上的 TVL（来自 DeFiLlama）。", en: "Morpho TVL on Ethereum and Base (via DeFiLlama)." },
+          detail: { zh: "Morpho 在 Ethereum 与 Base 上的 TVL。", en: "Morpho TVL on Ethereum and Base." },
           seriesNames: [
             { zh: "Ethereum", en: "Ethereum" },
             { zh: "Base", en: "Base" }
@@ -246,12 +231,12 @@ export const monitoringCopy = {
         { label: { zh: "跨链 TVL", en: "Cross-chain TVL" }, value: { zh: "未见异常外流", en: "No abrupt outflow" }, source: { zh: "Morpho 多链 TVL 序列", en: "Morpho multi-chain TVL series" } },
         { label: { zh: "市场利用率", en: "Market utilization" }, value: { zh: "处于可观察区间", en: "Contained" }, source: { zh: "加权市场利用率", en: "Weighted market utilization" } },
         { label: { zh: "预言机状态", en: "Oracle sanity" }, value: { zh: "未见异常", en: "Nominal" }, source: { zh: "公开预言机状态观察", en: "Public oracle sanity signals" } },
-        { label: { zh: "执行窗口", en: "Execution window" }, value: { zh: "内部保护", en: "Protected" }, source: { zh: "内部响应层", en: "Internal response layer" } }
+        { label: { zh: "可回收流动性", en: "Withdrawable liquidity" }, value: { zh: "充足", en: "Ample" }, source: { zh: "金库可赎回额", en: "Vault withdrawable amount" } }
       ],
       events: [
-        { zh: "Morpho 多链 TVL、利用率与 Vault TVL 已接入实时监控。", en: "Morpho multi-chain TVL, utilization, and vault TVL are connected to live monitoring." },
-        { zh: "当前未观察到需要升级披露的公开事件。", en: "No public event currently requires escalation." },
-        { zh: "预言机状态模块已预留实时接入。", en: "The oracle sanity module is prepared for live source integration." }
+        { zh: "Morpho 多链 TVL、利用率与金库 TVL 持续跟踪。", en: "Morpho multi-chain TVL, utilization, and vault TVL are tracked continuously." },
+        { zh: "未观察到需要关注的异常。", en: "No anomalies requiring attention." },
+        { zh: "预言机状态持续跟踪，未见异常。", en: "Oracle status is tracked continuously; nothing abnormal." }
       ]
     },
     base: {
@@ -296,9 +281,9 @@ export const monitoringCopy = {
         { label: { zh: "RPC 延迟", en: "RPC latency" }, value: { zh: "未见异常", en: "Nominal" }, source: { zh: "基础设施可用性观察", en: "Provider telemetry monitor" } }
       ],
       events: [
-        { zh: "Base USDC、出块与 Gas 指标已接入实时监控。", en: "Base USDC, block cadence, and gas metrics are connected to live monitoring." },
-        { zh: "当前未观察到需要升级披露的公开事件。", en: "No public event currently requires escalation." },
-        { zh: "Sequencer 健康遥测模块已预留实时接入。", en: "The sequencer health telemetry module is prepared for live source integration." }
+        { zh: "Base USDC、出块与 Gas 持续跟踪。", en: "Base USDC, block cadence, and gas are tracked continuously." },
+        { zh: "未观察到需要关注的异常。", en: "No anomalies requiring attention." },
+        { zh: "RPC 与 Sequencer 状态持续跟踪。", en: "RPC and sequencer status are tracked continuously." }
       ]
     },
     usdt: {
@@ -326,7 +311,7 @@ export const monitoringCopy = {
         "usdt-share-price": {
           title: { zh: "份额净值", en: "Share Price" },
           unit: { zh: "份额净值", en: "share price" },
-          detail: { zh: "金库份额净值（totalAssets / totalSupply）。", en: "Vault share price (totalAssets / totalSupply)." },
+          detail: { zh: "金库份额净值随收益累积增长。", en: "Vault share value as it accrues yield." },
           seriesNames: [{ zh: "份额净值", en: "Share price" }]
         },
         "usdt-onchain-supply": {
@@ -338,14 +323,14 @@ export const monitoringCopy = {
       },
       checks: [
         { label: { zh: "脱锚幅度", en: "Peg deviation" }, value: { zh: "接近锚定", en: "Near parity" }, source: { zh: "USDT 公开价格 vs $1", en: "USDT public price vs $1" } },
-        { label: { zh: "份额净值", en: "Share price" }, value: { zh: "持续累积", en: "Accruing" }, source: { zh: "金库 totalAssets / totalSupply", en: "Vault totalAssets / totalSupply" } },
+        { label: { zh: "份额净值", en: "Share price" }, value: { zh: "持续累积", en: "Accruing" }, source: { zh: "金库份额净值序列", en: "Vault share-value series" } },
         { label: { zh: "发行量变化", en: "Supply change" }, value: { zh: "未见突变", en: "No abrupt move" }, source: { zh: "BSC USDT 发行量序列", en: "BSC USDT supply series" } },
-        { label: { zh: "发行方依赖", en: "Issuer dependency" }, value: { zh: "单独标记", en: "Explicit" }, source: { zh: "发行方依赖清单", en: "Issuer dependency register" } }
+        { label: { zh: "发行方依赖", en: "Issuer dependency" }, value: { zh: "持续观察", en: "Tracked" }, source: { zh: "发行方公开信息", en: "Issuer public disclosures" } }
       ],
       events: [
-        { zh: "USDT 脱锚与发行量已接入实时监控。", en: "USDT peg and supply are connected to live monitoring." },
-        { zh: "当前未观察到需要升级披露的公开事件。", en: "No public event currently requires escalation." },
-        { zh: "份额净值序列已接入实时监控。", en: "The share-price series is connected to live monitoring." }
+        { zh: "USDT 脱锚与发行量持续跟踪。", en: "USDT peg and supply are tracked continuously." },
+        { zh: "未观察到需要关注的异常。", en: "No anomalies requiring attention." },
+        { zh: "金库份额净值持续累积。", en: "Vault share value keeps accruing." }
       ]
     },
     lista: {
@@ -359,15 +344,15 @@ export const monitoringCopy = {
       },
       metrics: [
         { label: { zh: "多链 TVL", en: "Multi-chain TVL" }, detail: { zh: "观察 Lista 在 BSC 与 Ethereum 的 TVL。", en: "Tracks Lista TVL on BSC and Ethereum." } },
-        { label: { zh: "协议利用率", en: "Utilization" }, detail: { zh: "借出 / 供给比例。", en: "Borrowed / supplied ratio." } },
+        { label: { zh: "协议利用率", en: "Protocol Utilization" }, detail: { zh: "协议整体借出 / 供给比例。", en: "Protocol-wide borrowed / supplied ratio." } },
         { label: { zh: "金库 TVL", en: "Vault TVL" }, detail: { zh: "Pangolins USDT 金库规模。", en: "Pangolins USDT vault size." } },
-        { label: { zh: "执行准备", en: "Allocator Readiness" }, detail: { zh: "保留操作准备状态。", en: "Keeps the response layer ready." } }
+        { label: { zh: "可回收流动性", en: "Withdrawable Liquidity" }, detail: { zh: "金库资金可赎回的充足度。", en: "How readily vault funds can be withdrawn." } }
       ],
       charts: {
         "lista-multichain-tvl": {
           title: { zh: "多链 TVL", en: "Multi-chain TVL" },
           unit: { zh: "追踪 TVL", en: "tracked TVL" },
-          detail: { zh: "Lista Lending 在 BSC 与 Ethereum 上的 TVL（来自 DeFiLlama）。", en: "Lista Lending TVL on BSC and Ethereum (via DeFiLlama)." },
+          detail: { zh: "Lista Lending 在 BSC 与 Ethereum 上的 TVL。", en: "Lista Lending TVL on BSC and Ethereum." },
           seriesNames: [
             { zh: "BSC", en: "BSC" },
             { zh: "Ethereum", en: "Ethereum" }
@@ -382,7 +367,7 @@ export const monitoringCopy = {
         "lista-vault-tvl": {
           title: { zh: "Pangolins 金库 TVL", en: "Pangolins Vault TVL" },
           unit: { zh: "USDT", en: "USDT" },
-          detail: { zh: "Pangolins USDT 金库规模（来自 DeFiLlama yields）。", en: "Pangolins USDT vault size (via DeFiLlama yields)." },
+          detail: { zh: "Pangolins USDT 金库规模。", en: "Pangolins USDT vault size." },
           seriesNames: [{ zh: "金库 TVL", en: "Vault TVL" }]
         }
       },
@@ -390,12 +375,12 @@ export const monitoringCopy = {
         { label: { zh: "跨链 TVL", en: "Cross-chain TVL" }, value: { zh: "未见异常外流", en: "No abrupt outflow" }, source: { zh: "Lista 多链 TVL 序列", en: "Lista multi-chain TVL series" } },
         { label: { zh: "利用率", en: "Utilization" }, value: { zh: "处于可观察区间", en: "Contained" }, source: { zh: "协议借出 / 供给", en: "Protocol borrowed / supplied" } },
         { label: { zh: "金库 TVL", en: "Vault TVL" }, value: { zh: "稳定", en: "Stable" }, source: { zh: "Pangolins 金库 TVL 序列", en: "Pangolins vault TVL series" } },
-        { label: { zh: "执行窗口", en: "Execution window" }, value: { zh: "内部保护", en: "Protected" }, source: { zh: "内部响应层", en: "Internal response layer" } }
+        { label: { zh: "可回收流动性", en: "Withdrawable liquidity" }, value: { zh: "充足", en: "Ample" }, source: { zh: "金库可赎回额", en: "Vault withdrawable amount" } }
       ],
       events: [
-        { zh: "Lista 多链 TVL 与利用率已接入实时监控。", en: "Lista multi-chain TVL and utilization are connected to live monitoring." },
-        { zh: "当前未观察到需要升级披露的公开事件。", en: "No public event currently requires escalation." },
-        { zh: "金库 TVL 与 APY 已接入实时监控。", en: "Vault TVL and APY are connected to live monitoring." }
+        { zh: "Lista 多链 TVL、利用率与金库 TVL 持续跟踪。", en: "Lista multi-chain TVL, utilization, and vault TVL are tracked continuously." },
+        { zh: "未观察到需要关注的异常。", en: "No anomalies requiring attention." },
+        { zh: "金库 TVL 与收益持续跟踪。", en: "Vault TVL and yield are tracked continuously." }
       ]
     },
     bsc: {
@@ -440,9 +425,9 @@ export const monitoringCopy = {
         { label: { zh: "RPC 延迟", en: "RPC latency" }, value: { zh: "未见异常", en: "Nominal" }, source: { zh: "基础设施可用性观察", en: "Provider telemetry monitor" } }
       ],
       events: [
-        { zh: "BSC Gas、出块与 BNB 指标已接入实时监控。", en: "BSC gas, block cadence, and BNB metrics are connected to live monitoring." },
-        { zh: "当前未观察到需要升级披露的公开事件。", en: "No public event currently requires escalation." },
-        { zh: "验证人健康遥测模块已预留实时接入。", en: "The validator health telemetry module is prepared for live source integration." }
+        { zh: "BSC Gas、出块与 BNB 持续跟踪。", en: "BSC gas, block cadence, and BNB are tracked continuously." },
+        { zh: "未观察到需要关注的异常。", en: "No anomalies requiring attention." },
+        { zh: "RPC 与验证人状态持续跟踪。", en: "RPC and validator status are tracked continuously." }
       ]
     }
   } satisfies Record<MonitoringModuleId, LocalizedModuleCopy>

@@ -97,8 +97,15 @@ export type MonitoringSection = {
   bullets: string[];
 };
 
+export type MonitoringPosture = {
+  utilization: string;
+  utilizationTone: MonitoringTone;
+  availableLiquidity: string;
+};
+
 export type MonitoringSnapshot = {
   asOf: string;
+  posture: MonitoringPosture;
   vault: {
     name: string;
     address: string;
@@ -120,6 +127,7 @@ export type MonitoringSnapshot = {
 
 const usdcStaticSnapshot: MonitoringSnapshot = {
   asOf: "Public preview · not live",
+  posture: { utilization: "—", utilizationTone: "normal", availableLiquidity: "—" },
   vault: {
     name: "Pangolins USDC Vault",
     address: "0x1401d1271C47648AC70cBcdfA3776D4A87CE006B",
@@ -409,7 +417,7 @@ const usdcStaticSnapshot: MonitoringSnapshot = {
         { label: "Supply change", value: "No abrupt move", source: "Base cbBTC supply series", tone: "normal" },
         { label: "Liquidity drawdown", value: "Within watch band", source: "Base market depth series", tone: "normal" },
         { label: "Price basis", value: "Near parity", source: "cbBTC onchain price vs exchange BTC", tone: "normal" },
-        { label: "Redemption dependency", value: "Explicit", source: "Issuer dependency register", tone: "watch" }
+        { label: "Redemption dependency", value: "Explicit", source: "Issuer public disclosures", tone: "watch" }
       ],
       events: [
         "CBBTC · Supply series initialized.",
@@ -446,10 +454,10 @@ const usdcStaticSnapshot: MonitoringSnapshot = {
           tone: "normal"
         },
         {
-          label: "Allocator Readiness",
-          value: "Ready",
-          detail: "操作准备状态。",
-          tone: "watch"
+          label: "Withdrawable Liquidity",
+          value: "Ample",
+          detail: "可回收流动性。",
+          tone: "normal"
         }
       ],
       charts: [
@@ -560,7 +568,7 @@ const usdcStaticSnapshot: MonitoringSnapshot = {
         { label: "Cross-chain TVL", value: "No abrupt outflow", source: "Morpho multi-chain TVL series", tone: "normal" },
         { label: "Market utilization", value: "Contained", source: "Weighted market utilization", tone: "normal" },
         { label: "Oracle sanity", value: "Nominal", source: "Public oracle signal watch", tone: "normal" },
-        { label: "Execution window", value: "Protected", source: "Internal response layer", tone: "watch" }
+        { label: "Withdrawable liquidity", value: "Ample", source: "Vault withdrawable amount", tone: "normal" }
       ],
       events: [
         "MORPHO · TVL and utilization indexed.",
@@ -724,6 +732,7 @@ const usdcStaticSnapshot: MonitoringSnapshot = {
 // fallbacks only (used if a live source is unavailable).
 const usdtStaticSnapshot: MonitoringSnapshot = {
   asOf: "Public preview · not live",
+  posture: { utilization: "—", utilizationTone: "normal", availableLiquidity: "—" },
   vault: {
     name: "Pangolins USDT Vault",
     address: "0xeb4f6ffb1038e1cca701e7d53083b37ec5b6ba33",
@@ -779,9 +788,9 @@ const usdtStaticSnapshot: MonitoringSnapshot = {
       ],
       checks: [
         { label: "Peg deviation", value: "Near parity", source: "USDT public price vs $1", tone: "normal" },
-        { label: "Share price", value: "Accruing", source: "Vault totalAssets / totalSupply", tone: "normal" },
+        { label: "Share price", value: "Accruing", source: "Vault share-value series", tone: "normal" },
         { label: "Supply change", value: "No abrupt move", source: "BSC USDT supply series", tone: "normal" },
-        { label: "Issuer dependency", value: "Explicit", source: "Issuer dependency register", tone: "watch" }
+        { label: "Issuer dependency", value: "Explicit", source: "Issuer public disclosures", tone: "watch" }
       ],
       events: [
         "USDT · Peg and supply indexed.",
@@ -802,18 +811,18 @@ const usdtStaticSnapshot: MonitoringSnapshot = {
         { label: "Multi-chain TVL", value: "Tracked", detail: "Lista BSC + Ethereum.", tone: "normal" },
         { label: "Utilization", value: "Contained", detail: "Borrowed / supplied.", tone: "normal" },
         { label: "Vault TVL", value: "Tracked", detail: "Pangolins USDT vault size.", tone: "normal" },
-        { label: "Allocator Readiness", value: "Ready", detail: "Response layer.", tone: "watch" }
+        { label: "Withdrawable Liquidity", value: "Ample", detail: "Withdrawable buffer.", tone: "normal" }
       ],
       charts: [
-        { id: "lista-multichain-tvl", title: "Multi-chain TVL", value: "$0", unit: "tracked TVL", detail: "Lista Lending TVL on BSC and Ethereum (via DeFiLlama).", tone: "normal", series: [{ name: "BSC", points: [{ label: "T-6", value: 0.62 }, { label: "T-5", value: 0.63 }, { label: "T-4", value: 0.63 }, { label: "T-3", value: 0.64 }, { label: "T-2", value: 0.64 }, { label: "T-1", value: 0.64 }, { label: "Now", value: 0.65 }] }, { name: "Ethereum", points: [{ label: "T-6", value: 0.0022 }, { label: "T-5", value: 0.0021 }, { label: "T-4", value: 0.0021 }, { label: "T-3", value: 0.002 }, { label: "T-2", value: 0.0019 }, { label: "T-1", value: 0.0018 }, { label: "Now", value: 0.0018 }] }] },
+        { id: "lista-multichain-tvl", title: "Multi-chain TVL", value: "$0", unit: "tracked TVL", detail: "Lista Lending TVL on BSC and Ethereum.", tone: "normal", series: [{ name: "BSC", points: [{ label: "T-6", value: 0.62 }, { label: "T-5", value: 0.63 }, { label: "T-4", value: 0.63 }, { label: "T-3", value: 0.64 }, { label: "T-2", value: 0.64 }, { label: "T-1", value: 0.64 }, { label: "Now", value: 0.65 }] }, { name: "Ethereum", points: [{ label: "T-6", value: 0.0022 }, { label: "T-5", value: 0.0021 }, { label: "T-4", value: 0.0021 }, { label: "T-3", value: 0.002 }, { label: "T-2", value: 0.0019 }, { label: "T-1", value: 0.0018 }, { label: "Now", value: 0.0018 }] }] },
         { id: "lista-utilization", title: "Protocol Utilization", value: "0%", unit: "weighted", detail: "Lista borrowed / supplied.", tone: "normal", series: [{ name: "Utilization", points: [{ label: "T-6", value: 28 }, { label: "T-5", value: 29 }, { label: "T-4", value: 29 }, { label: "T-3", value: 29 }, { label: "T-2", value: 29 }, { label: "T-1", value: 29 }, { label: "Now", value: 29 }] }] },
-        { id: "lista-vault-tvl", title: "Pangolins Vault TVL", value: "$0", unit: "USDT", detail: "Pangolins USDT vault size (via DeFiLlama yields).", tone: "normal", series: [{ name: "Vault TVL", points: [{ label: "T-6", value: 4.3 }, { label: "T-5", value: 4.5 }, { label: "T-4", value: 4.6 }, { label: "T-3", value: 4.3 }, { label: "T-2", value: 3.3 }, { label: "T-1", value: 4.9 }, { label: "Now", value: 4.94 }] }] }
+        { id: "lista-vault-tvl", title: "Pangolins Vault TVL", value: "$0", unit: "USDT", detail: "Pangolins USDT vault size.", tone: "normal", series: [{ name: "Vault TVL", points: [{ label: "T-6", value: 4.3 }, { label: "T-5", value: 4.5 }, { label: "T-4", value: 4.6 }, { label: "T-3", value: 4.3 }, { label: "T-2", value: 3.3 }, { label: "T-1", value: 4.9 }, { label: "Now", value: 4.94 }] }] }
       ],
       checks: [
         { label: "Cross-chain TVL", value: "No abrupt outflow", source: "Lista multi-chain TVL series", tone: "normal" },
         { label: "Utilization", value: "Contained", source: "Protocol borrowed / supplied", tone: "normal" },
         { label: "Vault TVL", value: "Stable", source: "Pangolins vault TVL series", tone: "normal" },
-        { label: "Execution window", value: "Protected", source: "Internal response layer", tone: "watch" }
+        { label: "Withdrawable liquidity", value: "Ample", source: "Vault withdrawable amount", tone: "normal" }
       ],
       events: [
         "LISTA · TVL and utilization indexed.",
@@ -923,6 +932,11 @@ function toneForGas(gwei?: number): MonitoringTone | undefined {
   return gwei > 2 ? "alert" : gwei > 0.5 ? "watch" : "normal";
 }
 
+function toneForUtil(u?: number): MonitoringTone {
+  if (u == null) return "normal";
+  return u > 0.97 ? "alert" : u > 0.9 ? "watch" : "normal";
+}
+
 type ChartUpdate = {
   moduleId: MonitoringModuleId;
   chartId: string;
@@ -980,6 +994,14 @@ function applyLive(
       mod.updatedAt = live.generatedAt;
     }
   }
+
+  // Vault posture strip (overview): the pool's own utilization + withdrawable liquidity.
+  if (cur.vaultUtilization != null) {
+    snap.posture.utilization = fmtPct(cur.vaultUtilization * 100) ?? snap.posture.utilization;
+    snap.posture.utilizationTone = toneForUtil(cur.vaultUtilization);
+  }
+  const availableLiquidity = fmtUsd(cur.availableLiquidityUsd);
+  if (availableLiquidity) snap.posture.availableLiquidity = availableLiquidity;
 
   const findChart = (moduleId: MonitoringModuleId, chartId: string) =>
     snap.monitoringModules.find((m) => m.id === moduleId)?.charts.find((c) => c.id === chartId);

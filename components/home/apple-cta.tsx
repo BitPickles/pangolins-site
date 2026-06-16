@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { TitleLines } from "@/components/title-lines";
-import { morphoVaultUrl, siteCopy, type SiteLanguage } from "@/lib/content/site-copy";
+import { listaVaultUrl, morphoVaultUrl, siteCopy, type SiteLanguage } from "@/lib/content/site-copy";
 
 type AppleCtaProps = {
   language: SiteLanguage;
@@ -93,6 +93,14 @@ export function AppleCta({ language }: AppleCtaProps) {
                   className="launch-button-light w-full max-w-full sm:w-auto"
                 >
                   {hero.secondaryCta[language]}
+                </Link>
+                <Link
+                  href={listaVaultUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="launch-button-light w-full max-w-full sm:w-auto"
+                >
+                  {hero.listaCta[language]}
                 </Link>
               </div>
             </div>
