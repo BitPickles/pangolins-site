@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-09-29T03:25:44.118Z",
+  "generatedAt": "2026-09-29T11:50:50.759Z",
   "sources": {
     "bscRpc": "ok",
     "defillamaYields": "ok",
     "defillama": "ok",
-    "coingecko": "ok",
+    "coingecko": "error: https://api.coingecko.com/api/v3/simple/price?ids=tether,binancecoin&vs_currencies=usd -> HTTP 403",
     "listaApi": "error: vault not found in moolah list"
   },
   "current": {
-    "vaultTvlUsd": 1373775.9007006383,
+    "vaultTvlUsd": 1373812.8127095622,
     "vaultShares": 1318014.5089771445,
-    "sharePrice": 1.0423071152431909,
-    "vaultApy": 0.0250886,
-    "listaBscTvl": 879297829.49795,
-    "listaEthTvl": 15075492.81267,
-    "listaTotalTvl": 894373322.31062,
-    "listaBorrowed": 228419919.75277,
-    "listaUtilization": 0.2553966157696268,
+    "sharePrice": 1.0423351210114677,
+    "vaultApy": 0.025177900000000003,
+    "listaBscTvl": 882584457.48126,
+    "listaEthTvl": 14688279.26881,
+    "listaTotalTvl": 897272736.75007,
+    "listaBorrowed": 230053936.93869,
+    "listaUtilization": 0.2563924295437165,
     "vaultUtilization": 0.8169520862480276,
     "availableLiquidityUsd": 315829.8682710546,
     "usdtPrice": 0.999659,
@@ -24,7 +24,7 @@
     "bnbPrice": 758.1,
     "bscUsdtSupply": 9184991859.68081,
     "gasGwei": 0.05,
-    "blockNumber": 124644356,
+    "blockNumber": 124711644,
     "blockTime": 0.45
   },
   "series": {
@@ -46,7 +46,7 @@
       926853777,
       933173062,
       880911816,
-      879297829
+      882584457
     ],
     "listaEth": [
       14795402,
@@ -56,10 +56,9 @@
       15059718,
       15330434,
       15151916,
-      15075492
+      14688279
     ],
     "utilization": [
-      25.60734661,
       25.64165477,
       25.6251059,
       24.67864473,
@@ -72,10 +71,10 @@
       24.72421146,
       24.7682679,
       25.52432351,
-      25.53966158
+      25.53966158,
+      25.63924295
     ],
     "sharePrice": [
-      1.04192883,
       1.04196736,
       1.04200201,
       1.04204381,
@@ -88,10 +87,10 @@
       1.04223286,
       1.04226163,
       1.04229172,
-      1.04230712
+      1.04230712,
+      1.04233512
     ],
     "pegBasis": [
-      -0.0212,
       -0.0165,
       -0.0162,
       -0.0168,
@@ -104,6 +103,7 @@
       -0.0193,
       -0.0211,
       -0.0326,
+      -0.0341,
       -0.0341
     ],
     "bscUsdtSupply": [
@@ -144,8 +144,8 @@
       0.45,
       0.45,
       0.45,
-      0.45,
       0.455,
+      0.45,
       0.45,
       0.45,
       0.45,
@@ -155,7 +155,6 @@
       0.45
     ],
     "bnbPrice": [
-      775.86,
       774.23,
       775.1,
       773.13,
@@ -168,6 +167,7 @@
       773.45,
       767.94,
       761.86,
+      758.1,
       758.1
     ]
   }
